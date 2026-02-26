@@ -25,10 +25,10 @@ import nyanbar.themes  # noqa: F401 -- trigger registration
 
 
 ALL_THEMES = [
-    "aurora", "candy", "coffee", "construction", "deal_with_it", "disco",
-    "finger_guns", "fire", "garden", "heartbeat", "lenny", "lightning",
-    "mario", "matrix", "nyan", "ocean", "rocket", "shrug", "snake",
-    "table_flip", "train", "wizard", "zen",
+    "aurora", "candy", "cat_mouse", "cat_yarn", "coffee", "construction",
+    "deal_with_it", "disco", "duck_bread", "finger_guns", "fire", "garden",
+    "heartbeat", "lenny", "lightning", "mario", "matrix", "nyan", "ocean",
+    "rocket", "shrug", "snake", "table_flip", "train", "wizard", "zen",
 ]
 TIERS = ("emoji", "unicode", "ascii")
 PROGRESS_LEVELS = (0.0, 0.25, 0.5, 0.75, 1.0)
@@ -323,6 +323,27 @@ def test_coffee_completion_has_star() -> None:
     assert "\u2605" in comp  # star
 
 
+def test_cat_yarn_completion_has_heart_eyes() -> None:
+    anim = get_theme("cat_yarn", "emoji")
+    assert anim.completion_frame is not None
+    comp = anim.completion_frame.lines[0]
+    assert "\U0001f63b" in comp  # heart-eyes cat
+
+
+def test_cat_mouse_completion_has_smirking_cat() -> None:
+    anim = get_theme("cat_mouse", "emoji")
+    assert anim.completion_frame is not None
+    comp = anim.completion_frame.lines[0]
+    assert "\U0001f63c" in comp  # smirking cat
+
+
+def test_duck_bread_completion_has_star() -> None:
+    anim = get_theme("duck_bread", "emoji")
+    assert anim.completion_frame is not None
+    comp = anim.completion_frame.lines[0]
+    assert "\u2605" in comp  # star
+
+
 # ── Decoration tests for reworked and new themes ───────────
 
 
@@ -342,9 +363,17 @@ def test_new_decorated_themes_have_decoration(theme: str, tier: str) -> None:
     assert anim.completion_decoration is not None
 
 
+@pytest.mark.parametrize("theme", ["cat_mouse", "cat_yarn", "duck_bread"])
+@pytest.mark.parametrize("tier", TIERS)
+def test_chase_themes_have_decoration(theme: str, tier: str) -> None:
+    anim = get_theme(theme, tier)
+    assert anim.decoration is not None
+    assert anim.completion_decoration is not None
+
+
 DECORATED_THEMES = [
-    "aurora", "fire", "garden", "heartbeat", "lightning", "nyan",
-    "rocket", "train", "wizard",
+    "aurora", "cat_mouse", "cat_yarn", "duck_bread", "fire", "garden",
+    "heartbeat", "lightning", "nyan", "rocket", "train", "wizard",
 ]
 
 

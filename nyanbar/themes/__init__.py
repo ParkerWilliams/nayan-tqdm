@@ -17,11 +17,14 @@ from . import _ocean         # noqa: F401
 from . import _matrix        # noqa: F401
 from . import _heartbeat     # noqa: F401
 from . import _disco         # noqa: F401
+from . import _duck_bread    # noqa: F401
 from . import _zen           # noqa: F401
 from . import _construction  # noqa: F401
 from . import _wizard        # noqa: F401
 from . import _aurora        # noqa: F401
 from . import _candy         # noqa: F401
+from . import _cat_mouse     # noqa: F401
+from . import _cat_yarn      # noqa: F401
 from . import _coffee        # noqa: F401
 from . import _garden        # noqa: F401
 from . import _lightning     # noqa: F401
