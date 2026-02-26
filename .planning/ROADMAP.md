@@ -29,7 +29,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Terminal detection correctly identifies TTY vs. non-TTY, color support, terminal width, and notebook environments when called with mocked os.isatty() and TERM values
   4. The ANSI renderer produces valid cursor-up and clear-line sequences for multi-line frames; no color sequence is left open after any render call
   5. Wall-clock frame selection advances animation frames based on time.monotonic() elapsed time at the configured FPS, independent of iteration count
-**Plans**: TBD
+**Plans**: 5 plans
+- [ ] 01-01-PLAN.md — Display width and ANSI stripping utilities (TDD)
+- [ ] 01-02-PLAN.md — Terminal capability detection (TDD)
+- [ ] 01-03-PLAN.md — Frame and Animation data model (TDD)
+- [ ] 01-04-PLAN.md — ANSI frame renderer (TDD)
+- [ ] 01-05-PLAN.md — Animation engine (TDD)
 
 ### Phase 2: Core Integration
 **Goal**: Users can run `from nyanbar import tqdm` and see an animated progress bar with correct stats, fallbacks, and terminal cleanup — zero dependencies
@@ -73,7 +78,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/TBD | Not started | - |
+| 1. Foundation | 0/5 | Planned | - |
 | 2. Core Integration | 0/TBD | Not started | - |
 | 3. Theme System | 0/TBD | Not started | - |
 | 4. Public API and Release | 0/TBD | Not started | - |
