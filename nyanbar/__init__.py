@@ -4,6 +4,8 @@ Drop-in replacement for tqdm with animated themes.
 """
 from __future__ import annotations
 
+from typing import Any
+
 from .core import NyanBar
 from .core import NyanBar as tqdm
 from .models import Animation, AnimationMode, Frame
@@ -22,6 +24,6 @@ __all__ = [
 ]
 
 
-def trange(n: int, *args: object, **kwargs: object) -> NyanBar:
+def trange(n: int, **kwargs: Any) -> NyanBar:
     """Shorthand for ``NyanBar(range(n), ...)``."""
-    return NyanBar(range(n), *args, **kwargs)
+    return NyanBar(range(n), **kwargs)

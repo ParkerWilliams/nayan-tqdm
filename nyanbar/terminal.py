@@ -37,9 +37,10 @@ class TerminalInfo:
 def _get_ipython_shell() -> object | None:
     """Return the current IPython shell instance, or *None*."""
     try:
-        from IPython import get_ipython  # type: ignore[import-untyped]
+        from IPython import get_ipython  # type: ignore[import-not-found]
 
-        return get_ipython()
+        result: object | None = get_ipython()
+        return result
     except (ImportError, NameError):
         return None
 

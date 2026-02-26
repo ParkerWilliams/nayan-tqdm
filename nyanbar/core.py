@@ -96,7 +96,7 @@ class NyanBar:
         bar_format: str | None = None,  # accepted, silently ignored
         initial: int = 0,
         position: int | None = None,
-        postfix: dict | None = None,
+        postfix: dict[str, Any] | None = None,
         unit_divisor: int = 1000,
         theme: str | None = None,
         render_level: str | None = None,
@@ -271,10 +271,9 @@ class NyanBar:
         """Enter context manager."""
         return self
 
-    def __exit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> bool:
+    def __exit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> None:
         """Exit context manager -- always calls close()."""
         self.close()
-        return False  # don't suppress exceptions
 
     def set_description(self, desc: str | None = None, refresh: bool = True) -> None:
         """Set the bar description."""
@@ -284,7 +283,7 @@ class NyanBar:
 
     def set_postfix(
         self,
-        ordered_dict: dict | None = None,
+        ordered_dict: dict[str, Any] | None = None,
         refresh: bool = True,
         **kwargs: Any,
     ) -> None:
