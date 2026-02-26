@@ -27,10 +27,10 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **CORE-06**: Dumb terminal (TERM=dumb) falls back to plain built-in text bar
 - [x] **CORE-07**: Terminal width < 30 columns falls back to plain built-in text bar
 - [x] **CORE-08**: Stats display (percentage, rate, ETA) renders alongside animation
-- [ ] **CORE-09**: leave=True preserves final animation frame; leave=False cleans up all lines
-- [ ] **CORE-10**: Nested bars (position > 0) disable multi-line and use single-line fallback
-- [ ] **CORE-11**: Exception during iteration cleans up terminal state correctly
-- [ ] **CORE-12**: Thread safety via threading.Lock for concurrent access
+- [x] **CORE-09**: leave=True preserves final animation frame; leave=False cleans up all lines
+- [x] **CORE-10**: Nested bars (position > 0) disable multi-line and use single-line fallback
+- [x] **CORE-11**: Exception during iteration cleans up terminal state correctly
+- [x] **CORE-12**: Thread safety via threading.Lock for concurrent access
 
 ### Themes
 
@@ -131,10 +131,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CORE-06 | Phase 2 | Complete |
 | CORE-07 | Phase 2 | Complete |
 | CORE-08 | Phase 2 | Complete |
-| CORE-09 | Phase 2 | Pending |
-| CORE-10 | Phase 2 | Pending |
-| CORE-11 | Phase 2 | Pending |
-| CORE-12 | Phase 2 | Pending |
+| CORE-09 | Phase 2 | Complete |
+| CORE-10 | Phase 2 | Complete |
+| CORE-11 | Phase 2 | Complete |
+| CORE-12 | Phase 2 | Complete |
 | THEME-01 | Phase 3 | Pending |
 | THEME-02 | Phase 3 | Pending |
 | THEME-03 | Phase 3 | Pending |
