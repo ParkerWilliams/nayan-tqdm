@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-02-25)
 Phase: 3 of 4 (Theme System) -- COMPLETE
 Plan: 5 of 5 in current phase
 Status: Phase 3 verified and complete
-Last activity: 2026-02-25 — Phase 3 execution complete, verification passed
+Last activity: 2026-02-26 - Completed quick task 1: lets add a dozen more themes, and make sure demo covers them all
 
 Progress: [███████████████] 75% (3 of 4 phases)
 
@@ -58,6 +58,12 @@ None yet.
 ### Blockers/Concerns
 
 None.
+
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 1 | lets add a dozen more themes, and make sure demo covers them all | 2026-02-26 | cb814ba | [1-lets-add-a-dozen-more-themes-and-make-su](./quick/1-lets-add-a-dozen-more-themes-and-make-su/) |
 
 ## Session Continuity
 
