@@ -24,6 +24,9 @@ from . import _wizard        # noqa: F401
 from . import _aurora        # noqa: F401
 from . import _candy         # noqa: F401
 from . import _cat_mouse     # noqa: F401
+from . import _cat_play      # noqa: F401
+from . import _cat_sleepy    # noqa: F401
+from . import _cat_smug      # noqa: F401
 from . import _cat_yarn      # noqa: F401
 from . import _coffee        # noqa: F401
 from . import _garden        # noqa: F401

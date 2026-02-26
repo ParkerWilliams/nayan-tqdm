@@ -25,7 +25,8 @@ import nyanbar.themes  # noqa: F401 -- trigger registration
 
 
 ALL_THEMES = [
-    "aurora", "candy", "cat_mouse", "cat_yarn", "coffee", "construction",
+    "aurora", "candy", "cat_mouse", "cat_play", "cat_sleepy", "cat_smug",
+    "cat_yarn", "coffee", "construction",
     "deal_with_it", "disco", "duck_bread", "finger_guns", "fire", "garden",
     "heartbeat", "lenny", "lightning", "mario", "matrix", "nyan", "ocean",
     "rocket", "shrug", "snake", "table_flip", "train", "wizard", "zen",
@@ -358,6 +359,27 @@ def test_duck_bread_completion_has_star() -> None:
     assert "\u2605" in comp  # star
 
 
+def test_cat_smug_completion_has_heart() -> None:
+    anim = get_theme("cat_smug", "emoji")
+    assert anim.completion_frame is not None
+    comp = anim.completion_frame.lines[0]
+    assert "\u2665" in comp  # heart suit
+
+
+def test_cat_sleepy_completion_has_heart() -> None:
+    anim = get_theme("cat_sleepy", "emoji")
+    assert anim.completion_frame is not None
+    comp = anim.completion_frame.lines[0]
+    assert "\u2665" in comp  # heart suit
+
+
+def test_cat_play_completion_has_heart() -> None:
+    anim = get_theme("cat_play", "emoji")
+    assert anim.completion_frame is not None
+    comp = anim.completion_frame.lines[0]
+    assert "\u2665" in comp  # heart suit
+
+
 # ── Decoration tests for reworked and new themes ───────────
 
 
@@ -386,7 +408,8 @@ def test_chase_themes_have_decoration(theme: str, tier: str) -> None:
 
 
 DECORATED_THEMES = [
-    "aurora", "cat_mouse", "cat_yarn", "coffee", "duck_bread", "fire", "garden",
+    "aurora", "cat_mouse", "cat_play", "cat_sleepy", "cat_smug",
+    "cat_yarn", "coffee", "duck_bread", "fire", "garden",
     "heartbeat", "lightning", "nyan", "rocket", "train", "wizard",
 ]
 
