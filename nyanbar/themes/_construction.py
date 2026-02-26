@@ -1,12 +1,12 @@
-"""rocket theme -- Rocket with flame trail fill.
+"""construction theme -- Under construction with hazard pattern fill.
 
-A rocket emoji blasts across a flame-colored gradient fill.
-At completion, the rocket reaches the stars.
+A construction sign walks across a yellow/black hazard pattern.
+At completion, a check mark signals the work is done.
 
 Rendering tiers:
-- emoji: Red/orange/yellow ANSI flame fill, rocket emoji, rocket + star
-- unicode: Red/orange/yellow ANSI flame fill, rocket kaomoji, rocket + star
-- ascii: "~" fill, "=>" sprite, "=>*" completion
+- emoji: Yellow/black ANSI hazard fill, construction emoji, check mark emoji
+- unicode: Yellow/black ANSI hazard fill, hard hat kaomoji, check mark
+- ascii: "#-" fill, "!" sprite, "[OK]" completion
 """
 from __future__ import annotations
 
@@ -15,8 +15,8 @@ from ..registry import register_theme
 
 __all__: list[str] = []
 
-_RED = "\033[31m"
 _YEL = "\033[33m"
+_BLK = "\033[30m"
 _RST = "\033[0m"
 
 
@@ -30,18 +30,18 @@ def _create(tier: str) -> Animation:
 
 
 def _emoji() -> Animation:
-    # Flame gradient: red -> yellow -> red
+    # Hazard pattern: alternating yellow and dark blocks
     fill = (
-        f"{_RED}\u2588{_RST}",
         f"{_YEL}\u2588{_RST}",
-        f"{_RED}\u2588{_RST}",
+        f"{_BLK}\u2588{_RST}",
         f"{_YEL}\u2588{_RST}",
+        f"{_BLK}\u2588{_RST}",
     )
-    sprite_a = Frame(lines=("\U0001f680",))     # rocket emoji
-    sprite_b = Frame(lines=("\U0001f680",))
-    completion = Frame(lines=("\U0001f680\u2605",))   # rocket + star
+    sprite_a = Frame(lines=("\U0001f6a7",))     # construction sign emoji
+    sprite_b = Frame(lines=("\U0001f6a7",))
+    completion = Frame(lines=("\u2714",))        # check mark
     return Animation(
-        name="rocket",
+        name="construction",
         frames=(sprite_a, sprite_b),
         fps=3.0,
         mode=AnimationMode.WALK,
@@ -52,16 +52,16 @@ def _emoji() -> Animation:
 
 def _unicode() -> Animation:
     fill = (
-        f"{_RED}\u2588{_RST}",
         f"{_YEL}\u2588{_RST}",
-        f"{_RED}\u2588{_RST}",
+        f"{_BLK}\u2588{_RST}",
         f"{_YEL}\u2588{_RST}",
+        f"{_BLK}\u2588{_RST}",
     )
-    sprite_a = Frame(lines=("|=>",))
-    sprite_b = Frame(lines=("]=>",))
-    completion = Frame(lines=("|=>*",))
+    sprite_a = Frame(lines=("[!]",))
+    sprite_b = Frame(lines=("[!]",))
+    completion = Frame(lines=("[OK]",))
     return Animation(
-        name="rocket",
+        name="construction",
         frames=(sprite_a, sprite_b),
         fps=3.0,
         mode=AnimationMode.WALK,
@@ -71,12 +71,12 @@ def _unicode() -> Animation:
 
 
 def _ascii() -> Animation:
-    fill = ("~",)
-    sprite_a = Frame(lines=("=>",))
-    sprite_b = Frame(lines=("=>",))
-    completion = Frame(lines=("=>*",))
+    fill = ("#", "-")
+    sprite_a = Frame(lines=("!",))
+    sprite_b = Frame(lines=("!",))
+    completion = Frame(lines=("[OK]",))
     return Animation(
-        name="rocket",
+        name="construction",
         frames=(sprite_a, sprite_b),
         fps=3.0,
         mode=AnimationMode.WALK,
@@ -85,4 +85,4 @@ def _ascii() -> Animation:
     )
 
 
-register_theme("rocket", _create)
+register_theme("construction", _create)

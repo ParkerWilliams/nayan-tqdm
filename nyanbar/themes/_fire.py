@@ -1,12 +1,12 @@
-"""rocket theme -- Rocket with flame trail fill.
+"""fire theme -- Fire spreading across the progress bar.
 
-A rocket emoji blasts across a flame-colored gradient fill.
-At completion, the rocket reaches the stars.
+Fire emoji blazes across red/orange ANSI-colored blocks.
+At completion, sparkles celebrate the inferno.
 
 Rendering tiers:
-- emoji: Red/orange/yellow ANSI flame fill, rocket emoji, rocket + star
-- unicode: Red/orange/yellow ANSI flame fill, rocket kaomoji, rocket + star
-- ascii: "~" fill, "=>" sprite, "=>*" completion
+- emoji: Red/orange ANSI blocks, fire emoji, fire + sparkles
+- unicode: Red/orange ANSI blocks, fire kaomoji, fire + sparkles
+- ascii: "#" fill, "^" sprite, "^*^" completion
 """
 from __future__ import annotations
 
@@ -30,20 +30,18 @@ def _create(tier: str) -> Animation:
 
 
 def _emoji() -> Animation:
-    # Flame gradient: red -> yellow -> red
     fill = (
         f"{_RED}\u2588{_RST}",
         f"{_YEL}\u2588{_RST}",
-        f"{_RED}\u2588{_RST}",
-        f"{_YEL}\u2588{_RST}",
+        f"{_RED}\u2593{_RST}",
     )
-    sprite_a = Frame(lines=("\U0001f680",))     # rocket emoji
-    sprite_b = Frame(lines=("\U0001f680",))
-    completion = Frame(lines=("\U0001f680\u2605",))   # rocket + star
+    sprite_a = Frame(lines=("\U0001f525",))    # fire emoji
+    sprite_b = Frame(lines=("\U0001f525",))
+    completion = Frame(lines=("\U0001f525\u2728",))   # fire + sparkles
     return Animation(
-        name="rocket",
+        name="fire",
         frames=(sprite_a, sprite_b),
-        fps=3.0,
+        fps=4.0,
         mode=AnimationMode.WALK,
         completion_frame=completion,
         bar_fill=fill,
@@ -54,16 +52,15 @@ def _unicode() -> Animation:
     fill = (
         f"{_RED}\u2588{_RST}",
         f"{_YEL}\u2588{_RST}",
-        f"{_RED}\u2588{_RST}",
-        f"{_YEL}\u2588{_RST}",
+        f"{_RED}\u2593{_RST}",
     )
-    sprite_a = Frame(lines=("|=>",))
-    sprite_b = Frame(lines=("]=>",))
-    completion = Frame(lines=("|=>*",))
+    sprite_a = Frame(lines=("^v^",))
+    sprite_b = Frame(lines=("/v\\",))
+    completion = Frame(lines=("^v^\u2728",))
     return Animation(
-        name="rocket",
+        name="fire",
         frames=(sprite_a, sprite_b),
-        fps=3.0,
+        fps=4.0,
         mode=AnimationMode.WALK,
         completion_frame=completion,
         bar_fill=fill,
@@ -71,18 +68,18 @@ def _unicode() -> Animation:
 
 
 def _ascii() -> Animation:
-    fill = ("~",)
-    sprite_a = Frame(lines=("=>",))
-    sprite_b = Frame(lines=("=>",))
-    completion = Frame(lines=("=>*",))
+    fill = ("#",)
+    sprite_a = Frame(lines=("^",))
+    sprite_b = Frame(lines=("^",))
+    completion = Frame(lines=("^*^",))
     return Animation(
-        name="rocket",
+        name="fire",
         frames=(sprite_a, sprite_b),
-        fps=3.0,
+        fps=4.0,
         mode=AnimationMode.WALK,
         completion_frame=completion,
         bar_fill=fill,
     )
 
 
-register_theme("rocket", _create)
+register_theme("fire", _create)
