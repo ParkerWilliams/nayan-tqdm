@@ -9,13 +9,13 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Foundation
 
-- [ ] **FOUND-01**: Frame and Animation dataclasses define sprite data with frozen immutability
+- [x] **FOUND-01**: Frame and Animation dataclasses define sprite data with frozen immutability
 - [ ] **FOUND-02**: Animation.render() returns correct frame lines for given progress, width, and elapsed time
 - [x] **FOUND-03**: Frame width uses terminal display width (custom disp_len), not Python len()
 - [x] **FOUND-04**: Terminal detection identifies TTY, color support, terminal width, and notebook environments
-- [ ] **FOUND-05**: ANSI renderer produces correct cursor-up, clear-line, and color reset escape sequences
-- [ ] **FOUND-06**: Renderer handles multi-line frame erase with correct prev_height tracking
-- [ ] **FOUND-07**: All ANSI color sequences are properly closed with reset codes
+- [x] **FOUND-05**: ANSI renderer produces correct cursor-up, clear-line, and color reset escape sequences
+- [x] **FOUND-06**: Renderer handles multi-line frame erase with correct prev_height tracking
+- [x] **FOUND-07**: All ANSI color sequences are properly closed with reset codes
 
 ### Core Compatibility
 
@@ -48,7 +48,7 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Animation Engine
 
 - [ ] **ANIM-01**: Frame selection uses wall-clock time (time.monotonic), not iteration count
-- [ ] **ANIM-02**: Animation FPS is configurable per theme
+- [x] **ANIM-02**: Animation FPS is configurable per theme
 - [ ] **ANIM-03**: Walk mode positions sprite based on progress percentage
 - [ ] **ANIM-04**: Cycle mode keeps sprite in place and cycles animation frames
 - [ ] **ANIM-05**: Fill mode fills the bar area with animation
@@ -111,15 +111,15 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FOUND-01 | Phase 1 | Pending |
+| FOUND-01 | Phase 1 | Complete |
 | FOUND-02 | Phase 1 | Pending |
 | FOUND-03 | Phase 1 | Complete |
 | FOUND-04 | Phase 1 | Complete |
-| FOUND-05 | Phase 1 | Pending |
-| FOUND-06 | Phase 1 | Pending |
-| FOUND-07 | Phase 1 | Pending |
+| FOUND-05 | Phase 1 | Complete |
+| FOUND-06 | Phase 1 | Complete |
+| FOUND-07 | Phase 1 | Complete |
 | ANIM-01 | Phase 1 | Pending |
-| ANIM-02 | Phase 1 | Pending |
+| ANIM-02 | Phase 1 | Complete |
 | ANIM-03 | Phase 1 | Pending |
 | ANIM-04 | Phase 1 | Pending |
 | ANIM-05 | Phase 1 | Pending |
