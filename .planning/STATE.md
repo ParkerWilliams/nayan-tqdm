@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-02-25)
 Phase: 3 of 4 (Theme System) -- COMPLETE
 Plan: 5 of 5 in current phase
 Status: Phase 3 verified and complete
-Last activity: 2026-02-26 - Completed quick task 1: lets add a dozen more themes, and make sure demo covers them all
+Last activity: 2026-02-26 - Completed quick task 2: rework construction, pac_man, wizard, disco themes + indeterminate demo
 
 Progress: [███████████████] 75% (3 of 4 phases)
 
@@ -50,6 +50,8 @@ Recent decisions affecting current work:
 - [Pre-phase]: Inline frame definitions — no external assets, themes are self-contained Python
 - [quick-1]: Verify emoji display_width consistency before writing themes (disco and pac_man needed fixes)
 - [quick-1]: demo.py uses list_themes() dynamically so future themes are auto-included
+- [quick-2]: pac_man uses yellow ANSI text-art "<"/"-" (1 col) not emoji circles for iconic wedge shape
+- [quick-2]: disco fill uses sparkle/diamond unicode chars in magenta/cyan/white vs nyan's solid rainbow blocks
 
 ### Pending Todos
 
@@ -64,9 +66,10 @@ None.
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
 | 1 | lets add a dozen more themes, and make sure demo covers them all | 2026-02-26 | cb814ba | [1-lets-add-a-dozen-more-themes-and-make-su](./quick/1-lets-add-a-dozen-more-themes-and-make-su/) |
+| 2 | rework construction, pac_man, wizard, disco themes + indeterminate demo | 2026-02-26 | fcf29b7 | [2-rework-construction-pac-man-wizard-disco](./quick/2-rework-construction-pac-man-wizard-disco/) |
 
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Quick task 1 complete. 18 themes registered, all tests pass. Ready for Phase 4.
+Stopped at: Quick task 2 complete. 4 themes reworked with distinct visual identities. 1079 tests pass. Ready for Phase 4.
 Resume file: None
