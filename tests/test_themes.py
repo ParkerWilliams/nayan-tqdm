@@ -282,11 +282,11 @@ def test_construction_completion_has_ok() -> None:
     assert "OK" in comp  # "[OK]" in ascii tier
 
 
-def test_wizard_completion_has_star() -> None:
+def test_wizard_completion_has_sparkles() -> None:
     anim = get_theme("wizard", "emoji")
     assert anim.completion_frame is not None
     comp = anim.completion_frame.lines[0]
-    assert "\u2605" in comp  # star
+    assert "\u2728" in comp  # sparkles (wizard casts final sparkle)
 
 
 # ── No themes without bar_fill ─────────────────────────────
