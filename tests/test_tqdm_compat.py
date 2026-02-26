@@ -593,33 +593,33 @@ def test_default_theme_is_nyan(mock_tty: TerminalInfo) -> None:
 
 def test_theme_kwarg_selects_theme(mock_tty: TerminalInfo) -> None:
     sio = io.StringIO()
-    bar = NyanBar(total=10, theme="cat_walk", file=sio)
+    bar = NyanBar(total=10, theme="table_flip", file=sio)
     assert bar._animation is not None
-    assert bar._animation.name == "cat_walk"
+    assert bar._animation.name == "table_flip"
     bar.close()
 
 
-def test_theme_kwarg_fish(mock_tty: TerminalInfo) -> None:
+def test_theme_kwarg_finger_guns(mock_tty: TerminalInfo) -> None:
     sio = io.StringIO()
-    bar = NyanBar(total=10, theme="fish", file=sio)
+    bar = NyanBar(total=10, theme="finger_guns", file=sio)
     assert bar._animation is not None
-    assert bar._animation.name == "fish"
+    assert bar._animation.name == "finger_guns"
     bar.close()
 
 
-def test_theme_kwarg_rocket(mock_tty: TerminalInfo) -> None:
+def test_theme_kwarg_shrug(mock_tty: TerminalInfo) -> None:
     sio = io.StringIO()
-    bar = NyanBar(total=10, theme="rocket", file=sio)
+    bar = NyanBar(total=10, theme="shrug", file=sio)
     assert bar._animation is not None
-    assert bar._animation.name == "rocket"
+    assert bar._animation.name == "shrug"
     bar.close()
 
 
-def test_theme_kwarg_cat_bounce(mock_tty: TerminalInfo) -> None:
+def test_theme_kwarg_deal_with_it(mock_tty: TerminalInfo) -> None:
     sio = io.StringIO()
-    bar = NyanBar(total=10, theme="cat_bounce", file=sio)
+    bar = NyanBar(total=10, theme="deal_with_it", file=sio)
     assert bar._animation is not None
-    assert bar._animation.name == "cat_bounce"
+    assert bar._animation.name == "deal_with_it"
     bar.close()
 
 
@@ -636,10 +636,10 @@ def test_invalid_theme_warns_and_uses_default(mock_tty: TerminalInfo) -> None:
 
 def test_set_theme_affects_new_bars(mock_tty: TerminalInfo) -> None:
     sio = io.StringIO()
-    set_theme("fish")
+    set_theme("table_flip")
     bar = NyanBar(total=10, file=sio)
     assert bar._animation is not None
-    assert bar._animation.name == "fish"
+    assert bar._animation.name == "table_flip"
     bar.close()
 
 
@@ -648,7 +648,7 @@ def test_existing_bar_keeps_theme(mock_tty: TerminalInfo) -> None:
     bar = NyanBar(total=10, file=sio)
     assert bar._animation is not None
     assert bar._animation.name == "nyan"
-    set_theme("fish")
+    set_theme("table_flip")
     assert bar._animation.name == "nyan"
     bar.close()
 
@@ -672,7 +672,8 @@ def test_multiline_theme_renders(mock_tty: TerminalInfo) -> None:
     bar = NyanBar(total=10, theme="nyan", file=sio)
     with bar._lock:
         bar._render_animation_frame()
-    assert bar._prev_height == 4
+    # nyan has decoration (above + below) + bar line = 3 lines
+    assert bar._prev_height == 3
     bar.close()
 
 
@@ -696,7 +697,7 @@ def test_leave_false_multiline(mock_tty: TerminalInfo) -> None:
 
 def test_completion_frame_at_100(mock_tty: TerminalInfo) -> None:
     sio = io.StringIO()
-    bar = NyanBar(total=5, theme="cat_walk", leave=True, file=sio)
+    bar = NyanBar(total=5, theme="table_flip", leave=True, file=sio)
     for _ in range(5):
         bar.update()
     bar.close()
@@ -724,9 +725,13 @@ def test_render_level_emoji_override() -> None:
     bar.close()
 
 
-def test_list_themes_returns_all_five() -> None:
+def test_list_themes_returns_all_eighteen() -> None:
     names = list_themes()
-    expected = ["cat_bounce", "cat_walk", "fish", "nyan", "rocket"]
+    expected = [
+        "construction", "deal_with_it", "disco", "finger_guns", "fire",
+        "heartbeat", "lenny", "mario", "matrix", "nyan", "ocean",
+        "pac_man", "rocket", "shrug", "snake", "table_flip", "wizard", "zen",
+    ]
     assert names == expected
 
 

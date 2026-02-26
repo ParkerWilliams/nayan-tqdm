@@ -1,14 +1,17 @@
-"""Tests for all 5 themes at 5 progress points x 3 tiers, plus registry and models."""
+"""Tests for all 6 themes at 5 progress levels x 3 tiers, plus themed bar
+rendering, registry, and model tests."""
 from __future__ import annotations
 
-import os
 import warnings
 from unittest.mock import MagicMock, patch
 
 import pytest
 
 from nyanbar.models import Animation, AnimationMode, Frame
-from nyanbar.engine import render_animation
+from nyanbar.engine import (
+    build_themed_fill, render_animation, render_themed_bar,
+)
+from nyanbar.formatters import format_stats_left, format_stats_right
 from nyanbar.renderer import has_unclosed_ansi
 from nyanbar.utils import disp_len
 from nyanbar.registry import (
@@ -21,26 +24,17 @@ from nyanbar.terminal import ColorTier, TerminalInfo
 import nyanbar.themes  # noqa: F401 -- trigger registration
 
 
-ALL_THEMES = ["cat_walk", "cat_bounce", "nyan", "fish", "rocket"]
+ALL_THEMES = [
+    "construction", "deal_with_it", "disco", "finger_guns", "fire",
+    "heartbeat", "lenny", "mario", "matrix", "nyan", "ocean",
+    "pac_man", "rocket", "shrug", "snake", "table_flip", "wizard", "zen",
+]
 TIERS = ("emoji", "unicode", "ascii")
 PROGRESS_LEVELS = (0.0, 0.25, 0.5, 0.75, 1.0)
-WIDTH = 60
-
-# Expected heights per theme
-THEME_HEIGHTS = {
-    "cat_walk": 1, "cat_bounce": 2, "nyan": 3, "fish": 3, "rocket": 4,
-}
-# Expected modes per theme
-THEME_MODES = {
-    "cat_walk": AnimationMode.WALK,
-    "cat_bounce": AnimationMode.WALK,
-    "nyan": AnimationMode.WALK,
-    "fish": AnimationMode.WALK,
-    "rocket": AnimationMode.CYCLE,
-}
+WIDTH = 80
 
 
-# ── Theme rendering tests (parametrized over all themes) ─────
+# ── Themed bar rendering tests (all themes use bar_fill) ────
 
 
 @pytest.mark.parametrize("theme", ALL_THEMES)
@@ -51,8 +45,9 @@ def test_theme_is_animation(theme: str, tier: str) -> None:
 
 @pytest.mark.parametrize("theme", ALL_THEMES)
 @pytest.mark.parametrize("tier", TIERS)
-def test_theme_mode(theme: str, tier: str) -> None:
-    assert get_theme(theme, tier).mode == THEME_MODES[theme]
+def test_theme_has_bar_fill(theme: str, tier: str) -> None:
+    anim = get_theme(theme, tier)
+    assert anim.bar_fill is not None
 
 
 @pytest.mark.parametrize("theme", ALL_THEMES)
@@ -69,11 +64,8 @@ def test_theme_fps_positive(theme: str, tier: str) -> None:
 
 @pytest.mark.parametrize("theme", ALL_THEMES)
 @pytest.mark.parametrize("tier", TIERS)
-def test_theme_frame_height(theme: str, tier: str) -> None:
-    anim = get_theme(theme, tier)
-    expected = THEME_HEIGHTS[theme]
-    for frame in anim.frames:
-        assert frame.height == expected
+def test_theme_has_completion_frame(theme: str, tier: str) -> None:
+    assert get_theme(theme, tier).completion_frame is not None
 
 
 @pytest.mark.parametrize("theme", ALL_THEMES)
@@ -86,93 +78,400 @@ def test_theme_frame_widths_consistent(theme: str, tier: str) -> None:
 
 @pytest.mark.parametrize("theme", ALL_THEMES)
 @pytest.mark.parametrize("tier", TIERS)
-def test_theme_has_completion_frame(theme: str, tier: str) -> None:
-    assert get_theme(theme, tier).completion_frame is not None
-
-
-@pytest.mark.parametrize("theme", ALL_THEMES)
-@pytest.mark.parametrize("tier", TIERS)
-def test_theme_completion_frame_height(theme: str, tier: str) -> None:
+def test_theme_single_line_sprites(theme: str, tier: str) -> None:
+    """All themed sprites are single-line (bar_fill themes)."""
     anim = get_theme(theme, tier)
-    expected = THEME_HEIGHTS[theme]
-    assert anim.completion_frame is not None
-    assert anim.completion_frame.height == expected
+    for frame in anim.frames:
+        assert frame.height == 1
 
 
 @pytest.mark.parametrize("theme", ALL_THEMES)
 @pytest.mark.parametrize("tier", TIERS)
 @pytest.mark.parametrize("progress", PROGRESS_LEVELS)
-def test_theme_renders_at_progress(theme: str, tier: str, progress: float) -> None:
+def test_themed_bar_renders_at_progress(
+    theme: str, tier: str, progress: float,
+) -> None:
     anim = get_theme(theme, tier)
-    lines = render_animation(anim, progress, WIDTH, 0.0)
+    stats_left = format_stats_left(
+        int(progress * 100), 100, desc=None, unit_scale=False,
+    )
+    stats_right = format_stats_right(
+        int(progress * 100), 100, 5.0, 10.0,
+        unit="it", postfix_str=None, unit_scale=False,
+    )
+    lines = render_themed_bar(
+        anim, progress, WIDTH, 0.0, stats_left, stats_right,
+    )
     assert isinstance(lines, list)
-    expected_height = THEME_HEIGHTS[theme]
-    assert len(lines) == expected_height
+    assert len(lines) >= 1
+    # The bar line should be exactly WIDTH display cols
+    bar_line = lines[-1] if anim.decoration is None else lines[1] if len(lines) == 3 else lines[0]
+    # Find the bar line (has pipes)
     for line in lines:
-        assert disp_len(line) == WIDTH, (
-            f"theme={theme} tier={tier} progress={progress}: "
-            f"disp_len={disp_len(line)} != {WIDTH}"
-        )
-
-
-# ── Theme-specific tests ────────────────────────────────────
-
-
-@pytest.mark.parametrize("tier", TIERS)
-def test_cat_walk_completion_width_matches(tier: str) -> None:
-    anim = get_theme("cat_walk", tier)
-    frame_w = anim.frames[0].display_width
-    assert anim.completion_frame is not None
-    comp_w = anim.completion_frame.display_width
-    assert comp_w == frame_w
-
-
-@pytest.mark.parametrize("tier", TIERS)
-def test_nyan_frame_heights_consistent(tier: str) -> None:
-    anim = get_theme("nyan", tier)
-    heights = {f.height for f in anim.frames}
-    assert heights == {3}
-
-
-@pytest.mark.parametrize("tier", TIERS)
-def test_nyan_completion_width_matches(tier: str) -> None:
-    anim = get_theme("nyan", tier)
-    fw = anim.frames[0].display_width
-    assert anim.completion_frame is not None
-    cw = anim.completion_frame.display_width
-    assert cw == fw
-
-
-@pytest.mark.parametrize("theme", ["nyan", "fish", "rocket"])
-@pytest.mark.parametrize("tier", ("emoji", "unicode"))
-def test_no_unclosed_ansi_in_frames(theme: str, tier: str) -> None:
-    anim = get_theme(theme, tier)
-    for i, frame in enumerate(anim.frames):
-        for j, line in enumerate(frame.lines):
-            assert not has_unclosed_ansi(line), (
-                f"theme={theme} tier={tier} frame={i} line={j} has unclosed ANSI"
+        if "|" in line:
+            assert disp_len(line) == WIDTH, (
+                f"theme={theme} tier={tier} progress={progress}: "
+                f"disp_len={disp_len(line)} != {WIDTH}"
             )
+            break
 
 
-@pytest.mark.parametrize("theme", ["nyan", "fish", "rocket"])
-@pytest.mark.parametrize("tier", ("emoji", "unicode"))
-def test_no_unclosed_ansi_in_completion(theme: str, tier: str) -> None:
+@pytest.mark.parametrize("theme", ALL_THEMES)
+@pytest.mark.parametrize("tier", TIERS)
+def test_themed_bar_completion_renders(theme: str, tier: str) -> None:
+    """At 100%, the completion frame sprite should be used."""
     anim = get_theme(theme, tier)
-    assert anim.completion_frame is not None
-    for j, line in enumerate(anim.completion_frame.lines):
-        assert not has_unclosed_ansi(line), (
-            f"theme={theme} tier={tier} completion line={j} has unclosed ANSI"
-        )
+    stats_left = format_stats_left(100, 100)
+    stats_right = format_stats_right(100, 100, 10.0, 10.0)
+    lines = render_themed_bar(anim, 1.0, WIDTH, 0.0, stats_left, stats_right)
+    assert len(lines) >= 1
+    # Completion sprite should appear in one of the lines
+    comp = anim.completion_frame
+    assert comp is not None
+    full_output = "".join(lines)
+    assert comp.lines[0] in full_output
 
 
-def test_nyan_ascii_rainbow_has_patterns() -> None:
+# ── Nyan-specific tests ────────────────────────────────────
+
+
+@pytest.mark.parametrize("tier", TIERS)
+def test_nyan_has_decoration(tier: str) -> None:
+    anim = get_theme("nyan", tier)
+    assert anim.decoration is not None
+    assert anim.completion_decoration is not None
+
+
+@pytest.mark.parametrize("tier", TIERS)
+def test_nyan_renders_3_lines(tier: str) -> None:
+    """Nyan has decoration above + bar + decoration below = 3 lines."""
+    anim = get_theme("nyan", tier)
+    stats_left = format_stats_left(50, 100)
+    stats_right = format_stats_right(50, 100, 5.0, 10.0)
+    lines = render_themed_bar(anim, 0.5, WIDTH, 0.0, stats_left, stats_right)
+    assert len(lines) == 3
+
+
+@pytest.mark.parametrize("tier", ("emoji", "unicode"))
+def test_nyan_rainbow_fill_has_colors(tier: str) -> None:
+    anim = get_theme("nyan", tier)
+    assert anim.bar_fill is not None
+    # Rainbow fill chars should contain ANSI color codes
+    for char in anim.bar_fill:
+        assert "\033[" in char
+
+
+def test_nyan_ascii_fill_is_plain() -> None:
     anim = get_theme("nyan", "ascii")
-    all_text = ""
-    for frame in anim.frames:
-        for line in frame.lines:
-            all_text += line
-    patterns_found = sum(1 for ch in ("=", "~", "-", ".") if ch in all_text)
-    assert patterns_found >= 3
+    assert anim.bar_fill is not None
+    for char in anim.bar_fill:
+        assert "\033[" not in char
+
+
+# ── Theme-specific completion tests ────────────────────────
+
+
+def test_table_flip_completion_has_table() -> None:
+    anim = get_theme("table_flip", "emoji")
+    assert anim.completion_frame is not None
+    comp = anim.completion_frame.lines[0]
+    assert "\u253b" in comp  # table part
+
+
+def test_deal_with_it_completion_has_sunglasses() -> None:
+    anim = get_theme("deal_with_it", "emoji")
+    assert anim.completion_frame is not None
+    comp = anim.completion_frame.lines[0]
+    assert "\u25a0" in comp  # sunglasses
+
+
+def test_lenny_completion_winks() -> None:
+    anim = get_theme("lenny", "emoji")
+    assert anim.completion_frame is not None
+    comp = anim.completion_frame.lines[0]
+    assert "~" in comp  # winking eye
+
+
+def test_shrug_completion_same_as_sprite() -> None:
+    anim = get_theme("shrug", "emoji")
+    assert anim.completion_frame is not None
+    assert anim.completion_frame.lines[0] == anim.frames[0].lines[0]
+
+
+def test_finger_guns_completion_has_star() -> None:
+    anim = get_theme("finger_guns", "emoji")
+    assert anim.completion_frame is not None
+    comp = anim.completion_frame.lines[0]
+    assert "\u2605" in comp  # star
+
+
+def test_mario_completion_has_star() -> None:
+    anim = get_theme("mario", "emoji")
+    assert anim.completion_frame is not None
+    comp = anim.completion_frame.lines[0]
+    assert "\u2605" in comp  # star
+
+
+def test_pac_man_completion_has_ghost() -> None:
+    anim = get_theme("pac_man", "emoji")
+    assert anim.completion_frame is not None
+    comp = anim.completion_frame.lines[0]
+    assert "\U0001f47b" in comp  # ghost emoji
+
+
+def test_snake_completion_has_apple() -> None:
+    anim = get_theme("snake", "emoji")
+    assert anim.completion_frame is not None
+    comp = anim.completion_frame.lines[0]
+    assert "\U0001f34e" in comp  # apple emoji
+
+
+def test_rocket_completion_has_star() -> None:
+    anim = get_theme("rocket", "emoji")
+    assert anim.completion_frame is not None
+    comp = anim.completion_frame.lines[0]
+    assert "\u2605" in comp  # star
+
+
+def test_fire_completion_has_sparkles() -> None:
+    anim = get_theme("fire", "emoji")
+    assert anim.completion_frame is not None
+    comp = anim.completion_frame.lines[0]
+    assert "\u2728" in comp  # sparkles emoji
+
+
+def test_ocean_completion_has_sun() -> None:
+    anim = get_theme("ocean", "emoji")
+    assert anim.completion_frame is not None
+    comp = anim.completion_frame.lines[0]
+    assert "\u2600" in comp  # sun emoji
+
+
+def test_matrix_completion_has_done() -> None:
+    anim = get_theme("matrix", "ascii")
+    assert anim.completion_frame is not None
+    comp = anim.completion_frame.lines[0]
+    assert ">" in comp  # ">>>" in ascii tier
+
+
+def test_heartbeat_completion_has_exclamation() -> None:
+    anim = get_theme("heartbeat", "ascii")
+    assert anim.completion_frame is not None
+    comp = anim.completion_frame.lines[0]
+    assert "!" in comp  # "<3!" in ascii tier
+
+
+def test_disco_completion_has_note() -> None:
+    anim = get_theme("disco", "emoji")
+    assert anim.completion_frame is not None
+    comp = anim.completion_frame.lines[0]
+    assert "\U0001f3b5" in comp  # music note emoji
+
+
+def test_zen_completion_has_sparkle() -> None:
+    anim = get_theme("zen", "emoji")
+    assert anim.completion_frame is not None
+    comp = anim.completion_frame.lines[0]
+    assert "\u2728" in comp  # sparkles emoji
+
+
+def test_construction_completion_has_ok() -> None:
+    anim = get_theme("construction", "ascii")
+    assert anim.completion_frame is not None
+    comp = anim.completion_frame.lines[0]
+    assert "OK" in comp  # "[OK]" in ascii tier
+
+
+def test_wizard_completion_has_star() -> None:
+    anim = get_theme("wizard", "emoji")
+    assert anim.completion_frame is not None
+    comp = anim.completion_frame.lines[0]
+    assert "\u2605" in comp  # star
+
+
+# ── No themes without bar_fill ─────────────────────────────
+
+
+@pytest.mark.parametrize("theme", ALL_THEMES)
+@pytest.mark.parametrize("tier", TIERS)
+def test_all_themes_use_bar_fill(theme: str, tier: str) -> None:
+    """All new themes must use the themed bar rendering path."""
+    anim = get_theme(theme, tier)
+    assert anim.bar_fill is not None
+
+
+# ── build_themed_fill tests ────────────────────────────────
+
+
+def test_build_themed_fill_basic() -> None:
+    result = build_themed_fill(("A", "B", "C"), 6)
+    assert result == "ABCABC"
+
+
+def test_build_themed_fill_single_char() -> None:
+    result = build_themed_fill(("#",), 5)
+    assert result == "#####"
+
+
+def test_build_themed_fill_zero_cols() -> None:
+    result = build_themed_fill(("A", "B"), 0)
+    assert result == ""
+
+
+def test_build_themed_fill_empty_tuple() -> None:
+    result = build_themed_fill((), 5)
+    assert result == ""
+
+
+def test_build_themed_fill_ansi_colors() -> None:
+    fill = ("\033[31m\u2588\033[0m", "\033[32m\u2588\033[0m")
+    result = build_themed_fill(fill, 3)
+    # Display width should be 3 (3 block chars)
+    assert disp_len(result) == 3
+    # But string length includes ANSI codes
+    assert len(result) > 3
+
+
+# ── render_themed_bar tests ────────────────────────────────
+
+
+def _make_themed_anim(
+    bar_fill: tuple[str, ...] = ("#",),
+    sprite: str = ">",
+    completion_sprite: str = "!",
+) -> Animation:
+    return Animation(
+        name="test",
+        frames=(Frame(lines=(sprite,)), Frame(lines=(sprite,))),
+        fps=12.0,
+        mode=AnimationMode.WALK,
+        completion_frame=Frame(lines=(completion_sprite,)),
+        bar_fill=bar_fill,
+    )
+
+
+def test_render_themed_bar_basic() -> None:
+    anim = _make_themed_anim()
+    lines = render_themed_bar(anim, 0.5, 40, 0.0, " 50%", " 50/100 [00:05]")
+    assert len(lines) == 1
+    assert "|" in lines[0]
+    assert disp_len(lines[0]) == 40
+
+
+def test_render_themed_bar_at_zero() -> None:
+    anim = _make_themed_anim()
+    lines = render_themed_bar(anim, 0.0, 40, 0.0, "  0%", " 0/100 [00:00]")
+    assert len(lines) == 1
+    bar_content = lines[0].split("|")[1]
+    # At 0%, fill should be empty (just sprite + spaces)
+    assert "#" not in bar_content
+
+
+def test_render_themed_bar_at_100() -> None:
+    anim = _make_themed_anim()
+    lines = render_themed_bar(anim, 1.0, 40, 0.0, "100%", " 100/100 [00:10]")
+    assert len(lines) == 1
+    # Completion sprite should appear
+    assert "!" in lines[0]
+
+
+def test_render_themed_bar_exact_width() -> None:
+    anim = _make_themed_anim()
+    for width in (40, 60, 80, 100, 120):
+        stats_left = " 50%"
+        stats_right = " 50/100 [00:05]"
+        lines = render_themed_bar(
+            anim, 0.5, width, 0.0, stats_left, stats_right,
+        )
+        assert disp_len(lines[0]) == width, f"width={width}"
+
+
+def test_render_themed_bar_with_decoration() -> None:
+    dec = Frame(lines=("stars above", "stars below"))
+    anim = Animation(
+        name="test",
+        frames=(Frame(lines=(">",)),),
+        fps=12.0,
+        mode=AnimationMode.WALK,
+        completion_frame=Frame(lines=("!",)),
+        bar_fill=("#",),
+        decoration=(dec,),
+    )
+    lines = render_themed_bar(anim, 0.5, 40, 0.0, " 50%", " 50/100")
+    # Should have 3 lines: decoration above + bar + decoration below
+    assert len(lines) == 3
+
+
+def test_render_themed_bar_narrow_graceful() -> None:
+    """Even with a very wide sprite, rendering shouldn't crash."""
+    anim = _make_themed_anim(sprite="a_very_long_sprite_here")
+    lines = render_themed_bar(anim, 0.5, 40, 0.0, " 50%", " 50/100")
+    assert len(lines) >= 1
+
+
+def test_render_themed_bar_no_bar_fill_returns_empty() -> None:
+    """Animation without bar_fill returns empty list."""
+    anim = Animation(
+        name="test",
+        frames=(Frame(lines=(">",)),),
+        fps=12.0,
+    )
+    lines = render_themed_bar(anim, 0.5, 40, 0.0, " 50%", " 50/100")
+    assert lines == []
+
+
+# ── format_stats_left / format_stats_right tests ───────────
+
+
+def test_format_stats_left_determinate() -> None:
+    result = format_stats_left(50, 100)
+    assert "50%" in result
+
+
+def test_format_stats_left_with_desc() -> None:
+    result = format_stats_left(50, 100, desc="dl")
+    assert result.startswith("dl: ")
+    assert "50%" in result
+
+
+def test_format_stats_left_indeterminate() -> None:
+    result = format_stats_left(42, None)
+    assert "42" in result
+    assert "%" not in result
+
+
+def test_format_stats_right_determinate() -> None:
+    result = format_stats_right(50, 100, 5.0, 10.0)
+    assert "50/100" in result
+    assert "00:05" in result
+
+
+def test_format_stats_right_indeterminate() -> None:
+    result = format_stats_right(42, None, 5.0, 10.0)
+    assert "00:05" in result
+    # No count/total like "42/100", but it/s is fine
+    assert "42/" not in result
+
+
+def test_format_stats_right_with_postfix() -> None:
+    result = format_stats_right(50, 100, 5.0, 10.0, postfix_str="loss=0.5")
+    assert "loss=0.5" in result
+
+
+# ── ANSI integrity for colored themes ─────────────────────
+
+
+@pytest.mark.parametrize("theme", ALL_THEMES)
+@pytest.mark.parametrize("tier", ("emoji", "unicode"))
+def test_themed_bar_no_unclosed_ansi(theme: str, tier: str) -> None:
+    anim = get_theme(theme, tier)
+    stats_left = format_stats_left(50, 100)
+    stats_right = format_stats_right(50, 100, 5.0, 10.0)
+    lines = render_themed_bar(anim, 0.5, WIDTH, 0.0, stats_left, stats_right)
+    for i, line in enumerate(lines):
+        assert not has_unclosed_ansi(line), (
+            f"theme={theme} tier={tier} line={i} has unclosed ANSI"
+        )
 
 
 # ── Frame / Animation model tests ───────────────────────────
@@ -279,7 +578,9 @@ def test_animation_frame_count(_frames: tuple[Frame, ...]) -> None:
     assert anim.frame_count == 2
 
 
-def test_animation_completion_frame_default_none(_frames: tuple[Frame, ...]) -> None:
+def test_animation_completion_frame_default_none(
+    _frames: tuple[Frame, ...],
+) -> None:
     anim = Animation(name="cat", frames=_frames)
     assert anim.completion_frame is None
 
@@ -288,6 +589,27 @@ def test_animation_completion_frame_set(_frames: tuple[Frame, ...]) -> None:
     done = Frame(lines=("done!",))
     anim = Animation(name="cat", frames=_frames, completion_frame=done)
     assert anim.completion_frame is done
+
+
+def test_animation_bar_fill_default_none(_frames: tuple[Frame, ...]) -> None:
+    anim = Animation(name="cat", frames=_frames)
+    assert anim.bar_fill is None
+
+
+def test_animation_bar_fill_set(_frames: tuple[Frame, ...]) -> None:
+    anim = Animation(name="cat", frames=_frames, bar_fill=("#",))
+    assert anim.bar_fill == ("#",)
+
+
+def test_animation_decoration_default_none(_frames: tuple[Frame, ...]) -> None:
+    anim = Animation(name="cat", frames=_frames)
+    assert anim.decoration is None
+
+
+def test_animation_decoration_set(_frames: tuple[Frame, ...]) -> None:
+    dec = Frame(lines=("* *",))
+    anim = Animation(name="cat", frames=_frames, decoration=(dec,))
+    assert anim.decoration == (dec,)
 
 
 def test_animation_frozen_name(_frames: tuple[Frame, ...]) -> None:
@@ -317,7 +639,10 @@ def test_animation_empty_frames() -> None:
 
 
 def _make_animation(name: str = "test") -> Animation:
-    return Animation(name=name, frames=(Frame(lines=("X",)),), fps=12.0, mode=AnimationMode.WALK)
+    return Animation(
+        name=name, frames=(Frame(lines=("X",)),),
+        fps=12.0, mode=AnimationMode.WALK,
+    )
 
 
 def _make_factory(name: str = "test") -> MagicMock:
@@ -413,9 +738,9 @@ def test_default_theme_is_nyan() -> None:
 
 
 def test_set_theme_changes_default() -> None:
-    register_theme("cat_walk", _make_factory("cat_walk"))
-    set_theme("cat_walk")
-    assert get_default_theme() == "cat_walk"
+    register_theme("table_flip", _make_factory("table_flip"))
+    set_theme("table_flip")
+    assert get_default_theme() == "table_flip"
 
 
 def test_set_theme_invalid_warns() -> None:
@@ -445,7 +770,9 @@ def test_factory_called_on_first_get() -> None:
 
 
 def _make_info(color: ColorTier = ColorTier.TRUE_COLOR) -> TerminalInfo:
-    return TerminalInfo(is_tty=True, color_support=color, width=80, is_notebook=False)
+    return TerminalInfo(
+        is_tty=True, color_support=color, width=80, is_notebook=False,
+    )
 
 
 from tests.conftest import utf8_locale, no_utf8_locale
@@ -478,11 +805,15 @@ def test_no_utf8_locale_returns_ascii() -> None:
 
 def test_render_level_override_ascii() -> None:
     with utf8_locale():
-        result = resolve_render_tier(_make_info(ColorTier.TRUE_COLOR), render_level="ascii")
+        result = resolve_render_tier(
+            _make_info(ColorTier.TRUE_COLOR), render_level="ascii",
+        )
         assert result == "ascii"
 
 
 def test_render_level_override_emoji() -> None:
     with utf8_locale():
-        result = resolve_render_tier(_make_info(ColorTier.NONE), render_level="emoji")
+        result = resolve_render_tier(
+            _make_info(ColorTier.NONE), render_level="emoji",
+        )
         assert result == "emoji"
