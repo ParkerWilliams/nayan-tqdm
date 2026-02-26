@@ -12,8 +12,8 @@ nyanbar is a standalone, zero-dependency progress bar library built in four phas
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation** - Pure primitives: Frame/Animation dataclasses, ANSI renderer, terminal detection
-- [ ] **Phase 2: Core Integration** - Standalone NyanBar class with tqdm-compatible API, single-line rendering, all fallbacks
+- [x] **Phase 1: Foundation** - Pure primitives: Frame/Animation dataclasses, ANSI renderer, terminal detection (2026-02-25)
+- [x] **Phase 2: Core Integration** - Standalone NyanBar class with tqdm-compatible API, single-line rendering, all fallbacks (2026-02-25)
 - [ ] **Phase 3: Theme System** - Lazy registry, multi-line rendering, all 5 built-in themes and completion frames
 - [ ] **Phase 4: Public API and Release** - __init__.py exports, pyproject.toml, test suite, PyPI publish
 
@@ -30,11 +30,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. The ANSI renderer produces valid cursor-up and clear-line sequences for multi-line frames; no color sequence is left open after any render call
   5. Wall-clock frame selection advances animation frames based on time.monotonic() elapsed time at the configured FPS, independent of iteration count
 **Plans**: 5 plans
-- [ ] 01-01-PLAN.md — Display width and ANSI stripping utilities (TDD)
-- [ ] 01-02-PLAN.md — Terminal capability detection (TDD)
-- [ ] 01-03-PLAN.md — Frame and Animation data model (TDD)
-- [ ] 01-04-PLAN.md — ANSI frame renderer (TDD)
-- [ ] 01-05-PLAN.md — Animation engine (TDD)
+- [x] 01-01-PLAN.md — Display width and ANSI stripping utilities (TDD)
+- [x] 01-02-PLAN.md — Terminal capability detection (TDD)
+- [x] 01-03-PLAN.md — Frame and Animation data model (TDD)
+- [x] 01-04-PLAN.md — ANSI frame renderer (TDD)
+- [x] 01-05-PLAN.md — Animation engine (TDD)
 
 ### Phase 2: Core Integration
 **Goal**: Users can run `from nyanbar import tqdm` and see an animated progress bar with correct stats, fallbacks, and terminal cleanup — zero dependencies
@@ -47,10 +47,10 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. `leave=True` keeps the final bar on screen; `leave=False` cleans up all lines with no residual output; an exception raised inside the loop leaves the terminal in a clean state
   5. Two simultaneous NyanBar instances (nested bars) render without overwriting each other — nested bars use single-line fallback
 **Plans**: 4 plans
-- [ ] 02-01-PLAN.md — Stats formatting utilities: EMA, SI format, interval format, meter string (TDD)
-- [ ] 02-02-PLAN.md — Fallback rendering: decision logic and plain text bar (TDD)
-- [ ] 02-03-PLAN.md — NyanBar class core with tqdm-compatible API and public aliases
-- [ ] 02-04-PLAN.md — Animation thread, refresh throttle, leave/cleanup, thread safety (TDD)
+- [x] 02-01-PLAN.md — Stats formatting utilities: EMA, SI format, interval format, meter string (TDD)
+- [x] 02-02-PLAN.md — Fallback rendering: decision logic and plain text bar (TDD)
+- [x] 02-03-PLAN.md — NyanBar class core with tqdm-compatible API and public aliases
+- [x] 02-04-PLAN.md — Animation thread, refresh throttle, leave/cleanup, thread safety (TDD)
 
 ### Phase 3: Theme System
 **Goal**: Users can select any of 5 built-in themes by name and see correct multi-line animations through 100% completion
@@ -82,7 +82,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/5 | Planned | - |
-| 2. Core Integration | 0/4 | Planned | - |
+| 1. Foundation | 5/5 | Complete | 2026-02-25 |
+| 2. Core Integration | 4/4 | Complete | 2026-02-25 |
 | 3. Theme System | 0/TBD | Not started | - |
 | 4. Public API and Release | 0/TBD | Not started | - |
