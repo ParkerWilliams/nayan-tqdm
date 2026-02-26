@@ -1,12 +1,12 @@
-"""construction theme -- Under construction with hazard pattern fill.
+"""construction theme -- Bulldozer building a road.
 
-A construction sign walks across a yellow/black hazard pattern.
-At completion, a check mark signals the work is done.
+A construction vehicle pushes along, leaving paved road behind it.
+At completion, the building is done.
 
 Rendering tiers:
-- emoji: Yellow/black ANSI hazard fill, construction emoji, check mark emoji
-- unicode: Yellow/black ANSI hazard fill, hard hat kaomoji, check mark
-- ascii: "#-" fill, "!" sprite, "[OK]" completion
+- emoji: Yellow/gray paved-road fill, construction sign emoji, house emoji
+- unicode: Yellow/gray ANSI block fill, bulldozer kaomoji, "[OK]" completion
+- ascii: Alternating "=-" fill, "[=]" / "[-]" sprite, "[OK]" completion
 """
 from __future__ import annotations
 
@@ -16,7 +16,7 @@ from ..registry import register_theme
 __all__: list[str] = []
 
 _YEL = "\033[33m"
-_BLK = "\033[30m"
+_GRAY = "\033[90m"
 _RST = "\033[0m"
 
 
@@ -30,16 +30,18 @@ def _create(tier: str) -> Animation:
 
 
 def _emoji() -> Animation:
-    # Hazard pattern: alternating yellow and dark blocks
+    # Alternating yellow/gray blocks -- looks like paved road or laid bricks
     fill = (
         f"{_YEL}\u2588{_RST}",
-        f"{_BLK}\u2588{_RST}",
+        f"{_GRAY}\u2588{_RST}",
         f"{_YEL}\u2588{_RST}",
-        f"{_BLK}\u2588{_RST}",
+        f"{_GRAY}\u2588{_RST}",
     )
-    sprite_a = Frame(lines=("\U0001f6a7",))     # construction sign emoji
+    # Construction sign emoji -- 2 display cols, consistent between frames
+    sprite_a = Frame(lines=("\U0001f6a7",))
     sprite_b = Frame(lines=("\U0001f6a7",))
-    completion = Frame(lines=("\u2714",))        # check mark
+    # House emoji -- "building complete!"
+    completion = Frame(lines=("\U0001f3e0",))
     return Animation(
         name="construction",
         frames=(sprite_a, sprite_b),
@@ -53,12 +55,12 @@ def _emoji() -> Animation:
 def _unicode() -> Animation:
     fill = (
         f"{_YEL}\u2588{_RST}",
-        f"{_BLK}\u2588{_RST}",
+        f"{_GRAY}\u2588{_RST}",
         f"{_YEL}\u2588{_RST}",
-        f"{_BLK}\u2588{_RST}",
+        f"{_GRAY}\u2588{_RST}",
     )
-    sprite_a = Frame(lines=("[!]",))
-    sprite_b = Frame(lines=("[!]",))
+    sprite_a = Frame(lines=("[=]",))
+    sprite_b = Frame(lines=("[-]",))
     completion = Frame(lines=("[OK]",))
     return Animation(
         name="construction",
@@ -71,9 +73,9 @@ def _unicode() -> Animation:
 
 
 def _ascii() -> Animation:
-    fill = ("#", "-")
-    sprite_a = Frame(lines=("!",))
-    sprite_b = Frame(lines=("!",))
+    fill = ("=", "-")
+    sprite_a = Frame(lines=("[=]",))
+    sprite_b = Frame(lines=("[-]",))
     completion = Frame(lines=("[OK]",))
     return Animation(
         name="construction",
