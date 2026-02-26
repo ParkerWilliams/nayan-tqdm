@@ -4,7 +4,7 @@ A locomotive chugs forward with steam billowing above and track
 texture below, filling the bar with railroad-colored blocks.
 
 Rendering tiers:
-- emoji: Dark ANSI railroad fill, locomotive emoji, steam/track decoration
+- emoji: ANSI yellow text-art rightward locomotive, dark fill, steam/track decoration
 - unicode: Same fill, "[TTT]" / "[===]" sprites, steam and track decoration
 - ascii: "=" and "-" fill, "[TTT]" sprite, "." and "o" steam decoration
 """
@@ -15,8 +15,9 @@ from ..registry import register_theme
 
 __all__: list[str] = []
 
+_YEL = "\033[33m"   # yellow (locomotive body)
 _DRK = "\033[90m"   # dark gray (rail ties)
-_BRN = "\033[33m"   # yellow/brown (wooden ties)
+_BRN = "\033[33m"   # yellow/brown (wooden ties) -- same as _YEL
 _RST = "\033[0m"
 
 
@@ -39,10 +40,10 @@ def _emoji() -> Animation:
         f"{_DRK}\u2588{_RST}",   # dark gray full block
         f"{_BRN}\u2592{_RST}",   # brown medium shade
     )
-    # Locomotive emoji is 2 cols; both frames identical for consistent width
-    sprite_a = Frame(lines=("\U0001f682",))    # locomotive (2 cols)
-    sprite_b = Frame(lines=("\U0001f682",))
-    completion = Frame(lines=("\U0001f682\u2605",))   # locomotive + star
+    # ANSI yellow text-art rightward locomotive -- 5 display cols each
+    sprite_a = Frame(lines=(f"{_YEL}[==>]{_RST}",))    # [==>] = 5 cols
+    sprite_b = Frame(lines=(f"{_YEL}[==>]{_RST}",))    # identical, animation from decoration
+    completion = Frame(lines=(f"{_YEL}[==>]{_RST}\u2605",))  # locomotive + star (6 cols)
 
     # Decoration: steam puffs above, track texture below
     dec_a = Frame(lines=(

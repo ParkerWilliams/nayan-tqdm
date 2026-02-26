@@ -323,6 +323,20 @@ def test_coffee_completion_has_star() -> None:
     assert "\u2605" in comp  # star
 
 
+@pytest.mark.parametrize("tier", TIERS)
+def test_coffee_has_decoration(tier: str) -> None:
+    anim = get_theme("coffee", tier)
+    assert anim.decoration is not None
+    assert anim.completion_decoration is not None
+
+
+def test_coffee_emoji_sprite_is_real_emoji() -> None:
+    """Coffee emoji tier must use actual U+2615, not text-art."""
+    anim = get_theme("coffee", "emoji")
+    sprite = anim.frames[0].lines[0]
+    assert "\u2615" in sprite  # hot beverage emoji
+
+
 def test_cat_yarn_completion_has_heart_eyes() -> None:
     anim = get_theme("cat_yarn", "emoji")
     assert anim.completion_frame is not None
@@ -372,7 +386,7 @@ def test_chase_themes_have_decoration(theme: str, tier: str) -> None:
 
 
 DECORATED_THEMES = [
-    "aurora", "cat_mouse", "cat_yarn", "duck_bread", "fire", "garden",
+    "aurora", "cat_mouse", "cat_yarn", "coffee", "duck_bread", "fire", "garden",
     "heartbeat", "lightning", "nyan", "rocket", "train", "wizard",
 ]
 
