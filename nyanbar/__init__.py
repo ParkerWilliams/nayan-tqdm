@@ -7,6 +7,7 @@ from __future__ import annotations
 from .core import NyanBar
 from .core import NyanBar as tqdm
 from .models import Animation, AnimationMode, Frame
+from .registry import set_theme, list_themes, get_theme
 
 __all__ = [
     "NyanBar",
@@ -15,6 +16,9 @@ __all__ = [
     "Animation",
     "AnimationMode",
     "Frame",
+    "set_theme",
+    "list_themes",
+    "get_theme",
 ]
 
 

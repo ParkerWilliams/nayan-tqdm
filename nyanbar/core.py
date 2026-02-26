@@ -17,6 +17,8 @@ from .formatters import EMA, format_meter
 from .fallback import should_use_fallback, render_fallback_bar
 from .engine import render_animation
 from .renderer import render_frame, erase_lines
+from .registry import get_theme, get_default_theme, resolve_render_tier
+import nyanbar.themes  # noqa: F401 -- trigger built-in theme registration
 
 __all__ = ["NyanBar"]
 
@@ -96,6 +98,8 @@ class NyanBar:
         position: int | None = None,
         postfix: dict | None = None,
         unit_divisor: int = 1000,
+        theme: str | None = None,
+        render_level: str | None = None,
         **kwargs: Any,
     ) -> None:
         self.iterable = iterable
@@ -142,8 +146,17 @@ class NyanBar:
             self._terminal, disable=self.disable, position=self.position,
         )
 
-        # Animation state (set by theme system in Phase 3)
-        self._animation = None  # Animation | None
+        # Theme resolution
+        self._animation = None
+        if not self.disable:
+            tier = resolve_render_tier(self._terminal, render_level)
+            theme_name = theme or get_default_theme()
+            try:
+                self._animation = get_theme(theme_name, tier)
+            except Exception:
+                # Safety net -- if theme loading fails, fall back to no animation
+                self._animation = None
+
         self._anim_thread: threading.Thread | None = None
         self._running = False
 
