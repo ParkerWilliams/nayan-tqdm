@@ -2,7 +2,7 @@
 
 ## Overview
 
-nyanbar is built in four phases that flow from pure/testable primitives outward to the tqdm integration boundary, then expand animation complexity one layer at a time, and finish with public API wiring and release. Phase 1 establishes the data model and rendering primitives before any tqdm code is touched. Phase 2 proves the display() contract and the full animation pipeline with single-line rendering only. Phase 3 adds the theme registry and all built-in themes, validating multi-line cursor logic with the hardest theme (nyan) before committing to the rest. Phase 4 wires the public API, finalizes the package, runs the release checklist, and ships to PyPI.
+nyanbar is a standalone, zero-dependency progress bar library built in four phases. Phase 1 establishes the data model, animation engine, ANSI renderer, and terminal detection as pure primitives. Phase 2 implements the core NyanBar class with tqdm-compatible API (without importing tqdm), single-line rendering, stats, and all fallback paths. Phase 3 adds the theme registry and all built-in themes with multi-line rendering support. Phase 4 wires the public API, finalizes the package, and ships to PyPI.
 
 ## Phases
 
@@ -13,14 +13,14 @@ nyanbar is built in four phases that flow from pure/testable primitives outward 
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [ ] **Phase 1: Foundation** - Pure primitives: Frame/Animation dataclasses, ANSI renderer, terminal detection
-- [ ] **Phase 2: Core Integration** - NyanBar tqdm subclass, display() contract, single-line cat_walk theme, all fallbacks
+- [ ] **Phase 2: Core Integration** - Standalone NyanBar class with tqdm-compatible API, single-line rendering, all fallbacks
 - [ ] **Phase 3: Theme System** - Lazy registry, multi-line rendering, all 5 built-in themes and completion frames
 - [ ] **Phase 4: Public API and Release** - __init__.py exports, pyproject.toml, test suite, PyPI publish
 
 ## Phase Details
 
 ### Phase 1: Foundation
-**Goal**: Pure primitives are tested and correct before any tqdm code is touched
+**Goal**: Pure primitives (dataclasses, renderer, terminal detection, animation engine) are tested and correct
 **Depends on**: Nothing (first phase)
 **Requirements**: FOUND-01, FOUND-02, FOUND-03, FOUND-04, FOUND-05, FOUND-06, FOUND-07, ANIM-01, ANIM-02, ANIM-03, ANIM-04, ANIM-05
 **Success Criteria** (what must be TRUE):
@@ -32,13 +32,13 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: TBD
 
 ### Phase 2: Core Integration
-**Goal**: Users can run `from nyanbar import tqdm` and see an animated cat_walk progress bar with correct stats, fallbacks, and terminal cleanup
+**Goal**: Users can run `from nyanbar import tqdm` and see an animated progress bar with correct stats, fallbacks, and terminal cleanup — zero dependencies
 **Depends on**: Phase 1
 **Requirements**: CORE-01, CORE-02, CORE-03, CORE-04, CORE-05, CORE-06, CORE-07, CORE-08, CORE-09, CORE-10, CORE-11, CORE-12
 **Success Criteria** (what must be TRUE):
-  1. `from nyanbar import tqdm; list(tqdm(range(100)))` runs without error and displays an animated single-line progress bar with percentage, rate, and ETA
+  1. `from nyanbar import tqdm; list(tqdm(range(100)))` runs without error and displays an animated single-line progress bar with percentage, rate, and ETA — no tqdm import occurs
   2. `trange(10)` works identically to `tqdm(range(10))` — same output, same kwargs accepted
-  3. Non-TTY, piped output, dumb terminal (TERM=dumb), and terminal width < 30 columns all fall back silently to standard tqdm rendering with no ANSI sequences emitted
+  3. Non-TTY, piped output, dumb terminal (TERM=dumb), and terminal width < 30 columns all fall back silently to a plain built-in text bar with no ANSI sequences emitted
   4. `leave=True` keeps the final bar on screen; `leave=False` cleans up all lines with no residual output; an exception raised inside the loop leaves the terminal in a clean state
   5. Two simultaneous NyanBar instances (nested bars) render without overwriting each other — nested bars use single-line fallback
 **Plans**: TBD
@@ -56,14 +56,14 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: TBD
 
 ### Phase 4: Public API and Release
-**Goal**: `pip install nyanbar` works and `from nyanbar import tqdm` is a complete, typed, tested drop-in replacement ready for public use
+**Goal**: `pip install nyanbar` works and `from nyanbar import tqdm` is a complete, zero-dependency, typed, tested drop-in replacement ready for public use
 **Depends on**: Phase 3
 **Requirements**: API-01, API-02, API-03, TEST-01, TEST-02, TEST-03, TEST-04, TEST-05
 **Success Criteria** (what must be TRUE):
   1. `from nyanbar import tqdm, trange, set_theme, Animation, Frame, list_themes, get_theme` all resolve without ImportError
   2. mypy --strict passes on the entire nyanbar package with py.typed present
   3. `pytest` passes all tests in under 2 seconds each; coverage includes tqdm compatibility, renderer output, all 5 themes at 5 progress points, and all 3 fallback conditions
-  4. `pip install nyanbar` from PyPI installs successfully on Python 3.10+ with tqdm as the only runtime dependency
+  4. `pip install nyanbar` from PyPI installs successfully on Python 3.10+ with zero runtime dependencies
 **Plans**: TBD
 
 ## Progress

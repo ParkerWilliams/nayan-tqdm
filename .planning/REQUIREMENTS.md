@@ -1,7 +1,7 @@
 # Requirements: nyanbar
 
 **Defined:** 2026-02-25
-**Core Value:** Drop-in tqdm compatibility — `from nyanbar import tqdm` must work everywhere `from tqdm import tqdm` works
+**Core Value:** tqdm-compatible API with zero dependencies — standalone reimplementation of tqdm's user-facing API
 
 ## v1 Requirements
 
@@ -11,7 +11,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [ ] **FOUND-01**: Frame and Animation dataclasses define sprite data with frozen immutability
 - [ ] **FOUND-02**: Animation.render() returns correct frame lines for given progress, width, and elapsed time
-- [ ] **FOUND-03**: Frame width uses terminal display width (disp_len), not Python len()
+- [ ] **FOUND-03**: Frame width uses terminal display width (custom disp_len), not Python len()
 - [ ] **FOUND-04**: Terminal detection identifies TTY, color support, terminal width, and notebook environments
 - [ ] **FOUND-05**: ANSI renderer produces correct cursor-up, clear-line, and color reset escape sequences
 - [ ] **FOUND-06**: Renderer handles multi-line frame erase with correct prev_height tracking
@@ -19,18 +19,18 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Core Compatibility
 
-- [ ] **CORE-01**: NyanBar subclasses tqdm.tqdm and passes through all standard tqdm kwargs
+- [ ] **CORE-01**: NyanBar implements tqdm-compatible API (total, desc, unit, disable, file, etc.) with zero dependencies
 - [ ] **CORE-02**: `from nyanbar import tqdm` works as a drop-in replacement for `from tqdm import tqdm`
 - [ ] **CORE-03**: `trange(n)` shorthand works identically to `tqdm(range(n))`
-- [ ] **CORE-04**: display() override correctly handles msg=None (render animation) vs msg='' (erase) vs msg=string (passthrough)
-- [ ] **CORE-05**: Non-TTY and piped output falls back to standard tqdm rendering with no ANSI sequences
-- [ ] **CORE-06**: Dumb terminal (TERM=dumb) falls back to standard tqdm rendering
-- [ ] **CORE-07**: Terminal width < 30 columns falls back to plain tqdm
+- [ ] **CORE-04**: NyanBar implements __iter__, __enter__/__exit__, update(), close(), set_description(), set_postfix()
+- [ ] **CORE-05**: Non-TTY and piped output falls back to plain built-in text bar with no ANSI sequences
+- [ ] **CORE-06**: Dumb terminal (TERM=dumb) falls back to plain built-in text bar
+- [ ] **CORE-07**: Terminal width < 30 columns falls back to plain built-in text bar
 - [ ] **CORE-08**: Stats display (percentage, rate, ETA) renders alongside animation
 - [ ] **CORE-09**: leave=True preserves final animation frame; leave=False cleans up all lines
 - [ ] **CORE-10**: Nested bars (position > 0) disable multi-line and use single-line fallback
 - [ ] **CORE-11**: Exception during iteration cleans up terminal state correctly
-- [ ] **CORE-12**: Thread safety is maintained through tqdm's existing lock mechanism
+- [ ] **CORE-12**: Thread safety via threading.Lock for concurrent access
 
 ### Themes
 
@@ -61,7 +61,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Testing
 
-- [ ] **TEST-01**: Test suite covers core tqdm compatibility (all standard kwargs work)
+- [ ] **TEST-01**: Test suite covers tqdm API compatibility (all standard kwargs work)
 - [ ] **TEST-02**: Test suite covers ANSI renderer output correctness
 - [ ] **TEST-03**: Test suite covers each theme renders without error at 0%, 25%, 50%, 75%, 100%
 - [ ] **TEST-04**: Test suite covers fallback behavior in non-TTY, dumb terminal, and narrow terminal
@@ -79,7 +79,7 @@ Deferred to future release. Tracked but not in current roadmap.
 ### Platform
 
 - **PLAT-01**: Windows colorama integration for cmd.exe ANSI support
-- **PLAT-02**: asyncio native support beyond inherited tqdm.asyncio
+- **PLAT-02**: asyncio native support
 
 ### Ecosystem
 
@@ -96,11 +96,12 @@ Deferred to future release. Tracked but not in current roadmap.
 
 | Feature | Reason |
 |---------|--------|
-| Jupyter HTML/CSS rendering | Separate rendering model, high complexity; tqdm.notebook fallback is acceptable for v1 |
+| Jupyter HTML/CSS rendering | Separate rendering model, high complexity; v1 falls back to plain text bar |
 | Rich library integration | Fundamentally incompatible output model (Rich owns the console) |
 | curses-based rendering | Windows-incompatible, overkill for the use case |
 | External asset files for themes | Breaks packaging simplicity; all frames defined inline in Python |
-| Runtime dependencies beyond tqdm | Zero extra deps is a core design constraint |
+| Any runtime dependencies | nyanbar is zero-dependency by design |
+| tqdm as a dependency | Standalone reimplementation, no import of tqdm |
 | Mobile/GUI version | Terminal-only library |
 | Config files for default themes | set_theme() at script top is sufficient |
 
