@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Foundation** - Pure primitives: Frame/Animation dataclasses, ANSI renderer, terminal detection (2026-02-25)
 - [x] **Phase 2: Core Integration** - Standalone NyanBar class with tqdm-compatible API, single-line rendering, all fallbacks (2026-02-25)
 - [x] **Phase 3: Theme System** - Lazy registry, multi-line rendering, all 5 built-in themes and completion frames (2026-02-25)
-- [ ] **Phase 4: Public API and Release** - __init__.py exports, pyproject.toml, test suite, PyPI publish
+- [x] **Phase 4: Public API and Release** - __init__.py exports, pyproject.toml, test suite, PyPI publish (2026-02-25)
 
 ## Phase Details
 
@@ -78,7 +78,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. mypy --strict passes on the entire nyanbar package with py.typed present
   3. `pytest` passes all tests in under 2 seconds each; coverage includes tqdm compatibility, renderer output, all 5 themes at 5 progress points, and all 3 fallback conditions
   4. `pip install nyanbar` from PyPI installs successfully on Python 3.10+ with zero runtime dependencies
-**Plans**: TBD
+**Plans**: 4 plans
+- [x] 04-01-PLAN.md — pyproject.toml + mypy --strict compliance
+- [x] 04-02-PLAN.md — Test reorganization into 4 domain files
+- [x] 04-03-PLAN.md — README + LICENSE
+- [x] 04-04-PLAN.md — Build verification + clean install + publish checkpoint
 
 ## Progress
 
@@ -90,4 +94,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | 1. Foundation | 5/5 | Complete | 2026-02-25 |
 | 2. Core Integration | 4/4 | Complete | 2026-02-25 |
 | 3. Theme System | 5/5 | Complete | 2026-02-25 |
-| 4. Public API and Release | 0/TBD | Not started | - |
+| 4. Public API and Release | 4/4 | Complete | 2026-02-25 |

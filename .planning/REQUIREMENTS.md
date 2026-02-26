@@ -55,17 +55,17 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Public API
 
-- [ ] **API-01**: __init__.py exports tqdm, trange, set_theme, Animation, Frame, list_themes, get_theme
-- [ ] **API-02**: py.typed marker file present for PEP 561 type checking support
-- [ ] **API-03**: pyproject.toml configured with correct metadata, dependencies, and build system
+- [x] **API-01**: __init__.py exports tqdm, trange, set_theme, Animation, Frame, list_themes, get_theme
+- [x] **API-02**: py.typed marker file present for PEP 561 type checking support
+- [x] **API-03**: pyproject.toml configured with correct metadata, dependencies, and build system
 
 ### Testing
 
-- [ ] **TEST-01**: Test suite covers tqdm API compatibility (all standard kwargs work)
-- [ ] **TEST-02**: Test suite covers ANSI renderer output correctness
-- [ ] **TEST-03**: Test suite covers each theme renders without error at 0%, 25%, 50%, 75%, 100%
-- [ ] **TEST-04**: Test suite covers fallback behavior in non-TTY, dumb terminal, and narrow terminal
-- [ ] **TEST-05**: All tests complete in under 2 seconds each
+- [x] **TEST-01**: Test suite covers tqdm API compatibility (all standard kwargs work)
+- [x] **TEST-02**: Test suite covers ANSI renderer output correctness
+- [x] **TEST-03**: Test suite covers each theme renders without error at 0%, 25%, 50%, 75%, 100%
+- [x] **TEST-04**: Test suite covers fallback behavior in non-TTY, dumb terminal, and narrow terminal
+- [x] **TEST-05**: All tests complete in under 2 seconds each
 
 ## v2 Requirements
 
@@ -145,14 +145,14 @@ Which phases cover which requirements. Updated during roadmap creation.
 | THEME-08 | Phase 3 | Complete |
 | THEME-09 | Phase 3 | Complete |
 | THEME-10 | Phase 3 | Complete |
-| API-01 | Phase 4 | Pending |
-| API-02 | Phase 4 | Pending |
-| API-03 | Phase 4 | Pending |
-| TEST-01 | Phase 4 | Pending |
-| TEST-02 | Phase 4 | Pending |
-| TEST-03 | Phase 4 | Pending |
-| TEST-04 | Phase 4 | Pending |
-| TEST-05 | Phase 4 | Pending |
+| API-01 | Phase 4 | Complete |
+| API-02 | Phase 4 | Complete |
+| API-03 | Phase 4 | Complete |
+| TEST-01 | Phase 4 | Complete |
+| TEST-02 | Phase 4 | Complete |
+| TEST-03 | Phase 4 | Complete |
+| TEST-04 | Phase 4 | Complete |
+| TEST-05 | Phase 4 | Complete |
 
 **Coverage:**
 - v1 requirements: 42 total
@@ -161,4 +161,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-02-25*
-*Last updated: 2026-02-25 after Phase 3 completion*
+*Last updated: 2026-02-25 after Phase 4 completion*
