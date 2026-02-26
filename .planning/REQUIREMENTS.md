@@ -26,7 +26,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **CORE-05**: Non-TTY and piped output falls back to plain built-in text bar with no ANSI sequences
 - [ ] **CORE-06**: Dumb terminal (TERM=dumb) falls back to plain built-in text bar
 - [ ] **CORE-07**: Terminal width < 30 columns falls back to plain built-in text bar
-- [ ] **CORE-08**: Stats display (percentage, rate, ETA) renders alongside animation
+- [x] **CORE-08**: Stats display (percentage, rate, ETA) renders alongside animation
 - [ ] **CORE-09**: leave=True preserves final animation frame; leave=False cleans up all lines
 - [ ] **CORE-10**: Nested bars (position > 0) disable multi-line and use single-line fallback
 - [ ] **CORE-11**: Exception during iteration cleans up terminal state correctly
@@ -130,7 +130,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CORE-05 | Phase 2 | Pending |
 | CORE-06 | Phase 2 | Pending |
 | CORE-07 | Phase 2 | Pending |
-| CORE-08 | Phase 2 | Pending |
+| CORE-08 | Phase 2 | Complete |
 | CORE-09 | Phase 2 | Pending |
 | CORE-10 | Phase 2 | Pending |
 | CORE-11 | Phase 2 | Pending |
