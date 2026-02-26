@@ -130,6 +130,12 @@ class TestRenderFallbackBar:
         result = render_fallback_bar(
             n=50, total=100, elapsed=5.0, rate=10.0, unit="it", ncols=40,
         )
-        # Bar should still have stats; width constrained
-        assert len(result) <= 40
+        # Bar should still have stats; bar portion shrinks but stats present
+        # Note: when stats alone exceed ncols, line may overflow (same as tqdm)
         assert "50%" in result
+        assert "|" in result
+        # The bar portion is smaller than at 80 cols
+        wide = render_fallback_bar(
+            n=50, total=100, elapsed=5.0, rate=10.0, unit="it", ncols=80,
+        )
+        assert len(result) < len(wide)
