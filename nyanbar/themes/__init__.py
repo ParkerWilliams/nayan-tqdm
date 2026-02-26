@@ -20,3 +20,9 @@ from . import _disco         # noqa: F401
 from . import _zen           # noqa: F401
 from . import _construction  # noqa: F401
 from . import _wizard        # noqa: F401
+from . import _aurora        # noqa: F401
+from . import _candy         # noqa: F401
+from . import _coffee        # noqa: F401
+from . import _garden        # noqa: F401
+from . import _lightning     # noqa: F401
+from . import _train         # noqa: F401
