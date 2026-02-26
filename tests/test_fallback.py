@@ -30,8 +30,14 @@ class TestShouldUseFallback:
         info = self._make_info(is_tty=False)
         assert should_use_fallback(info) is True
 
-    def test_fallback_dumb_terminal(self):
+    def test_dumb_terminal_tty_allows_animation(self):
+        """Dumb TTY terminals get ASCII-tier animation, not plain fallback."""
         info = self._make_info(color_support=ColorTier.NONE)
+        assert should_use_fallback(info) is False
+
+    def test_non_tty_no_color_uses_fallback(self):
+        """Non-TTY with no color still falls back (piped output)."""
+        info = self._make_info(is_tty=False, color_support=ColorTier.NONE)
         assert should_use_fallback(info) is True
 
     def test_fallback_narrow_terminal(self):

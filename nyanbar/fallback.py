@@ -40,8 +40,8 @@ def should_use_fallback(
         return True
     if not info.is_tty:
         return True
-    if info.color_support == ColorTier.NONE:
-        return True
+    # Note: ColorTier.NONE on a TTY (dumb terminal) does NOT force fallback.
+    # Dumb TTY terminals get ASCII-tier theme animation instead.
     if info.width < 30:
         return True
     if position is not None and position > 0:
