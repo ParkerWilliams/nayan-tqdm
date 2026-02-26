@@ -46,7 +46,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Non-TTY, piped output, dumb terminal (TERM=dumb), and terminal width < 30 columns all fall back silently to a plain built-in text bar with no ANSI sequences emitted
   4. `leave=True` keeps the final bar on screen; `leave=False` cleans up all lines with no residual output; an exception raised inside the loop leaves the terminal in a clean state
   5. Two simultaneous NyanBar instances (nested bars) render without overwriting each other — nested bars use single-line fallback
-**Plans**: TBD
+**Plans**: 4 plans
+- [ ] 02-01-PLAN.md — Stats formatting utilities: EMA, SI format, interval format, meter string (TDD)
+- [ ] 02-02-PLAN.md — Fallback rendering: decision logic and plain text bar (TDD)
+- [ ] 02-03-PLAN.md — NyanBar class core with tqdm-compatible API and public aliases
+- [ ] 02-04-PLAN.md — Animation thread, refresh throttle, leave/cleanup, thread safety (TDD)
 
 ### Phase 3: Theme System
 **Goal**: Users can select any of 5 built-in themes by name and see correct multi-line animations through 100% completion
@@ -79,6 +83,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 0/5 | Planned | - |
-| 2. Core Integration | 0/TBD | Not started | - |
+| 2. Core Integration | 0/4 | Planned | - |
 | 3. Theme System | 0/TBD | Not started | - |
 | 4. Public API and Release | 0/TBD | Not started | - |
