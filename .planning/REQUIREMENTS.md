@@ -11,8 +11,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [ ] **FOUND-01**: Frame and Animation dataclasses define sprite data with frozen immutability
 - [ ] **FOUND-02**: Animation.render() returns correct frame lines for given progress, width, and elapsed time
-- [ ] **FOUND-03**: Frame width uses terminal display width (custom disp_len), not Python len()
-- [ ] **FOUND-04**: Terminal detection identifies TTY, color support, terminal width, and notebook environments
+- [x] **FOUND-03**: Frame width uses terminal display width (custom disp_len), not Python len()
+- [x] **FOUND-04**: Terminal detection identifies TTY, color support, terminal width, and notebook environments
 - [ ] **FOUND-05**: ANSI renderer produces correct cursor-up, clear-line, and color reset escape sequences
 - [ ] **FOUND-06**: Renderer handles multi-line frame erase with correct prev_height tracking
 - [ ] **FOUND-07**: All ANSI color sequences are properly closed with reset codes
@@ -113,8 +113,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 |-------------|-------|--------|
 | FOUND-01 | Phase 1 | Pending |
 | FOUND-02 | Phase 1 | Pending |
-| FOUND-03 | Phase 1 | Pending |
-| FOUND-04 | Phase 1 | Pending |
+| FOUND-03 | Phase 1 | Complete |
+| FOUND-04 | Phase 1 | Complete |
 | FOUND-05 | Phase 1 | Pending |
 | FOUND-06 | Phase 1 | Pending |
 | FOUND-07 | Phase 1 | Pending |
