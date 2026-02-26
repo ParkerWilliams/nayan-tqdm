@@ -162,7 +162,10 @@ class NyanBar:
 
         # Render initial state
         if not self.disable:
-            self._refresh()
+            if not self._use_fallback and self._animation is not None:
+                self._render_animation_frame()
+            else:
+                self._refresh()
 
     def __iter__(self) -> Iterator[Any]:
         """Yield each item from the wrapped iterable, updating progress."""
@@ -379,6 +382,16 @@ class NyanBar:
 
     def _refresh(self) -> None:
         """Refresh the display with current progress."""
+        # When animation thread is running, it handles all rendering
+        if self._running:
+            return
+
+        # When animation is available but thread hasn't started yet
+        # (e.g. manual update() mode), render animation frame directly
+        if not self._use_fallback and self._animation is not None:
+            self._render_animation_frame()
+            return
+
         elapsed = time.monotonic() - self._start_t
         rate = self._compute_rate()
         ncols = self._effective_width()
