@@ -19,10 +19,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Core Compatibility
 
-- [ ] **CORE-01**: NyanBar implements tqdm-compatible API (total, desc, unit, disable, file, etc.) with zero dependencies
-- [ ] **CORE-02**: `from nyanbar import tqdm` works as a drop-in replacement for `from tqdm import tqdm`
-- [ ] **CORE-03**: `trange(n)` shorthand works identically to `tqdm(range(n))`
-- [ ] **CORE-04**: NyanBar implements __iter__, __enter__/__exit__, update(), close(), set_description(), set_postfix()
+- [x] **CORE-01**: NyanBar implements tqdm-compatible API (total, desc, unit, disable, file, etc.) with zero dependencies
+- [x] **CORE-02**: `from nyanbar import tqdm` works as a drop-in replacement for `from tqdm import tqdm`
+- [x] **CORE-03**: `trange(n)` shorthand works identically to `tqdm(range(n))`
+- [x] **CORE-04**: NyanBar implements __iter__, __enter__/__exit__, update(), close(), set_description(), set_postfix()
 - [x] **CORE-05**: Non-TTY and piped output falls back to plain built-in text bar with no ANSI sequences
 - [x] **CORE-06**: Dumb terminal (TERM=dumb) falls back to plain built-in text bar
 - [x] **CORE-07**: Terminal width < 30 columns falls back to plain built-in text bar
@@ -123,10 +123,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | ANIM-03 | Phase 1 | Complete |
 | ANIM-04 | Phase 1 | Complete |
 | ANIM-05 | Phase 1 | Complete |
-| CORE-01 | Phase 2 | Pending |
-| CORE-02 | Phase 2 | Pending |
-| CORE-03 | Phase 2 | Pending |
-| CORE-04 | Phase 2 | Pending |
+| CORE-01 | Phase 2 | Complete |
+| CORE-02 | Phase 2 | Complete |
+| CORE-03 | Phase 2 | Complete |
+| CORE-04 | Phase 2 | Complete |
 | CORE-05 | Phase 2 | Complete |
 | CORE-06 | Phase 2 | Complete |
 | CORE-07 | Phase 2 | Complete |
