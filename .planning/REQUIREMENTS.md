@@ -34,16 +34,16 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Themes
 
-- [ ] **THEME-01**: Theme registry supports lazy loading of theme modules
-- [ ] **THEME-02**: get_theme(), list_themes() API for theme discovery
-- [ ] **THEME-03**: set_theme() sets global default theme; theme= kwarg sets per-instance theme
-- [ ] **THEME-04**: cat_walk theme renders single-line cat walking across bar with progress
-- [ ] **THEME-05**: cat_bounce theme renders 2-line cat bouncing above filled bar
-- [ ] **THEME-06**: nyan theme renders 3-line nyan cat with rainbow trail and twinkling stars
-- [ ] **THEME-07**: fish theme renders 3-line swimming fish with rising water level
-- [ ] **THEME-08**: rocket theme renders 4-line rocket launching with flame animation
-- [ ] **THEME-09**: Themes define completion frames (cat sits, rocket in space, etc.)
-- [ ] **THEME-10**: Color themes gracefully degrade on non-color terminals
+- [x] **THEME-01**: Theme registry supports lazy loading of theme modules
+- [x] **THEME-02**: get_theme(), list_themes() API for theme discovery
+- [x] **THEME-03**: set_theme() sets global default theme; theme= kwarg sets per-instance theme
+- [x] **THEME-04**: cat_walk theme renders single-line cat walking across bar with progress
+- [x] **THEME-05**: cat_bounce theme renders 2-line cat bouncing above filled bar
+- [x] **THEME-06**: nyan theme renders 3-line nyan cat with rainbow trail and twinkling stars
+- [x] **THEME-07**: fish theme renders 3-line swimming fish with rising water level
+- [x] **THEME-08**: rocket theme renders 4-line rocket launching with flame animation
+- [x] **THEME-09**: Themes define completion frames (cat sits, rocket in space, etc.)
+- [x] **THEME-10**: Color themes gracefully degrade on non-color terminals
 
 ### Animation Engine
 
@@ -135,16 +135,16 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CORE-10 | Phase 2 | Complete |
 | CORE-11 | Phase 2 | Complete |
 | CORE-12 | Phase 2 | Complete |
-| THEME-01 | Phase 3 | Pending |
-| THEME-02 | Phase 3 | Pending |
-| THEME-03 | Phase 3 | Pending |
-| THEME-04 | Phase 3 | Pending |
-| THEME-05 | Phase 3 | Pending |
-| THEME-06 | Phase 3 | Pending |
-| THEME-07 | Phase 3 | Pending |
-| THEME-08 | Phase 3 | Pending |
-| THEME-09 | Phase 3 | Pending |
-| THEME-10 | Phase 3 | Pending |
+| THEME-01 | Phase 3 | Complete |
+| THEME-02 | Phase 3 | Complete |
+| THEME-03 | Phase 3 | Complete |
+| THEME-04 | Phase 3 | Complete |
+| THEME-05 | Phase 3 | Complete |
+| THEME-06 | Phase 3 | Complete |
+| THEME-07 | Phase 3 | Complete |
+| THEME-08 | Phase 3 | Complete |
+| THEME-09 | Phase 3 | Complete |
+| THEME-10 | Phase 3 | Complete |
 | API-01 | Phase 4 | Pending |
 | API-02 | Phase 4 | Pending |
 | API-03 | Phase 4 | Pending |
@@ -161,4 +161,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-02-25*
-*Last updated: 2026-02-25 after roadmap creation*
+*Last updated: 2026-02-25 after Phase 3 completion*
