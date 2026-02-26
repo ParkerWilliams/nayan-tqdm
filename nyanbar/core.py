@@ -15,6 +15,8 @@ from typing import IO, Any
 from .terminal import detect_terminal, ColorTier
 from .formatters import EMA, format_meter
 from .fallback import should_use_fallback, render_fallback_bar
+from .engine import render_animation
+from .renderer import render_frame, erase_lines
 
 __all__ = ["NyanBar"]
 
@@ -160,6 +162,9 @@ class NyanBar:
             yield from self.iterable
             return
 
+        # Start animation thread if we have an animation and not in fallback
+        self._start_animation_thread()
+
         # Hot-path local variables
         mininterval = self.mininterval
         miniters = self._miniters
@@ -167,25 +172,35 @@ class NyanBar:
         last_print_t = self._last_print_t
         n = self.n
 
-        for obj in self.iterable:
-            yield obj
-            n += 1
+        try:
+            for obj in self.iterable:
+                yield obj
+                n += 1
 
-            if n - last_print_n >= miniters:
-                cur_t = time.monotonic()
-                dt = cur_t - last_print_t
-                if dt >= mininterval:
-                    self.n = n
-                    dn = n - last_print_n
-                    self._ema_dn.update(dn)
-                    self._ema_dt.update(dt)
-                    self._refresh()
-                    last_print_n = n
-                    last_print_t = cur_t
-                    self._last_print_n = last_print_n
-                    self._last_print_t = last_print_t
-                    self._auto_tune_miniters(dn, dt)
-                    miniters = self._miniters
+                if n - last_print_n >= miniters:
+                    cur_t = time.monotonic()
+                    dt = cur_t - last_print_t
+                    if dt >= mininterval:
+                        self.n = n
+                        dn = n - last_print_n
+                        self._ema_dn.update(dn)
+                        self._ema_dt.update(dt)
+                        self._refresh()
+                        last_print_n = n
+                        last_print_t = cur_t
+                        self._last_print_n = last_print_n
+                        self._last_print_t = last_print_t
+                        self._auto_tune_miniters(dn, dt)
+                        miniters = self._miniters
+        except GeneratorExit:
+            # Generator was garbage collected or closed externally
+            self.n = n
+            self.close()
+            return
+        except BaseException:
+            self.n = n
+            self.close()
+            raise
 
         self.n = n
         self.close()
@@ -222,7 +237,7 @@ class NyanBar:
         if self._closed:
             return
         self._closed = True
-        self._running = False
+        self._stop_animation_thread()
 
         if self.disable:
             return
@@ -233,7 +248,6 @@ class NyanBar:
                 self.file.write("\n")
             else:
                 if self._prev_height > 0:
-                    from .renderer import erase_lines
                     erase_lines(self.file, self._prev_height)
                 elif self._terminal.is_tty:
                     # Fallback mode: single line, just erase it
@@ -284,6 +298,71 @@ class NyanBar:
         fp.write(s + end)
         fp.flush()
 
+    # ── Animation thread ───────────────────────────────────────
+
+    def _start_animation_thread(self) -> None:
+        """Start the background animation thread if appropriate."""
+        if self._use_fallback or self.disable or self._animation is None:
+            return
+        if self._running:
+            return  # already started
+        self._running = True
+        t = threading.Thread(target=self._animation_loop, daemon=True)
+        t.start()
+        self._anim_thread = t
+
+    def _stop_animation_thread(self) -> None:
+        """Signal the animation thread to stop."""
+        self._running = False
+        # Don't join -- daemon thread dies naturally
+
+    def _animation_loop(self) -> None:
+        """Background animation loop.  Lock held only during render."""
+        fps = self._animation.fps if self._animation else 12.0
+        interval = 1.0 / fps
+        while self._running:
+            time.sleep(interval)
+            with self._lock:
+                if not self._running or self._closed:
+                    break
+                self._render_animation_frame()
+
+    def _render_animation_frame(self) -> None:
+        """Render one animation frame.  Called from daemon thread with lock held."""
+        if self._animation is None:
+            return
+        elapsed = time.monotonic() - self._start_t
+        progress = (self.n / self.total) if self.total and self.total > 0 else 0.0
+        ncols = self._effective_width()
+
+        # Get animation lines
+        anim_lines = render_animation(
+            self._animation, progress, ncols, elapsed,
+        )
+
+        # Get stats string
+        rate = self._compute_rate()
+        stats = format_meter(
+            n=self.n,
+            total=self.total,
+            elapsed=elapsed,
+            rate=rate,
+            unit=self.unit,
+            ncols=ncols,
+            desc=self._desc,
+            postfix_str=self._postfix_str,
+            unit_scale=self.unit_scale,
+        )
+
+        # Compose: animation lines + stats on last line
+        if anim_lines:
+            composed = list(anim_lines)
+            composed.append(stats)
+        else:
+            composed = [stats]
+
+        self._prev_height = render_frame(composed, self._prev_height, self.file)
+
     # ── Internal methods ─────────────────────────────────────
 
     def _refresh(self) -> None:
@@ -316,22 +395,35 @@ class NyanBar:
         rate = self._compute_rate()
         ncols = self._effective_width()
 
-        line = render_fallback_bar(
-            n=self.n,
-            total=self.total,
-            elapsed=elapsed,
-            rate=rate,
-            unit=self.unit,
-            ncols=ncols,
-            desc=self._desc,
-            postfix_str=self._postfix_str,
-            unit_scale=self.unit_scale,
-        )
-
-        if self._terminal.is_tty:
-            self.file.write("\r" + line)
+        if self._animation is not None and not self._use_fallback:
+            # Render final animation frame (completion state)
+            anim_lines = render_animation(
+                self._animation, 1.0, ncols, elapsed,
+            )
+            stats = format_meter(
+                n=self.n, total=self.total, elapsed=elapsed, rate=rate,
+                unit=self.unit, ncols=ncols, desc=self._desc,
+                postfix_str=self._postfix_str, unit_scale=self.unit_scale,
+            )
+            composed = list(anim_lines) + [stats] if anim_lines else [stats]
+            self._prev_height = render_frame(composed, self._prev_height, self.file)
         else:
-            self.file.write(line)
+            line = render_fallback_bar(
+                n=self.n,
+                total=self.total,
+                elapsed=elapsed,
+                rate=rate,
+                unit=self.unit,
+                ncols=ncols,
+                desc=self._desc,
+                postfix_str=self._postfix_str,
+                unit_scale=self.unit_scale,
+            )
+
+            if self._terminal.is_tty:
+                self.file.write("\r" + line)
+            else:
+                self.file.write(line)
 
     def _compute_rate(self) -> float | None:
         """Compute current iteration rate from EMA."""
