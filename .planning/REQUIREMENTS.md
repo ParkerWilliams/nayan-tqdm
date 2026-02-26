@@ -110,54 +110,54 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FOUND-01 | — | Pending |
-| FOUND-02 | — | Pending |
-| FOUND-03 | — | Pending |
-| FOUND-04 | — | Pending |
-| FOUND-05 | — | Pending |
-| FOUND-06 | — | Pending |
-| FOUND-07 | — | Pending |
-| CORE-01 | — | Pending |
-| CORE-02 | — | Pending |
-| CORE-03 | — | Pending |
-| CORE-04 | — | Pending |
-| CORE-05 | — | Pending |
-| CORE-06 | — | Pending |
-| CORE-07 | — | Pending |
-| CORE-08 | — | Pending |
-| CORE-09 | — | Pending |
-| CORE-10 | — | Pending |
-| CORE-11 | — | Pending |
-| CORE-12 | — | Pending |
-| THEME-01 | — | Pending |
-| THEME-02 | — | Pending |
-| THEME-03 | — | Pending |
-| THEME-04 | — | Pending |
-| THEME-05 | — | Pending |
-| THEME-06 | — | Pending |
-| THEME-07 | — | Pending |
-| THEME-08 | — | Pending |
-| THEME-09 | — | Pending |
-| THEME-10 | — | Pending |
-| ANIM-01 | — | Pending |
-| ANIM-02 | — | Pending |
-| ANIM-03 | — | Pending |
-| ANIM-04 | — | Pending |
-| ANIM-05 | — | Pending |
-| API-01 | — | Pending |
-| API-02 | — | Pending |
-| API-03 | — | Pending |
-| TEST-01 | — | Pending |
-| TEST-02 | — | Pending |
-| TEST-03 | — | Pending |
-| TEST-04 | — | Pending |
-| TEST-05 | — | Pending |
+| FOUND-01 | Phase 1 | Pending |
+| FOUND-02 | Phase 1 | Pending |
+| FOUND-03 | Phase 1 | Pending |
+| FOUND-04 | Phase 1 | Pending |
+| FOUND-05 | Phase 1 | Pending |
+| FOUND-06 | Phase 1 | Pending |
+| FOUND-07 | Phase 1 | Pending |
+| ANIM-01 | Phase 1 | Pending |
+| ANIM-02 | Phase 1 | Pending |
+| ANIM-03 | Phase 1 | Pending |
+| ANIM-04 | Phase 1 | Pending |
+| ANIM-05 | Phase 1 | Pending |
+| CORE-01 | Phase 2 | Pending |
+| CORE-02 | Phase 2 | Pending |
+| CORE-03 | Phase 2 | Pending |
+| CORE-04 | Phase 2 | Pending |
+| CORE-05 | Phase 2 | Pending |
+| CORE-06 | Phase 2 | Pending |
+| CORE-07 | Phase 2 | Pending |
+| CORE-08 | Phase 2 | Pending |
+| CORE-09 | Phase 2 | Pending |
+| CORE-10 | Phase 2 | Pending |
+| CORE-11 | Phase 2 | Pending |
+| CORE-12 | Phase 2 | Pending |
+| THEME-01 | Phase 3 | Pending |
+| THEME-02 | Phase 3 | Pending |
+| THEME-03 | Phase 3 | Pending |
+| THEME-04 | Phase 3 | Pending |
+| THEME-05 | Phase 3 | Pending |
+| THEME-06 | Phase 3 | Pending |
+| THEME-07 | Phase 3 | Pending |
+| THEME-08 | Phase 3 | Pending |
+| THEME-09 | Phase 3 | Pending |
+| THEME-10 | Phase 3 | Pending |
+| API-01 | Phase 4 | Pending |
+| API-02 | Phase 4 | Pending |
+| API-03 | Phase 4 | Pending |
+| TEST-01 | Phase 4 | Pending |
+| TEST-02 | Phase 4 | Pending |
+| TEST-03 | Phase 4 | Pending |
+| TEST-04 | Phase 4 | Pending |
+| TEST-05 | Phase 4 | Pending |
 
 **Coverage:**
-- v1 requirements: 40 total
-- Mapped to phases: 0
-- Unmapped: 40 ⚠️
+- v1 requirements: 42 total
+- Mapped to phases: 42
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-25*
-*Last updated: 2026-02-25 after initial definition*
+*Last updated: 2026-02-25 after roadmap creation*
