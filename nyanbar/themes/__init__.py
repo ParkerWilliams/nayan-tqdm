@@ -10,7 +10,6 @@ from . import _shrug         # noqa: F401
 from . import _deal_with_it  # noqa: F401
 from . import _lenny         # noqa: F401
 from . import _mario         # noqa: F401
-from . import _pac_man       # noqa: F401
 from . import _snake         # noqa: F401
 from . import _rocket        # noqa: F401
 from . import _fire          # noqa: F401
