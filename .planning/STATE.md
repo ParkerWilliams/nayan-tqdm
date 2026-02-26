@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-02-25)
 Phase: 3 of 4 (Theme System) -- COMPLETE
 Plan: 5 of 5 in current phase
 Status: Phase 3 verified and complete
-Last activity: 2026-02-26 - Completed quick task 2: rework construction, pac_man, wizard, disco themes + indeterminate demo
+Last activity: 2026-02-26 - Completed quick task 3: cut pac_man, rework fire/heartbeat/wizard/rocket with decoration, add 6 new themes (23 total)
 
 Progress: [███████████████] 75% (3 of 4 phases)
 
@@ -52,6 +52,9 @@ Recent decisions affecting current work:
 - [quick-1]: demo.py uses list_themes() dynamically so future themes are auto-included
 - [quick-2]: pac_man uses yellow ANSI text-art "<"/"-" (1 col) not emoji circles for iconic wedge shape
 - [quick-2]: disco fill uses sparkle/diamond unicode chars in magenta/cyan/white vs nyan's solid rainbow blocks
+- [quick-3]: U+26A1 (lightning bolt) is 2 display cols -- use U+2607 for 1-col sprite
+- [quick-3]: U+2615 (coffee emoji) is 2 display cols -- use text-art c[_] sprite for all tiers
+- [quick-3]: heartbeat sprite uses U+2665 (heart suit, 1 col) with ANSI colors rather than emoji hearts
 
 ### Pending Todos
 
@@ -67,9 +70,10 @@ None.
 |---|-------------|------|--------|-----------|
 | 1 | lets add a dozen more themes, and make sure demo covers them all | 2026-02-26 | cb814ba | [1-lets-add-a-dozen-more-themes-and-make-su](./quick/1-lets-add-a-dozen-more-themes-and-make-su/) |
 | 2 | rework construction, pac_man, wizard, disco themes + indeterminate demo | 2026-02-26 | fcf29b7 | [2-rework-construction-pac-man-wizard-disco](./quick/2-rework-construction-pac-man-wizard-disco/) |
+| 3 | cut pac_man, rework fire/heartbeat/wizard/rocket with decoration, add 6 new themes | 2026-02-26 | 2029726 | [3-cut-pacman-rework-fire-heartbeat-wizard-](./quick/3-cut-pacman-rework-fire-heartbeat-wizard-/) |
 
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Quick task 2 complete. 4 themes reworked with distinct visual identities. 1079 tests pass. Ready for Phase 4.
+Stopped at: Quick task 3 complete. pac_man removed. fire/heartbeat/wizard/rocket decorated. 6 new themes added (train/garden/lightning/candy/aurora/coffee). 23 themes total, 1355 tests pass. Ready for Phase 4.
 Resume file: None
