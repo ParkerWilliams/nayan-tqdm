@@ -14,19 +14,3 @@ for theme in THEMES:
     time.sleep(0.5)
 
 print()
-
-# ── Indeterminate mode (total=None) ─────────────────────────────────────────
-
-print("\n  === Indeterminate Mode (total=None) ===\n")
-print("  Note: Shows current behavior with total=None.\n")
-
-for theme in ("nyan", "wizard", "disco"):
-    print(f"\n  --- {theme} (total=None) ---\n")
-    bar = tqdm(total=None, theme=theme, desc=theme)
-    for i in range(60):
-        time.sleep(0.03)
-        bar.update(1)
-    bar.close()
-    time.sleep(0.3)
-
-print()

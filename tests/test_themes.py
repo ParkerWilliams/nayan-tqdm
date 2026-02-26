@@ -25,9 +25,10 @@ import nyanbar.themes  # noqa: F401 -- trigger registration
 
 
 ALL_THEMES = [
-    "construction", "deal_with_it", "disco", "finger_guns", "fire",
-    "heartbeat", "lenny", "mario", "matrix", "nyan", "ocean",
-    "pac_man", "rocket", "shrug", "snake", "table_flip", "wizard", "zen",
+    "aurora", "candy", "coffee", "construction", "deal_with_it", "disco",
+    "finger_guns", "fire", "garden", "heartbeat", "lenny", "lightning",
+    "mario", "matrix", "nyan", "ocean", "rocket", "shrug", "snake",
+    "table_flip", "train", "wizard", "zen",
 ]
 TIERS = ("emoji", "unicode", "ascii")
 PROGRESS_LEVELS = (0.0, 0.25, 0.5, 0.75, 1.0)
@@ -212,13 +213,6 @@ def test_mario_completion_has_star() -> None:
     assert "\u2605" in comp  # star
 
 
-def test_pac_man_completion_has_ghost() -> None:
-    anim = get_theme("pac_man", "emoji")
-    assert anim.completion_frame is not None
-    comp = anim.completion_frame.lines[0]
-    assert "\U0001f47b" in comp  # ghost emoji
-
-
 def test_snake_completion_has_apple() -> None:
     anim = get_theme("snake", "emoji")
     assert anim.completion_frame is not None
@@ -287,6 +281,81 @@ def test_wizard_completion_has_sparkles() -> None:
     assert anim.completion_frame is not None
     comp = anim.completion_frame.lines[0]
     assert "\u2728" in comp  # sparkles (wizard casts final sparkle)
+
+
+def test_train_completion_has_star() -> None:
+    anim = get_theme("train", "emoji")
+    assert anim.completion_frame is not None
+    comp = anim.completion_frame.lines[0]
+    assert "\u2605" in comp  # star
+
+
+def test_garden_completion_has_sparkles() -> None:
+    anim = get_theme("garden", "emoji")
+    assert anim.completion_frame is not None
+    comp = anim.completion_frame.lines[0]
+    assert "\u2728" in comp  # sparkles
+
+
+def test_lightning_completion_has_star() -> None:
+    anim = get_theme("lightning", "emoji")
+    assert anim.completion_frame is not None
+    comp = anim.completion_frame.lines[0]
+    assert "\u2605" in comp  # star
+
+
+def test_candy_completion_has_star() -> None:
+    anim = get_theme("candy", "emoji")
+    assert anim.completion_frame is not None
+    comp = anim.completion_frame.lines[0]
+    assert "\u2605" in comp  # star
+
+
+def test_aurora_completion_has_star() -> None:
+    anim = get_theme("aurora", "emoji")
+    assert anim.completion_frame is not None
+
+
+def test_coffee_completion_has_star() -> None:
+    anim = get_theme("coffee", "emoji")
+    assert anim.completion_frame is not None
+    comp = anim.completion_frame.lines[0]
+    assert "\u2605" in comp  # star
+
+
+# ── Decoration tests for reworked and new themes ───────────
+
+
+@pytest.mark.parametrize("theme", ["fire", "heartbeat", "wizard", "rocket"])
+@pytest.mark.parametrize("tier", TIERS)
+def test_reworked_themes_have_decoration(theme: str, tier: str) -> None:
+    anim = get_theme(theme, tier)
+    assert anim.decoration is not None
+    assert anim.completion_decoration is not None
+
+
+@pytest.mark.parametrize("theme", ["train", "garden", "lightning", "aurora"])
+@pytest.mark.parametrize("tier", TIERS)
+def test_new_decorated_themes_have_decoration(theme: str, tier: str) -> None:
+    anim = get_theme(theme, tier)
+    assert anim.decoration is not None
+    assert anim.completion_decoration is not None
+
+
+DECORATED_THEMES = [
+    "aurora", "fire", "garden", "heartbeat", "lightning", "nyan",
+    "rocket", "train", "wizard",
+]
+
+
+@pytest.mark.parametrize("theme", DECORATED_THEMES)
+@pytest.mark.parametrize("tier", TIERS)
+def test_decorated_themes_render_3_lines(theme: str, tier: str) -> None:
+    anim = get_theme(theme, tier)
+    stats_left = format_stats_left(50, 100)
+    stats_right = format_stats_right(50, 100, 5.0, 10.0)
+    lines = render_themed_bar(anim, 0.5, WIDTH, 0.0, stats_left, stats_right)
+    assert len(lines) == 3, f"{theme}/{tier} should render 3 lines, got {len(lines)}"
 
 
 # ── No themes without bar_fill ─────────────────────────────

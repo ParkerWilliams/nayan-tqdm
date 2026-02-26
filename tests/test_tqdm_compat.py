@@ -725,12 +725,13 @@ def test_render_level_emoji_override() -> None:
     bar.close()
 
 
-def test_list_themes_returns_all_eighteen() -> None:
+def test_list_themes_returns_all_twenty_three() -> None:
     names = list_themes()
     expected = [
-        "construction", "deal_with_it", "disco", "finger_guns", "fire",
-        "heartbeat", "lenny", "mario", "matrix", "nyan", "ocean",
-        "pac_man", "rocket", "shrug", "snake", "table_flip", "wizard", "zen",
+        "aurora", "candy", "coffee", "construction", "deal_with_it", "disco",
+        "finger_guns", "fire", "garden", "heartbeat", "lenny", "lightning",
+        "mario", "matrix", "nyan", "ocean", "rocket", "shrug", "snake",
+        "table_flip", "train", "wizard", "zen",
     ]
     assert names == expected
 
