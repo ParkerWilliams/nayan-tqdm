@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-02-25)
 Phase: 3 of 4 (Theme System) -- COMPLETE
 Plan: 5 of 5 in current phase
 Status: Phase 3 verified and complete
-Last activity: 2026-02-26 - Completed quick task 5: fix train direction, fix coffee theme, add cat_smug/cat_sleepy/cat_play (29 total)
+Last activity: 2026-02-27 - Completed quick task 6: widen decoration lines to 70+ cols: fix train direction, fix coffee theme, add cat_smug/cat_sleepy/cat_play (29 total)
 
 Progress: [███████████████] 75% (3 of 4 phases)
 
@@ -77,9 +77,10 @@ None.
 | 3 | cut pac_man, rework fire/heartbeat/wizard/rocket with decoration, add 6 new themes | 2026-02-26 | 2029726 | [3-cut-pacman-rework-fire-heartbeat-wizard-](./quick/3-cut-pacman-rework-fire-heartbeat-wizard-/) |
 | 4 | add cat_yarn, cat_mouse, duck_bread chase themes (26 total) | 2026-02-26 | 6bea5de | [4-add-cat-yarn-cat-mouse-duck-bread-chase-](./quick/4-add-cat-yarn-cat-mouse-duck-bread-chase-/) |
 | 5 | fix train direction, fix coffee theme, add cat_smug/cat_sleepy/cat_play (29 total) | 2026-02-26 | 7a32057 | [5-fix-train-direction-fix-coffee-theme-add](./quick/5-fix-train-direction-fix-coffee-theme-add/) |
+| 6 | widen all decoration lines to span full bar width (70+ cols) | 2026-02-27 | 06760bf | [6-widen-all-decoration-lines-to-span-full-](./quick/6-widen-all-decoration-lines-to-span-full-/) |
 
 ## Session Continuity
 
-Last session: 2026-02-26
-Stopped at: Quick task 5 complete. Train fixed (text-art [==>]), coffee fixed (real U+2615 emoji + decoration), 3 new cat kaomoji themes added. 29 themes total, 1659 tests pass. Ready for Phase 4.
+Last session: 2026-02-27
+Stopped at: Quick task 6 complete. All 16 decorated themes widened to 70+ display cols. 29 themes total, 1659 tests pass. Ready for Phase 4.
 Resume file: None
