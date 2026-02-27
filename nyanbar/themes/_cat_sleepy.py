@@ -45,21 +45,21 @@ def _emoji() -> Animation:
     sprite_a = Frame(lines=(f"{_BLU}(-._.-){_RST}",))   # drooping eyes (7 cols)
     # (u._.u) = ( u . _ . u ) = 7 chars, all 1 col
     sprite_b = Frame(lines=(f"{_BLU}(u._.u){_RST}",))   # closed drowsy eyes (7 cols)
-    # Completion: dreaming of love -- (-.\u2665.-) = ( - . \u2665 . - ) = 7 cols
+    # Completion: dreaming of love -- (-.♥.-) = ( - . ♥ . - ) = 7 cols
     completion = Frame(lines=(f"{_RED}(-.\u2665.-){_RST}",))  # heart dream (7 cols)
 
     # Decoration: z's floating above (sleeping), soft dots below
     dec_a = Frame(lines=(
-        "  z    .       z         .   z",
-        "  . ~ .   ~ .   ~ .   ~ .",
+        "  z    .       z         .   z       .    z         .   z       .    z   .   z",
+        "  . ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .  .",
     ))
     dec_b = Frame(lines=(
-        "     .  z        .  z  .    z",
-        "  ~ . ~   . ~   . ~   . ~",
+        "     .  z        .  z  .    z        .  z  .    z        .  z  .    z  .  z  .",
+        "  ~ . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~  .",
     ))
     dec_done = Frame(lines=(
-        "  z . z . z . z . z . z",
-        "  ~ . ~ . ~ . ~ . ~ . ~",
+        "  z . z . z . z . z . z . z . z . z . z . z . z . z . z . z . z . z . z",
+        "  ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~",
     ))
 
     return Animation(
@@ -86,16 +86,16 @@ def _unicode() -> Animation:
     completion = Frame(lines=(f"{_RED}(-.\u2665.-){_RST}",))
 
     dec_a = Frame(lines=(
-        "  z    .       z         .   z",
-        "  . ~ .   ~ .   ~ .   ~ .",
+        "  z    .       z         .   z       .    z         .   z       .    z   .   z",
+        "  . ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .  .",
     ))
     dec_b = Frame(lines=(
-        "     .  z        .  z  .    z",
-        "  ~ . ~   . ~   . ~   . ~",
+        "     .  z        .  z  .    z        .  z  .    z        .  z  .    z  .  z  .",
+        "  ~ . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~  .",
     ))
     dec_done = Frame(lines=(
-        "  z . z . z . z . z . z",
-        "  ~ . ~ . ~ . ~ . ~ . ~",
+        "  z . z . z . z . z . z . z . z . z . z . z . z . z . z . z . z . z . z",
+        "  ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~",
     ))
 
     return Animation(
@@ -117,16 +117,16 @@ def _ascii() -> Animation:
     completion = Frame(lines=("(-._!-)",))  # 7 cols -- wake-up moment!
 
     dec_a = Frame(lines=(
-        "  z    .       z         .   z",
-        "  . - .   - .   - .   - .",
+        "  z    .       z         .   z       .    z         .   z       .    z   .   z",
+        "  . - .   - .   - .   - .   - .   - .   - .   - .   - .   - .   - .   - .  .",
     ))
     dec_b = Frame(lines=(
-        "     .  z        .  z  .    z",
-        "  - . -   . -   . -   . -",
+        "     .  z        .  z  .    z        .  z  .    z        .  z  .    z  .  z  .",
+        "  - . -   . -   . -   . -   . -   . -   . -   . -   . -   . -   . -   . -  .",
     ))
     dec_done = Frame(lines=(
-        "  z . z . z . z . z . z",
-        "  - . - . - . - . - . -",
+        "  z . z . z . z . z . z . z . z . z . z . z . z . z . z . z . z . z . z",
+        "  - . - . - . - . - . - . - . - . - . - . - . - . - . - . - . - . - . -",
     ))
 
     return Animation(

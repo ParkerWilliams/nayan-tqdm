@@ -47,21 +47,21 @@ def _emoji() -> Animation:
     sprite_a = Frame(lines=(f"{_GRN}(=^.^=)~{_RST}",))   # batting right (8 cols)
     # ~(=^.^=) = ~ ( = ^ . ^ = ) = 8 chars all 1 col
     sprite_b = Frame(lines=(f"{_GRN}~(=^.^=){_RST}",))   # batting left (8 cols)
-    # Completion: happy relaxed -- (=^\u2665^=) = 7 cols (width can differ at 100%)
+    # Completion: happy relaxed -- (=^♥^=) = 7 cols (width can differ at 100%)
     completion = Frame(lines=(f"{_GRN}(=^\u2665^=){_RST}",))  # heart-nose happy (7 cols)
 
     # Decoration: bouncing toys above, paw scuffs below
     dec_a = Frame(lines=(
-        "  o    *       o         *   o",
-        "  ~ . ~   . ~   . ~   . ~",
+        "  o    *       o         *   o       *    o         *   o       *    o   *   o",
+        "  ~ . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~  .",
     ))
     dec_b = Frame(lines=(
-        "     *  o        *  o  *    o",
-        "  . ~ .   ~ .   ~ .   ~ .",
+        "     *  o        *  o  *    o        *  o  *    o        *  o  *    o  *  o  *",
+        "  . ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .  ~",
     ))
     dec_done = Frame(lines=(
-        "  o * o * o * o * o * o",
-        "  ~ . ~ . ~ . ~ . ~ . ~",
+        "  o * o * o * o * o * o * o * o * o * o * o * o * o * o * o * o * o * o * o *",
+        "  * o * o * o * o * o * o * o * o * o * o * o * o * o * o * o * o * o * o * o",
     ))
 
     return Animation(
@@ -90,16 +90,16 @@ def _unicode() -> Animation:
     completion = Frame(lines=(f"{_GRN}(=^\u2665^=){_RST}",))
 
     dec_a = Frame(lines=(
-        "  o    *       o         *   o",
-        "  ~ . ~   . ~   . ~   . ~",
+        "  o    *       o         *   o       *    o         *   o       *    o   *   o",
+        "  ~ . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~  .",
     ))
     dec_b = Frame(lines=(
-        "     *  o        *  o  *    o",
-        "  . ~ .   ~ .   ~ .   ~ .",
+        "     *  o        *  o  *    o        *  o  *    o        *  o  *    o  *  o  *",
+        "  . ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .  ~",
     ))
     dec_done = Frame(lines=(
-        "  o * o * o * o * o * o",
-        "  ~ . ~ . ~ . ~ . ~ . ~",
+        "  o * o * o * o * o * o * o * o * o * o * o * o * o * o * o * o * o * o * o *",
+        "  * o * o * o * o * o * o * o * o * o * o * o * o * o * o * o * o * o * o * o",
     ))
 
     return Animation(
@@ -121,16 +121,16 @@ def _ascii() -> Animation:
     completion = Frame(lines=("(=^o^=)",))  # 7 cols -- happy face!
 
     dec_a = Frame(lines=(
-        "  o    *       o         *   o",
-        "  ~ . ~   . ~   . ~   . ~",
+        "  o    *       o         *   o       *    o         *   o       *    o   *   o",
+        "  ~ . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~  .",
     ))
     dec_b = Frame(lines=(
-        "     *  o        *  o  *    o",
-        "  . ~ .   ~ .   ~ .   ~ .",
+        "     *  o        *  o  *    o        *  o  *    o        *  o  *    o  *  o  *",
+        "  . ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .  ~",
     ))
     dec_done = Frame(lines=(
-        "  o * o * o * o * o * o",
-        "  ~ . ~ . ~ . ~ . ~ . ~",
+        "  o * o * o * o * o * o * o * o * o * o * o * o * o * o * o * o * o * o * o *",
+        "  * o * o * o * o * o * o * o * o * o * o * o * o * o * o * o * o * o * o * o",
     ))
 
     return Animation(

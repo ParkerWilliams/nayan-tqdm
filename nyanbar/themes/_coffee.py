@@ -47,16 +47,16 @@ def _emoji() -> Animation:
 
     # Decoration: steam rising above, coffee bean pattern below
     dec_a = Frame(lines=(
-        "  ~    \u00b0       ~         \u00b0   ~",
-        "  \u2022 \u00b7 \u2022   \u00b7 \u2022   \u00b7 \u2022   \u00b7 \u2022",
+        "  ~    \u00b0       ~         \u00b0   ~       \u00b0    ~         \u00b0   ~       \u00b0    ~   \u00b0",
+        "  \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022",
     ))
     dec_b = Frame(lines=(
-        "     \u00b0  ~        \u00b0  ~  \u00b0    ~",
-        "  \u00b7 \u2022 \u00b7   \u2022 \u00b7   \u2022 \u00b7   \u2022 \u00b7",
+        "     \u00b0  ~        \u00b0  ~  \u00b0    ~        \u00b0  ~  \u00b0    ~        \u00b0  ~  \u00b0    ~  \u00b0",
+        "  \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022",
     ))
     dec_done = Frame(lines=(
-        "  ~ \u00b0 ~ \u00b0 ~ \u00b0 ~ \u00b0 ~ \u00b0 ~",
-        "  \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022",
+        "  ~ \u00b0 ~ \u00b0 ~ \u00b0 ~ \u00b0 ~ \u00b0 ~ \u00b0 ~ \u00b0 ~ \u00b0 ~ \u00b0 ~ \u00b0 ~ \u00b0 ~ \u00b0 ~ \u00b0 ~ \u00b0 ~ \u00b0 ~ \u00b0 ~ \u00b0 ~",
+        "  \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022",
     ))
 
     return Animation(
@@ -86,16 +86,16 @@ def _unicode() -> Animation:
     completion = Frame(lines=(f"{_BRN}c[_]{_RST}*",))  # 5 cols
 
     dec_a = Frame(lines=(
-        "  ~    \u00b0       ~         \u00b0   ~",
-        "  \u2022 \u00b7 \u2022   \u00b7 \u2022   \u00b7 \u2022   \u00b7 \u2022",
+        "  ~    \u00b0       ~         \u00b0   ~       \u00b0    ~         \u00b0   ~       \u00b0    ~   \u00b0",
+        "  \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022",
     ))
     dec_b = Frame(lines=(
-        "     \u00b0  ~        \u00b0  ~  \u00b0    ~",
-        "  \u00b7 \u2022 \u00b7   \u2022 \u00b7   \u2022 \u00b7   \u2022 \u00b7",
+        "     \u00b0  ~        \u00b0  ~  \u00b0    ~        \u00b0  ~  \u00b0    ~        \u00b0  ~  \u00b0    ~  \u00b0",
+        "  \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022",
     ))
     dec_done = Frame(lines=(
-        "  ~ \u00b0 ~ \u00b0 ~ \u00b0 ~ \u00b0 ~ \u00b0 ~",
-        "  \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022",
+        "  ~ \u00b0 ~ \u00b0 ~ \u00b0 ~ \u00b0 ~ \u00b0 ~ \u00b0 ~ \u00b0 ~ \u00b0 ~ \u00b0 ~ \u00b0 ~ \u00b0 ~ \u00b0 ~ \u00b0 ~ \u00b0 ~ \u00b0 ~ \u00b0 ~ \u00b0 ~",
+        "  \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022 \u00b7 \u2022",
     ))
 
     return Animation(
@@ -117,16 +117,16 @@ def _ascii() -> Animation:
     completion = Frame(lines=("c[_]*",))
 
     dec_a = Frame(lines=(
-        "  ~    o       ~         o   ~",
-        "  . o .   o .   o .   o .",
+        "  ~    o       ~         o   ~       o    ~         o   ~       o    ~   o   ~",
+        "  . o .   o .   o .   o .   o .   o .   o .   o .   o .   o .   o .   o .  .",
     ))
     dec_b = Frame(lines=(
-        "     o  ~        o  ~  o    ~",
-        "  o . o   . o   . o   . o",
+        "     o  ~        o  ~  o    ~        o  ~  o    ~        o  ~  o    ~  o   ~  o",
+        "  o . o   . o   . o   . o   . o   . o   . o   . o   . o   . o   . o   . o  .",
     ))
     dec_done = Frame(lines=(
-        "  ~ o ~ o ~ o ~ o ~ o ~",
-        "  . o . o . o . o . o .",
+        "  ~ o ~ o ~ o ~ o ~ o ~ o ~ o ~ o ~ o ~ o ~ o ~ o ~ o ~ o ~ o ~ o ~ o ~",
+        "  . o . o . o . o . o . o . o . o . o . o . o . o . o . o . o . o . o .",
     ))
 
     return Animation(

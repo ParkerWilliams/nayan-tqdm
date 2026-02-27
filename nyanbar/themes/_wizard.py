@@ -52,16 +52,16 @@ def _emoji() -> Animation:
 
     # Decoration: floating sparkles above and below, twinkling
     dec_a = Frame(lines=(
-        f"   {_MAG}\u2726{_RST}       {_CYN}\u2605{_RST}           {_BLU}\u00b7{_RST}       {_MAG}\u2726{_RST}",
-        f"  {_CYN}\u2605{_RST}    {_BLU}\u00b7{_RST}              {_MAG}\u2605{_RST}              {_CYN}\u2726{_RST}",
+        f"   {_MAG}\u2726{_RST}       {_CYN}\u2605{_RST}           {_BLU}\u00b7{_RST}       {_MAG}\u2726{_RST}       {_CYN}\u2605{_RST}    {_BLU}\u00b7{_RST}       {_MAG}\u2726{_RST}   {_CYN}\u2605{_RST}",
+        f"  {_CYN}\u2605{_RST}    {_BLU}\u00b7{_RST}              {_MAG}\u2605{_RST}              {_CYN}\u2726{_RST}              {_MAG}\u2605{_RST}   {_CYN}\u2726{_RST}   {_BLU}\u00b7{_RST}",
     ))
     dec_b = Frame(lines=(
-        f"     {_CYN}\u2605{_RST}          {_MAG}\u2726{_RST}         {_BLU}\u2605{_RST}               {_CYN}\u00b7{_RST}",
-        f"{_MAG}\u2726{_RST}         {_CYN}\u2605{_RST}         {_BLU}\u2726{_RST}            {_MAG}\u2605{_RST}",
+        f"     {_CYN}\u2605{_RST}          {_MAG}\u2726{_RST}         {_BLU}\u2605{_RST}               {_CYN}\u00b7{_RST}       {_MAG}\u2726{_RST}   {_CYN}\u2605{_RST}   {_BLU}\u2726{_RST}",
+        f"{_MAG}\u2726{_RST}         {_CYN}\u2605{_RST}         {_BLU}\u2726{_RST}            {_MAG}\u2605{_RST}         {_CYN}\u2726{_RST}    {_BLU}\u2605{_RST}   {_MAG}\u2726{_RST}   {_CYN}\u2605{_RST}",
     ))
     dec_done = Frame(lines=(
-        f"  {_MAG}\u2605{_RST} {_CYN}\u2726{_RST} {_BLU}\u2605{_RST}   {_MAG}\u2726{_RST} {_CYN}\u2605{_RST}   {_BLU}\u2726{_RST} {_MAG}\u2605{_RST}   {_CYN}\u2726{_RST} {_BLU}\u2605{_RST}",
-        f"  {_CYN}\u2726{_RST} {_BLU}\u2605{_RST} {_MAG}\u2726{_RST}   {_CYN}\u2605{_RST} {_BLU}\u2726{_RST}   {_MAG}\u2605{_RST} {_CYN}\u2726{_RST}   {_BLU}\u2605{_RST} {_MAG}\u2726{_RST}",
+        f"  {_MAG}\u2605{_RST} {_CYN}\u2726{_RST} {_BLU}\u2605{_RST}   {_MAG}\u2726{_RST} {_CYN}\u2605{_RST}   {_BLU}\u2726{_RST} {_MAG}\u2605{_RST}   {_CYN}\u2726{_RST} {_BLU}\u2605{_RST}   {_MAG}\u2726{_RST} {_CYN}\u2605{_RST}   {_BLU}\u2726{_RST} {_MAG}\u2605{_RST} {_CYN}\u2726{_RST}",
+        f"  {_CYN}\u2726{_RST} {_BLU}\u2605{_RST} {_MAG}\u2726{_RST}   {_CYN}\u2605{_RST} {_BLU}\u2726{_RST}   {_MAG}\u2605{_RST} {_CYN}\u2726{_RST}   {_BLU}\u2605{_RST} {_MAG}\u2726{_RST}   {_CYN}\u2605{_RST} {_BLU}\u2726{_RST}   {_MAG}\u2605{_RST} {_CYN}\u2726{_RST} {_BLU}\u2605{_RST}",
     ))
 
     return Animation(
@@ -94,16 +94,16 @@ def _unicode() -> Animation:
     completion = Frame(lines=("*>*",))
 
     dec_a = Frame(lines=(
-        "   *       .           \u00b7       *",
-        "  .    \u00b7              .              *",
+        "   *       .           \u00b7       *       .    \u00b7       *       .    *   \u00b7   *",
+        "  .    \u00b7              .              *              .    \u00b7         *  .   *",
     ))
     dec_b = Frame(lines=(
-        "     .          *         .               \u00b7",
-        "*         .         *            .",
+        "     .          *         .               \u00b7       *          .       \u00b7  .  *",
+        "*         .         *            .         *         .    *         .  *   .",
     ))
     dec_done = Frame(lines=(
-        "  * . *   . *   . *   . *   . *",
-        "  . * .   * .   * .   * .   * .",
+        "  * . * . * . * . * . * . * . * . * . * . * . * . * . * . * . * . * . *",
+        "  . * . * . * . * . * . * . * . * . * . * . * . * . * . * . * . * . * .",
     ))
 
     return Animation(
@@ -126,16 +126,16 @@ def _ascii() -> Animation:
     completion = Frame(lines=("*>*",))
 
     dec_a = Frame(lines=(
-        "   *       .                    *                    .",
-        "  .    *              .              *",
+        "   *       .                    *                    .       *   .       *   .",
+        "  .    *              .              *              .    *         .   *   .  .",
     ))
     dec_b = Frame(lines=(
-        "     .          *         .               *",
-        "*         .         *            .",
+        "     .          *         .               *         .          *       .  *  .",
+        "*         .         *            .         *         .    *         .  *   .  .",
     ))
     dec_done = Frame(lines=(
-        "  * . *   . *   . *   . *   . *",
-        "  . * .   * .   * .   * .   * .",
+        "  * . * . * . * . * . * . * . * . * . * . * . * . * . * . * . * . * . *",
+        "  . * . * . * . * . * . * . * . * . * . * . * . * . * . * . * . * . * .",
     ))
 
     return Animation(

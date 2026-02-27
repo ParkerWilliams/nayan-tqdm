@@ -48,16 +48,16 @@ def _emoji() -> Animation:
 
     # Decoration: cheese crumbs above, mouse footprints below
     dec_a = Frame(lines=(
-        f"  {_YEL}\u00b7{_RST}    {_YEL}\u00b7{_RST}       {_YEL}\u00b7{_RST}         {_YEL}\u00b7{_RST}   {_YEL}\u00b7{_RST}",
-        f"  {_GRY}\u00b7{_RST} {_WHT},{_RST} {_GRY}\u00b7{_RST}   {_WHT},{_RST} {_GRY}\u00b7{_RST}   {_WHT},{_RST} {_GRY}\u00b7{_RST}",
+        f"  {_YEL}\u00b7{_RST}    {_YEL}\u00b7{_RST}       {_YEL}\u00b7{_RST}         {_YEL}\u00b7{_RST}   {_YEL}\u00b7{_RST}       {_YEL}\u00b7{_RST}    {_YEL}\u00b7{_RST}         {_YEL}\u00b7{_RST}   {_YEL}\u00b7{_RST}       {_YEL}\u00b7{_RST}    {_YEL}\u00b7{_RST}",
+        f"  {_GRY}\u00b7{_RST} {_WHT},{_RST} {_GRY}\u00b7{_RST} {_WHT},{_RST} {_GRY}\u00b7{_RST} {_WHT},{_RST} {_GRY}\u00b7{_RST} {_WHT},{_RST} {_GRY}\u00b7{_RST} {_WHT},{_RST} {_GRY}\u00b7{_RST} {_WHT},{_RST} {_GRY}\u00b7{_RST} {_WHT},{_RST} {_GRY}\u00b7{_RST} {_WHT},{_RST} {_GRY}\u00b7{_RST}",
     ))
     dec_b = Frame(lines=(
-        f"     {_YEL}\u00b7{_RST}      {_YEL}\u00b7{_RST}         {_YEL}\u00b7{_RST}   {_YEL}\u00b7{_RST}      {_YEL}\u00b7{_RST}",
-        f"  {_WHT},{_RST} {_GRY}\u00b7{_RST} {_WHT},{_RST}   {_GRY}\u00b7{_RST} {_WHT},{_RST}   {_GRY}\u00b7{_RST} {_WHT},{_RST}",
+        f"     {_YEL}\u00b7{_RST}      {_YEL}\u00b7{_RST}         {_YEL}\u00b7{_RST}   {_YEL}\u00b7{_RST}      {_YEL}\u00b7{_RST}        {_YEL}\u00b7{_RST}   {_YEL}\u00b7{_RST}      {_YEL}\u00b7{_RST}         {_YEL}\u00b7{_RST}   {_YEL}\u00b7{_RST}",
+        f"  {_WHT},{_RST} {_GRY}\u00b7{_RST} {_WHT},{_RST} {_GRY}\u00b7{_RST} {_WHT},{_RST} {_GRY}\u00b7{_RST} {_WHT},{_RST} {_GRY}\u00b7{_RST} {_WHT},{_RST} {_GRY}\u00b7{_RST} {_WHT},{_RST} {_GRY}\u00b7{_RST} {_WHT},{_RST} {_GRY}\u00b7{_RST} {_WHT},{_RST} {_GRY}\u00b7{_RST} {_WHT},{_RST}",
     ))
     dec_done = Frame(lines=(
-        f"  {_YEL}\u00b7{_RST} {_YEL}\u00b7{_RST} {_YEL}\u00b7{_RST}   {_YEL}\u00b7{_RST} {_YEL}\u00b7{_RST}   {_YEL}\u00b7{_RST} {_YEL}\u00b7{_RST}   {_YEL}\u00b7{_RST} {_YEL}\u00b7{_RST}",
-        f"  {_GRY}\u00b7{_RST} {_WHT},{_RST} {_GRY}\u00b7{_RST} {_WHT},{_RST} {_GRY}\u00b7{_RST} {_WHT},{_RST} {_GRY}\u00b7{_RST} {_WHT},{_RST} {_GRY}\u00b7{_RST}",
+        f"  {_YEL}\u00b7{_RST} {_YEL}\u00b7{_RST} {_YEL}\u00b7{_RST} {_YEL}\u00b7{_RST} {_YEL}\u00b7{_RST} {_YEL}\u00b7{_RST} {_YEL}\u00b7{_RST} {_YEL}\u00b7{_RST} {_YEL}\u00b7{_RST} {_YEL}\u00b7{_RST} {_YEL}\u00b7{_RST} {_YEL}\u00b7{_RST} {_YEL}\u00b7{_RST} {_YEL}\u00b7{_RST} {_YEL}\u00b7{_RST} {_YEL}\u00b7{_RST} {_YEL}\u00b7{_RST}",
+        f"  {_GRY}\u00b7{_RST} {_WHT},{_RST} {_GRY}\u00b7{_RST} {_WHT},{_RST} {_GRY}\u00b7{_RST} {_WHT},{_RST} {_GRY}\u00b7{_RST} {_WHT},{_RST} {_GRY}\u00b7{_RST} {_WHT},{_RST} {_GRY}\u00b7{_RST} {_WHT},{_RST} {_GRY}\u00b7{_RST} {_WHT},{_RST} {_GRY}\u00b7{_RST} {_WHT},{_RST} {_GRY}\u00b7{_RST}",
     ))
 
     return Animation(
@@ -87,16 +87,16 @@ def _unicode() -> Animation:
     completion = Frame(lines=(">^.^@!",))  # caught with celebration (6 cols)
 
     dec_a = Frame(lines=(
-        "  .    .       .         .   .",
-        "  . , .   , .   , .   , .",
+        "  . ,      .        ,  .      .   ,      .        ,  .      ,   .   ,  .   ,",
+        "  . , .   , .   , .   , .   , .   , .   , .   , .   , .   , .   , .   , .  ,",
     ))
     dec_b = Frame(lines=(
-        "     .      .         .   .      .",
-        "  , . ,   . ,   . ,   . ,",
+        "     ,  .        .  ,  .    ,  .        .  ,  .    ,  .        .  ,  .  ,  .",
+        "  , . ,   . ,   . ,   . ,   . ,   . ,   . ,   . ,   . ,   . ,   . ,   . ,  .",
     ))
     dec_done = Frame(lines=(
-        "  . . . . . . . . . . .",
-        "  . , . , . , . , . , .",
+        "  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+        "  . , . , . , . , . , . , . , . , . , . , . , . , . , . , . , . , . , .",
     ))
 
     return Animation(
@@ -118,16 +118,16 @@ def _ascii() -> Animation:
     completion = Frame(lines=(">^.^@!",))
 
     dec_a = Frame(lines=(
-        "  .    .       .         .   .",
-        "  . , .   , .   , .   , .",
+        "  . ,      .        ,  .      .   ,      .        ,  .      ,   .   ,  .   ,",
+        "  . , .   , .   , .   , .   , .   , .   , .   , .   , .   , .   , .   , .  ,",
     ))
     dec_b = Frame(lines=(
-        "     .      .         .   .      .",
-        "  , . ,   . ,   . ,   . ,",
+        "     ,  .        .  ,  .    ,  .        .  ,  .    ,  .        .  ,  .  ,  .",
+        "  , . ,   . ,   . ,   . ,   . ,   . ,   . ,   . ,   . ,   . ,   . ,   . ,  .",
     ))
     dec_done = Frame(lines=(
-        "  . . . . . . . . . . .",
-        "  . , . , . , . , . , .",
+        "  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+        "  . , . , . , . , . , . , . , . , . , . , . , . , . , . , . , . , . , .",
     ))
 
     return Animation(

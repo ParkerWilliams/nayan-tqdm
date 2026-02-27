@@ -47,16 +47,16 @@ def _emoji() -> Animation:
 
     # Decoration: steam puffs above, track texture below
     dec_a = Frame(lines=(
-        f"  {_DRK}.{_RST} \u00b0      {_DRK}\u2022{_RST}        \u00b0  {_DRK}.{_RST}",
-        f"  {_BRN}={_RST}-{_BRN}={_RST}-{_BRN}={_RST}-{_BRN}={_RST}-{_BRN}={_RST}-{_BRN}={_RST}-{_BRN}={_RST}-{_BRN}={_RST}-+",
+        f"  {_DRK}.{_RST} \u00b0      {_DRK}\u2022{_RST}        \u00b0  {_DRK}.{_RST}      {_DRK}\u2022{_RST}   \u00b0  {_DRK}.{_RST}      \u00b0  {_DRK}\u2022{_RST}   \u00b0  {_DRK}.{_RST}",
+        f"  {_BRN}={_RST}-{_BRN}={_RST}-{_BRN}={_RST}-{_BRN}={_RST}-{_BRN}={_RST}-{_BRN}={_RST}-{_BRN}={_RST}-{_BRN}={_RST}-{_BRN}={_RST}-{_BRN}={_RST}-{_BRN}={_RST}-{_BRN}={_RST}-{_BRN}={_RST}-{_BRN}={_RST}-{_BRN}={_RST}-{_BRN}={_RST}-{_BRN}={_RST}-{_BRN}={_RST}-+",
     ))
     dec_b = Frame(lines=(
-        f"     \u00b0  {_DRK}.{_RST}        {_DRK}\u2022{_RST}  \u00b0  {_DRK}.{_RST}    \u00b0",
-        f"  {_BRN}-{_RST}={_BRN}-{_RST}={_BRN}-{_RST}={_BRN}-{_RST}={_BRN}-{_RST}={_BRN}-{_RST}={_BRN}-{_RST}={_BRN}-{_RST}=+",
+        f"     \u00b0  {_DRK}.{_RST}        {_DRK}\u2022{_RST}  \u00b0  {_DRK}.{_RST}    \u00b0  {_DRK}\u2022{_RST}    {_DRK}.{_RST}  \u00b0  {_DRK}.{_RST}    \u00b0  {_DRK}\u2022{_RST}",
+        f"  {_BRN}-{_RST}={_BRN}-{_RST}={_BRN}-{_RST}={_BRN}-{_RST}={_BRN}-{_RST}={_BRN}-{_RST}={_BRN}-{_RST}={_BRN}-{_RST}={_BRN}-{_RST}={_BRN}-{_RST}={_BRN}-{_RST}={_BRN}-{_RST}={_BRN}-{_RST}={_BRN}-{_RST}={_BRN}-{_RST}={_BRN}-{_RST}={_BRN}-{_RST}={_BRN}-{_RST}=+",
     ))
     dec_done = Frame(lines=(
-        f"  \u2605 \u00b0 \u2605   \u00b0 \u2605   \u00b0 \u2605   \u00b0 \u2605   \u00b0 \u2605",
-        f"  {_BRN}={_RST}-{_BRN}={_RST}-+={_BRN}-{_RST}={_BRN}-{_RST}+={_BRN}-{_RST}={_BRN}-{_RST}+={_BRN}-{_RST}+",
+        f"  \u2605 \u00b0 \u2605   \u00b0 \u2605   \u00b0 \u2605   \u00b0 \u2605   \u00b0 \u2605   \u00b0 \u2605   \u00b0 \u2605   \u00b0 \u2605",
+        f"  {_BRN}={_RST}-{_BRN}={_RST}-+={_BRN}-{_RST}={_BRN}-{_RST}+={_BRN}-{_RST}={_BRN}-{_RST}+={_BRN}-{_RST}+={_BRN}-{_RST}={_BRN}-{_RST}+={_BRN}-{_RST}+={_BRN}-{_RST}={_BRN}-{_RST}+={_BRN}-{_RST}={_BRN}-{_RST}+={_BRN}-{_RST}+",
     ))
 
     return Animation(
@@ -86,16 +86,16 @@ def _unicode() -> Animation:
     completion = Frame(lines=("[TTT]*",))
 
     dec_a = Frame(lines=(
-        "  . o      .        o  .",
-        "  =-=-=-=-=-=-=-=-=-=+",
+        "  . o      .        o  .      .   o      .        o  .      o   .   o  .   o",
+        "  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+",
     ))
     dec_b = Frame(lines=(
-        "     o  .        .  o  .    o",
-        "  -=-=-=-=-=-=-=-=-=-=-=+",
+        "     o  .        .  o  .    o  .        .  o  .    o  .        .  o  .  o  .",
+        "  -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+",
     ))
     dec_done = Frame(lines=(
-        "  * o * o * o * o * o *",
-        "  =-+=-+=-+=-+=-+=-+=+",
+        "  * o * o * o * o * o * o * o * o * o * o * o * o * o * o * o * o * o *",
+        "  =-+=-+=-+=-+=-+=-+=-+=-+=-+=-+=-+=-+=-+=-+=-+=-+=-+=-+=-+=-+=-+=-+=-+=",
     ))
 
     return Animation(
@@ -117,16 +117,16 @@ def _ascii() -> Animation:
     completion = Frame(lines=("[TTT]*",))
 
     dec_a = Frame(lines=(
-        "  . o      .        o  .",
-        "  =-=-=-=-=-=-=-=-=-=+",
+        "  . o      .        o  .      .   o      .        o  .      o   .   o  .   o",
+        "  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+",
     ))
     dec_b = Frame(lines=(
-        "     o  .        .  o  .    o",
-        "  -=-=-=-=-=-=-=-=-=-=-=+",
+        "     o  .        .  o  .    o  .        .  o  .    o  .        .  o  .  o  .",
+        "  -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+",
     ))
     dec_done = Frame(lines=(
-        "  * o * o * o * o * o *",
-        "  =-+=-+=-+=-+=-+=-+=+",
+        "  * o * o * o * o * o * o * o * o * o * o * o * o * o * o * o * o * o *",
+        "  =-+=-+=-+=-+=-+=-+=-+=-+=-+=-+=-+=-+=-+=-+=-+=-+=-+=-+=-+=-+=-+=-+=-+=",
     ))
 
     return Animation(

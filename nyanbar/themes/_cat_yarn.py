@@ -48,16 +48,16 @@ def _emoji() -> Animation:
 
     # Decoration: yarn balls above, paw prints below
     dec_a = Frame(lines=(
-        f"  {_MAG}\u00b7{_RST}    {_YEL}\u00b7{_RST}       {_MAG}\u00b7{_RST}         {_YEL}\u00b7{_RST}   {_MAG}\u00b7{_RST}",
-        f"  {_MAG}~{_RST} {_YEL}\u00b7{_RST} {_MAG}~{_RST}   {_YEL}\u00b7{_RST} {_MAG}~{_RST}   {_YEL}\u00b7{_RST} {_MAG}~{_RST}",
+        f"  {_MAG}\u00b7{_RST}    {_YEL}\u00b7{_RST}       {_MAG}\u00b7{_RST}         {_YEL}\u00b7{_RST}   {_MAG}\u00b7{_RST}       {_YEL}\u00b7{_RST}    {_MAG}\u00b7{_RST}         {_YEL}\u00b7{_RST}   {_MAG}\u00b7{_RST}       {_YEL}\u00b7{_RST}    {_MAG}\u00b7{_RST}",
+        f"  {_MAG}~{_RST} {_YEL}\u00b7{_RST} {_MAG}~{_RST} {_YEL}\u00b7{_RST} {_MAG}~{_RST} {_YEL}\u00b7{_RST} {_MAG}~{_RST} {_YEL}\u00b7{_RST} {_MAG}~{_RST} {_YEL}\u00b7{_RST} {_MAG}~{_RST} {_YEL}\u00b7{_RST} {_MAG}~{_RST} {_YEL}\u00b7{_RST} {_MAG}~{_RST} {_YEL}\u00b7{_RST} {_MAG}~{_RST}",
     ))
     dec_b = Frame(lines=(
-        f"     {_YEL}\u00b7{_RST}      {_MAG}\u00b7{_RST}         {_YEL}\u00b7{_RST}   {_MAG}\u00b7{_RST}      {_YEL}\u00b7{_RST}",
-        f"  {_YEL}\u00b7{_RST} {_MAG}~{_RST} {_YEL}\u00b7{_RST}   {_MAG}~{_RST} {_YEL}\u00b7{_RST}   {_MAG}~{_RST} {_YEL}\u00b7{_RST}",
+        f"     {_YEL}\u00b7{_RST}      {_MAG}\u00b7{_RST}         {_YEL}\u00b7{_RST}   {_MAG}\u00b7{_RST}      {_YEL}\u00b7{_RST}        {_MAG}\u00b7{_RST}   {_YEL}\u00b7{_RST}      {_MAG}\u00b7{_RST}         {_YEL}\u00b7{_RST}   {_MAG}\u00b7{_RST}",
+        f"  {_YEL}\u00b7{_RST} {_MAG}~{_RST} {_YEL}\u00b7{_RST} {_MAG}~{_RST} {_YEL}\u00b7{_RST} {_MAG}~{_RST} {_YEL}\u00b7{_RST} {_MAG}~{_RST} {_YEL}\u00b7{_RST} {_MAG}~{_RST} {_YEL}\u00b7{_RST} {_MAG}~{_RST} {_YEL}\u00b7{_RST} {_MAG}~{_RST} {_YEL}\u00b7{_RST} {_MAG}~{_RST} {_YEL}\u00b7{_RST}",
     ))
     dec_done = Frame(lines=(
-        f"  {_MAG}\u00b7{_RST} {_YEL}\u00b7{_RST} {_MAG}\u00b7{_RST}   {_YEL}\u00b7{_RST} {_MAG}\u00b7{_RST}   {_YEL}\u00b7{_RST} {_MAG}\u00b7{_RST}   {_YEL}\u00b7{_RST} {_MAG}\u00b7{_RST}",
-        f"  {_MAG}~{_RST} {_YEL}~{_RST} {_MAG}~{_RST}   {_YEL}~{_RST} {_MAG}~{_RST}   {_YEL}~{_RST} {_MAG}~{_RST}   {_YEL}~{_RST} {_MAG}~{_RST}",
+        f"  {_MAG}\u00b7{_RST} {_YEL}\u00b7{_RST} {_MAG}\u00b7{_RST} {_YEL}\u00b7{_RST} {_MAG}\u00b7{_RST} {_YEL}\u00b7{_RST} {_MAG}\u00b7{_RST} {_YEL}\u00b7{_RST} {_MAG}\u00b7{_RST} {_YEL}\u00b7{_RST} {_MAG}\u00b7{_RST} {_YEL}\u00b7{_RST} {_MAG}\u00b7{_RST} {_YEL}\u00b7{_RST} {_MAG}\u00b7{_RST} {_YEL}\u00b7{_RST} {_MAG}\u00b7{_RST}",
+        f"  {_MAG}~{_RST} {_YEL}~{_RST} {_MAG}~{_RST} {_YEL}~{_RST} {_MAG}~{_RST} {_YEL}~{_RST} {_MAG}~{_RST} {_YEL}~{_RST} {_MAG}~{_RST} {_YEL}~{_RST} {_MAG}~{_RST} {_YEL}~{_RST} {_MAG}~{_RST} {_YEL}~{_RST} {_MAG}~{_RST} {_YEL}~{_RST} {_MAG}~{_RST}",
     ))
 
     return Animation(
@@ -87,16 +87,16 @@ def _unicode() -> Animation:
     completion = Frame(lines=(">^.^o!",))  # caught with celebration (6 cols)
 
     dec_a = Frame(lines=(
-        "  .    .       .         .   .",
-        "  ~ . ~   . ~   . ~   . ~",
+        "  .    .       .         .   .       .    .         .   .       .    .   .   .",
+        "  ~ . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~  .",
     ))
     dec_b = Frame(lines=(
-        "     .      .         .   .      .",
-        "  . ~ .   ~ .   ~ .   ~ .",
+        "     .      .         .   .      .        .   .      .       .  .      .  .   .",
+        "  . ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .  ~",
     ))
     dec_done = Frame(lines=(
-        "  . o . o . o . o . o .",
-        "  ~ . ~ . ~ . ~ . ~ . ~",
+        "  . o . o . o . o . o . o . o . o . o . o . o . o . o . o . o . o . o .",
+        "  ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~",
     ))
 
     return Animation(
@@ -118,16 +118,16 @@ def _ascii() -> Animation:
     completion = Frame(lines=(">^.^o!",))
 
     dec_a = Frame(lines=(
-        "  .    .       .         .   .",
-        "  ~ . ~   . ~   . ~   . ~",
+        "  .    .       .         .   .       .    .         .   .       .    .   .   .",
+        "  ~ . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~  .",
     ))
     dec_b = Frame(lines=(
-        "     .      .         .   .      .",
-        "  . ~ .   ~ .   ~ .   ~ .",
+        "     .      .         .   .      .        .   .      .       .  .      .  .   .",
+        "  . ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .  ~",
     ))
     dec_done = Frame(lines=(
-        "  . o . o . o . o . o .",
-        "  ~ . ~ . ~ . ~ . ~ . ~",
+        "  . o . o . o . o . o . o . o . o . o . o . o . o . o . o . o . o . o .",
+        "  ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~",
     ))
 
     return Animation(
