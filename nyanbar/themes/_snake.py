@@ -1,12 +1,11 @@
-"""snake theme -- Snake slithering across a green fill.
+"""snake theme -- Snake growing across the bar.
 
-A snake emoji slithers across green-colored blocks.
-At completion, the snake finds its apple.
+A snake head leads a growing body of green segments.
 
 Rendering tiers:
-- emoji: Green ANSI blocks, snake emoji, snake + apple
-- unicode: Green ANSI blocks, snake kaomoji, snake + apple
-- ascii: "=" fill, "~>" sprite, "~>@" completion
+- emoji: green square trail, snake head sprite
+- unicode: ANSI green blocks, "~S" sprite
+- ascii: "o" fill, "~S" sprite
 """
 from __future__ import annotations
 
@@ -30,16 +29,16 @@ def _create(tier: str) -> Animation:
 
 def _emoji() -> Animation:
     fill = (
-        f"{_GRN}\u2588{_RST}",
-        f"{_GRN}\u2593{_RST}",
+        "\U0001f7e9",  # green square
+        "\U0001f7e9",
     )
-    sprite_a = Frame(lines=("\U0001f40d",))    # snake emoji
-    sprite_b = Frame(lines=("\U0001f40d",))    # snake emoji
-    completion = Frame(lines=("\U0001f40d\U0001f34e",))   # snake + apple
+    sprite_a = Frame(lines=("\U0001f40d",))  # snake
+    sprite_b = Frame(lines=("\U0001f40d",))
+    completion = Frame(lines=("\U0001f40d\U0001f34e",))  # snake + apple
     return Animation(
         name="snake",
         frames=(sprite_a, sprite_b),
-        fps=3.0,
+        fps=4.0,
         mode=AnimationMode.WALK,
         completion_frame=completion,
         bar_fill=fill,
@@ -51,13 +50,13 @@ def _unicode() -> Animation:
         f"{_GRN}\u2588{_RST}",
         f"{_GRN}\u2593{_RST}",
     )
-    sprite_a = Frame(lines=("~>",))
-    sprite_b = Frame(lines=("=>",))
-    completion = Frame(lines=("~>@",))
+    sprite_a = Frame(lines=("~S",))
+    sprite_b = Frame(lines=("~S",))
+    completion = Frame(lines=("~S@",))
     return Animation(
         name="snake",
         frames=(sprite_a, sprite_b),
-        fps=3.0,
+        fps=4.0,
         mode=AnimationMode.WALK,
         completion_frame=completion,
         bar_fill=fill,
@@ -65,14 +64,14 @@ def _unicode() -> Animation:
 
 
 def _ascii() -> Animation:
-    fill = ("=",)
-    sprite_a = Frame(lines=("~>",))
-    sprite_b = Frame(lines=("=>",))
-    completion = Frame(lines=("~>@",))
+    fill = ("o", "o")
+    sprite_a = Frame(lines=("~S",))
+    sprite_b = Frame(lines=("~S",))
+    completion = Frame(lines=("~S@",))
     return Animation(
         name="snake",
         frames=(sprite_a, sprite_b),
-        fps=3.0,
+        fps=4.0,
         mode=AnimationMode.WALK,
         completion_frame=completion,
         bar_fill=fill,

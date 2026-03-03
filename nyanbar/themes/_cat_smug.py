@@ -1,13 +1,11 @@
-"""cat_smug theme -- Smug cat strolling confidently, leaving paw prints and fish.
+"""cat_smug theme -- Self-satisfied cat strolling through its fish collection.
 
-A self-satisfied cat saunters across the bar, its expression alternating
-between two smug poses, leaving cozy warm-colored paw trails behind.
-Fish and purr wisps drift above and below.
+A smirking cat saunters across a trail of fish it already caught.
 
 Rendering tiers:
-- emoji: Magenta ANSI kaomoji (=^.^=), cozy fill, fish/paw decoration
-- unicode: Same ANSI-colored sprites, same fill and decoration
-- ascii: Plain (=^.^=) / (=^w^=) sprites, dot/tilde fill, simple decoration
+- emoji: fish trail, wry-smile cat sprite, cat + crown completion
+- unicode: ANSI-colored fish, half-lidded kaomoji, heart completion
+- ascii: fish fill, half-lidded kaomoji, simple completion
 """
 from __future__ import annotations
 
@@ -16,11 +14,8 @@ from ..registry import register_theme
 
 __all__: list[str] = []
 
-# ANSI color codes
-_MAG = "\033[35m"   # magenta (smug cat)
-_YEL = "\033[33m"   # yellow (warm paw prints)
-_CYN = "\033[36m"   # cyan (cool paw prints)
-_RED = "\033[31m"   # red (heart completion)
+_MAG = "\033[35m"
+_CYN = "\033[36m"
 _RST = "\033[0m"
 
 
@@ -34,31 +29,28 @@ def _create(tier: str) -> Animation:
 
 
 def _emoji() -> Animation:
-    # Cozy paw-print-like dot fill: alternating magenta/yellow/cyan -- all 1 display col
     fill = (
-        f"{_MAG}\u2022{_RST}",   # magenta bullet (paw dot) -- 1 col
-        f"{_YEL}\u00b7{_RST}",   # yellow middle dot (paw dot) -- 1 col
-        f"{_CYN}\u2022{_RST}",   # cyan bullet (paw dot) -- 1 col
-        f"{_MAG}\u00b7{_RST}",   # magenta middle dot (paw dot) -- 1 col
+        "\U0001f41f",  # fish
+        "\U0001f41f",  # fish
+        "\U0001f41f",  # fish
+        "\U0001f365",  # fish cake (variety)
     )
-    # Smug alternating expressions -- 7 display cols each
-    sprite_a = Frame(lines=(f"{_MAG}(=^.^=){_RST}",))   # smug face (7 cols)
-    sprite_b = Frame(lines=(f"{_MAG}(=^w^=){_RST}",))   # smug wide-eye variant (7 cols)
-    # Completion: heart-nose smug -- \u2665 is heart suit (1 col), so (=^♥^=) = 7 cols
-    completion = Frame(lines=(f"{_RED}(=^\u2665^=){_RST}",))  # heart-nose (7 cols)
+    sprite_a = Frame(lines=("\U0001f63c",))  # cat with wry smile (THE smug cat)
+    sprite_b = Frame(lines=("\U0001f63c",))
+    completion = Frame(lines=("\U0001f63c\U0001f451",))  # smug cat + crown
 
-    # Decoration: fish drifting above, purr wisps below
+    # fish above (🐟=2col), soft dots below
     dec_a = Frame(lines=(
-        "  ><>    \u00b7       ><>      \u00b7   ><>      \u00b7    ><>   \u00b7   ><>      \u00b7   ><>  \u00b7",
-        "  . ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .  .",
+        "  \U0001f41f       \U0001f41f          \U0001f41f       \U0001f41f          \U0001f41f       \U0001f41f          \U0001f41f       \U0001f41f  ",
+        "  \u00b7     \u00b7     \u00b7     \u00b7     \u00b7     \u00b7     \u00b7     \u00b7     \u00b7     \u00b7     \u00b7     \u00b7     \u00b7     \u00b7",
     ))
     dec_b = Frame(lines=(
-        "     \u00b7  ><>        \u00b7  ><>  \u00b7    ><>   \u00b7   ><>   \u00b7   ><>    \u00b7  ><>   \u00b7  ><>",
-        "  ~ . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~  .",
+        "       \U0001f41f          \U0001f41f       \U0001f41f          \U0001f41f       \U0001f41f          \U0001f41f       \U0001f41f       ",
+        "     \u00b7     \u00b7     \u00b7     \u00b7     \u00b7     \u00b7     \u00b7     \u00b7     \u00b7     \u00b7     \u00b7     \u00b7     \u00b7  ",
     ))
     dec_done = Frame(lines=(
-        "  ><> . ><> . ><> . ><> . ><> . ><> . ><> . ><> . ><> . ><> . ><> . ><> .",
-        "  ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~",
+        "  \U0001f41f \U0001f41f \U0001f41f \U0001f41f \U0001f41f \U0001f41f \U0001f41f \U0001f41f \U0001f41f \U0001f41f \U0001f41f \U0001f41f \U0001f41f \U0001f41f \U0001f41f \U0001f41f \U0001f41f \U0001f41f \U0001f41f \U0001f41f \U0001f41f \U0001f41f \U0001f41f \U0001f41f",
+        "  \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7 \u00b7",
     ))
 
     return Animation(
@@ -75,26 +67,26 @@ def _emoji() -> Animation:
 
 def _unicode() -> Animation:
     fill = (
-        f"{_MAG}\u2022{_RST}",   # magenta bullet -- 1 col
-        f"{_YEL}\u00b7{_RST}",   # yellow middle dot -- 1 col
-        f"{_CYN}\u2022{_RST}",   # cyan bullet -- 1 col
-        f"{_MAG}\u00b7{_RST}",   # magenta middle dot -- 1 col
+        f"{_CYN}>{_RST}",
+        f"{_CYN}<{_RST}",
+        f"{_CYN}>{_RST}",
+        " ",
     )
-    sprite_a = Frame(lines=(f"{_MAG}(=^.^=){_RST}",))
-    sprite_b = Frame(lines=(f"{_MAG}(=^w^=){_RST}",))
-    completion = Frame(lines=(f"{_RED}(=^\u2665^=){_RST}",))
+    sprite_a = Frame(lines=(f"{_MAG}(=^\u2310^=){_RST}",))  # raised-brow smug (7 cols)
+    sprite_b = Frame(lines=(f"{_MAG}(=^~^=){_RST}",))       # wink (7 cols)
+    completion = Frame(lines=(f"{_MAG}(=^\u2665^=){_RST}",))  # heart-nose (7 cols)
 
     dec_a = Frame(lines=(
-        "  ><>    .       ><>      .   ><>      .    ><>   .   ><>      .   ><>  .   ><>",
-        "  . ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .  .",
+        f"  {_CYN}><>{_RST}       {_CYN}><>{_RST}          {_CYN}><>{_RST}       {_CYN}><>{_RST}          {_CYN}><>{_RST}       {_CYN}><>{_RST}       {_CYN}><>{_RST}",
+        f"  {_MAG}\u00b7{_RST}     {_MAG}\u00b7{_RST}     {_MAG}\u00b7{_RST}     {_MAG}\u00b7{_RST}     {_MAG}\u00b7{_RST}     {_MAG}\u00b7{_RST}     {_MAG}\u00b7{_RST}     {_MAG}\u00b7{_RST}     {_MAG}\u00b7{_RST}     {_MAG}\u00b7{_RST}     {_MAG}\u00b7{_RST}     {_MAG}\u00b7{_RST}  {_MAG}\u00b7{_RST}",
     ))
     dec_b = Frame(lines=(
-        "     .  ><>        .  ><>  .    ><>   .   ><>   .   ><>    .  ><>  .   ><>  .",
-        "  ~ . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~  .",
+        f"       {_CYN}><>{_RST}          {_CYN}><>{_RST}       {_CYN}><>{_RST}          {_CYN}><>{_RST}       {_CYN}><>{_RST}       {_CYN}><>{_RST}       {_CYN}><>{_RST}",
+        f"     {_MAG}\u00b7{_RST}     {_MAG}\u00b7{_RST}     {_MAG}\u00b7{_RST}     {_MAG}\u00b7{_RST}     {_MAG}\u00b7{_RST}     {_MAG}\u00b7{_RST}     {_MAG}\u00b7{_RST}     {_MAG}\u00b7{_RST}     {_MAG}\u00b7{_RST}     {_MAG}\u00b7{_RST}     {_MAG}\u00b7{_RST}     {_MAG}\u00b7{_RST}  {_MAG}\u00b7{_RST}",
     ))
     dec_done = Frame(lines=(
-        "  ><> . ><> . ><> . ><> . ><> . ><> . ><> . ><> . ><> . ><> . ><> . ><> .",
-        "  ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~",
+        f"  {_CYN}><>{_RST} {_CYN}><>{_RST} {_CYN}><>{_RST} {_CYN}><>{_RST} {_CYN}><>{_RST} {_CYN}><>{_RST} {_CYN}><>{_RST} {_CYN}><>{_RST} {_CYN}><>{_RST} {_CYN}><>{_RST} {_CYN}><>{_RST} {_CYN}><>{_RST} {_CYN}><>{_RST} {_CYN}><>{_RST} {_CYN}><>{_RST} {_CYN}><>{_RST} {_CYN}><>{_RST} {_CYN}><>{_RST}",
+        f"  {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST} {_MAG}\u00b7{_RST}",
     ))
 
     return Animation(
@@ -110,22 +102,22 @@ def _unicode() -> Animation:
 
 
 def _ascii() -> Animation:
-    fill = (".", "~", ".", "~")
-    sprite_a = Frame(lines=("(=^.^=)",))  # 7 cols
-    sprite_b = Frame(lines=("(=^w^=)",))  # 7 cols
-    completion = Frame(lines=("(=^w^=)",))  # 7 cols -- satisfied smug
+    fill = (">", "<", ">", " ")
+    sprite_a = Frame(lines=("(=^-_-^=)",))  # half-lidded (9 cols)
+    sprite_b = Frame(lines=("(=^~_~^=)",))  # winking smug (9 cols)
+    completion = Frame(lines=("(=^-_-^=)*",))  # 10 cols
 
     dec_a = Frame(lines=(
-        "  ><>    .       ><>      .   ><>      .    ><>   .   ><>      .   ><>  .   ><>",
-        "  . ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .   ~ .  .",
+        "  ><>       ><>          ><>       ><>          ><>       ><>       ><>      ",
+        "  .     .     .     .     .     .     .     .     .     .     .     .     .  ",
     ))
     dec_b = Frame(lines=(
-        "     .  ><>        .  ><>  .    ><>   .   ><>   .   ><>    .  ><>  .   ><>  .",
-        "  ~ . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~   . ~  .",
+        "       ><>          ><>       ><>          ><>       ><>       ><>       ><> ",
+        "     .     .     .     .     .     .     .     .     .     .     .     .     .",
     ))
     dec_done = Frame(lines=(
-        "  ><> . ><> . ><> . ><> . ><> . ><> . ><> . ><> . ><> . ><> . ><> . ><> .",
-        "  ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~ . ~",
+        "  ><> ><> ><> ><> ><> ><> ><> ><> ><> ><> ><> ><> ><> ><> ><> ><> ><> ><>  ",
+        "  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
     ))
 
     return Animation(

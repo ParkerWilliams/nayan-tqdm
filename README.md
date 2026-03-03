@@ -5,12 +5,10 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Typed](https://img.shields.io/badge/typed-PEP%20561-brightgreen.svg)](https://peps.python.org/pep-0561/)
 
-**Animated progress bars with nyan cat and friends.**
-A drop-in replacement for [tqdm](https://github.com/tqdm/tqdm) with zero dependencies and cute animated themes.
+**Animated progress bars that spark joy.**
+A drop-in [tqdm](https://github.com/tqdm/tqdm) replacement with 40 themes, zero dependencies, and full type safety.
 
-<!-- TODO: Add terminal recording GIF here showing nyan cat progress bar in action -->
-
-Your progress bars don't have to be boring. Replace one import and watch a cat walk across your terminal.
+Your progress bars don't have to be boring. Swap one import and get rainbow cats, fire-breathing dragons, surfing waves, and table flips.
 
 ## Installation
 
@@ -23,93 +21,96 @@ Zero dependencies. Python 3.10+. That's it.
 ## Quick Start
 
 ```python
+# Before
+from tqdm import tqdm
+
+# After -- same API, way more fun
 from nyanbar import tqdm
 
 for item in tqdm(range(1000)):
-    pass  # your work here
+    pass
 ```
-
-That's literally all you need to change. If you're already using tqdm, swap the import and you're done.
 
 ## Themes
 
-nyanbar ships with 5 built-in animated themes. Each theme has 3 rendering tiers (emoji, unicode, ascii) that are automatically selected based on your terminal's capabilities.
+nyanbar ships with **40 built-in themes** across emoji, kaomoji, and meme categories. Each theme has 3 rendering tiers (emoji, unicode, ascii) automatically selected based on your terminal.
 
-### `cat_walk` (default: nyan)
+### Emoji Trail Themes
 
-A cat walking across the progress bar. Single line, clean and simple.
-
-```
-=^.^=                                                        50%|00:05<00:05
-```
-
-### `cat_bounce`
-
-A cat bouncing above the bar. Two lines of fun.
+These themes fill the bar with emoji, leaving a colorful trail behind the sprite.
 
 ```
-=^.^=
------                                                        50%|00:05<00:05
+ocean:       50%|🌊🌊🌊🌊🌊🌊🌊🌊🏄                | 50/100 [00:05<00:05, 10.00it/s]
+fire:        50%|🔥🔥🔥🔥🔥🔥🔥🔥🐉                | 50/100 [00:05<00:05, 10.00it/s]
+bee:         50%|🌻🌸🌼🌷🌺🌻🌸🌼🐝                | 50/100 [00:05<00:05, 10.00it/s]
+love:        50%|❤️💛💚💙💜❤️💛💚💘                | 50/100 [00:05<00:05, 10.00it/s]
+music:       50%|🎵🎶🎵🎶🎵🎶🎵🎶🎸                | 50/100 [00:05<00:05, 10.00it/s]
+snake:       50%|🟩🟩🟩🟩🟩🟩🟩🟩🐍                | 50/100 [00:05<00:05, 10.00it/s]
+train:       50%|🚃🚃🚃🚃🚃🚃🚃🚃🚂                | 50/100 [00:05<00:05, 10.00it/s]
+pasta:       50%|🍝🍝🍝🍝🍝🍝🍝👨‍🍳               | 50/100 [00:05<00:05, 10.00it/s]
 ```
 
-### `nyan`
+### Cat Themes
 
-The classic nyan cat with a rainbow trail and twinkling stars. Three lines of pure joy.
-
-```
- * ~~~~  *
-~~~~~~=^.^=                                                  50%|00:05<00:05
-* ~~~~  *
-```
-
-### `fish`
-
-A fish swimming through rising water. Three lines of aquatic adventure.
+Five feline variations, each with distinct personality.
 
 ```
-   o
-~~~~~~~~                                                     50%|00:05<00:05
- ><>
+cat_mouse:   50%|•·•·•·•·•·•·•·🐱🐭                | 50/100 [00:05<00:05, 10.00it/s]
+cat_yarn:    50%|•◆•◆•◆•◆•◆•◆•🐱🧶                | 50/100 [00:05<00:05, 10.00it/s]
+cat_play:    50%|🐾🐾🐾🐾🐾🐾🐾🐾🙀                | 50/100 [00:05<00:05, 10.00it/s]
+cat_smug:    50%|🐟🐟🐟🍥🐟🐟🐟🍥😼                | 50/100 [00:05<00:05, 10.00it/s]
+cat_sleepy:  50%|💤💤💤💤💤💤💤💤😿                | 50/100 [00:05<00:05, 10.00it/s]
 ```
 
-### `rocket`
+### Decorated Themes
 
-A rocket launching with animated flames. Four lines of liftoff.
+These have twinkling decorations above and below the bar.
 
 ```
-  /\
-  ||
-  **                                                         50%|00:05<00:05
-======
+  ✦       ★                    ✦                    ★
+nyan:        50%|████████████████🐱                | 50/100 [00:05<00:05, 10.00it/s]
+  ★    ✦              ★              ✦
+
+  ★  ·       ✦        ·  ★       ✦    ·  ★
+rocket:      50%|🔥💥🔥✨🔥🌟🔥💥🚀                | 50/100 [00:05<00:05, 10.00it/s]
+  •    ·        •   ·        •    ·
+
+  ✦       ★           ·       ✦       ★
+wizard:      50%|★✳♦☆❄☄✡∴⌂✦★✳♦☆❄☄🧙                | 50/100 [00:05<00:05, 10.00it/s]
+  ★    ·              ★              ✦
 ```
 
-Select a theme by name:
+### Kaomoji & Meme Themes
+
+Classic internet faces as progress bars.
+
+```
+table_flip:  50%|██████████████(°_°)               | 50/100 [00:05<00:05, 10.00it/s]
+             100%|████████████████████████████(╯°□°)╯︵ ┻━┻|
+
+finger_guns: 50%|✧✦✧☆✧✦✧☆✧✦✧☆✧(☞ﾟ∀ﾟ)☞              | 50/100 [00:05<00:05, 10.00it/s]
+shrug:       50%|▓▓▓▓▓▓▓▓▓▓▓▓¯\_(ツ)_/¯            | 50/100 [00:05<00:05, 10.00it/s]
+deal_with_it:50%|██████████████( •_•)              | 50/100 [00:05<00:05, 10.00it/s]
+             100%|████████████████████████████████████████(⌐■_■)|
+
+lenny:       50%|░▒▓█░▒▓█░▒▓█░( ͡° ͜ʖ ͡°)             | 50/100 [00:05<00:05, 10.00it/s]
+uwu:         50%|♡♥♡♥♡♥♡♥♡♥♡♥♡(✿◠‿◠)               | 50/100 [00:05<00:05, 10.00it/s]
+rage:        50%|███████████████(ಠ益ಠ)              | 50/100 [00:05<00:05, 10.00it/s]
+flex:        50%|██████████████ᕙ(⇀‸↼‶)ᕗ            | 50/100 [00:05<00:05, 10.00it/s]
+```
+
+### All 40 Themes
+
+> `bear` `bee` `cat_mouse` `cat_play` `cat_sleepy` `cat_smug` `cat_yarn` `construction` `cry` `deal_with_it` `disapproval` `disco` `double_flip` `finger_guns` `fire` `flex` `garden` `heartbeat` `hype` `lenny` `lightning` `love` `matrix` `music` `nyan` `ocean` `pasta` `rage` `rocket` `run` `shrug` `snake` `sparkles` `table_flip` `table_rage` `table_unflip` `train` `uwu` `wizard` `zen`
+
+Pick one:
 
 ```python
-for item in tqdm(range(1000), theme="rocket"):
+for item in tqdm(range(1000), theme="ocean"):
     pass
 ```
 
-## Examples
-
-### Drop-in tqdm replacement
-
-```python
-# Before (tqdm)
-from tqdm import tqdm
-
-# After (nyanbar) -- same API, animated cats
-from nyanbar import tqdm
-```
-
-### Choose a theme
-
-```python
-from nyanbar import tqdm
-
-for item in tqdm(range(1000), theme="fish"):
-    pass
-```
+## Usage
 
 ### trange shorthand
 
@@ -131,7 +132,7 @@ with tqdm(total=100) as bar:
         bar.update(10)
 ```
 
-### Manual update and close
+### Manual update
 
 ```python
 from nyanbar import tqdm
@@ -146,8 +147,6 @@ bar.close()
 ### Description and postfix
 
 ```python
-from nyanbar import tqdm
-
 bar = tqdm(range(100))
 for epoch in bar:
     loss = train(epoch)
@@ -155,21 +154,7 @@ for epoch in bar:
     bar.set_postfix(loss=f"{loss:.4f}")
 ```
 
-### Leave behavior
-
-```python
-from nyanbar import tqdm
-
-# Bar disappears when done
-for item in tqdm(range(100), leave=False):
-    pass
-
-# Bar stays visible (default)
-for item in tqdm(range(100), leave=True):
-    pass
-```
-
-### Set a global theme
+### Set a global default theme
 
 ```python
 from nyanbar import set_theme, tqdm
@@ -184,8 +169,6 @@ for item in tqdm(range(100)):
 ### Force a render level
 
 ```python
-from nyanbar import tqdm
-
 # Force ASCII rendering even in a fancy terminal
 for item in tqdm(range(100), render_level="ascii"):
     pass
@@ -226,33 +209,19 @@ for item in tqdm(range(100), render_level="ascii"):
 | `list_themes()` | Return sorted list of available theme names |
 | `get_theme(name, tier)` | Get a theme's `Animation` object for a specific tier |
 
-### Models
-
-| Name | Description |
-|------|-------------|
-| `Animation` | Frozen dataclass holding frames, FPS, mode, and completion frame |
-| `Frame` | Frozen dataclass holding line strings with computed display width |
-| `AnimationMode` | Enum: `WALK`, `CYCLE`, `FILL` |
-
 ## Typed
 
-nyanbar is fully typed and ships with a `py.typed` marker ([PEP 561](https://peps.python.org/pep-0561/)). It passes `mypy --strict` with zero errors. Your IDE will thank you.
+Fully typed with a `py.typed` marker ([PEP 561](https://peps.python.org/pep-0561/)). Passes `mypy --strict` with zero errors.
 
 ## Graceful Fallback
 
-nyanbar automatically falls back to a plain text progress bar (no ANSI escapes) when:
-
-- Output is piped (non-TTY)
-- Terminal is too narrow (< 30 columns)
-- The bar is explicitly disabled
-
-No crashes, no garbled output. It just works.
+nyanbar automatically falls back to a plain text progress bar when output is piped, the terminal is too narrow, or the bar is disabled. No crashes, no garbled output.
 
 ## Requirements
 
 - **Python**: 3.10+
-- **Dependencies**: None (zero runtime dependencies)
-- **Platforms**: macOS, Linux, Windows (any terminal that supports ANSI escape codes)
+- **Dependencies**: None
+- **Platforms**: macOS, Linux, Windows
 
 ## License
 

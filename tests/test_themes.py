@@ -25,11 +25,14 @@ import nyanbar.themes  # noqa: F401 -- trigger registration
 
 
 ALL_THEMES = [
-    "aurora", "candy", "cat_mouse", "cat_play", "cat_sleepy", "cat_smug",
-    "cat_yarn", "coffee", "construction",
-    "deal_with_it", "disco", "duck_bread", "finger_guns", "fire", "garden",
-    "heartbeat", "lenny", "lightning", "mario", "matrix", "nyan", "ocean",
-    "rocket", "shrug", "snake", "table_flip", "train", "wizard", "zen",
+    "bear", "cat_mouse", "cat_play", "cat_sleepy", "cat_smug",
+    "cat_yarn", "construction", "cry",
+    "deal_with_it", "disapproval", "disco", "double_flip",
+    "finger_guns", "flex", "garden",
+    "heartbeat", "hype", "lenny", "lightning", "matrix", "nyan", "ocean",
+    "rage", "rocket", "run", "shrug", "sparkles",
+    "table_flip", "table_rage", "table_unflip",
+    "uwu", "wizard", "zen",
 ]
 TIERS = ("emoji", "unicode", "ascii")
 PROGRESS_LEVELS = (0.0, 0.25, 0.5, 0.75, 1.0)
@@ -207,32 +210,13 @@ def test_finger_guns_completion_has_star() -> None:
     assert "\u2605" in comp  # star
 
 
-def test_mario_completion_has_star() -> None:
-    anim = get_theme("mario", "emoji")
-    assert anim.completion_frame is not None
-    comp = anim.completion_frame.lines[0]
-    assert "\u2605" in comp  # star
-
-
-def test_snake_completion_has_apple() -> None:
-    anim = get_theme("snake", "emoji")
-    assert anim.completion_frame is not None
-    comp = anim.completion_frame.lines[0]
-    assert "\U0001f34e" in comp  # apple emoji
-
 
 def test_rocket_completion_has_star() -> None:
     anim = get_theme("rocket", "emoji")
     assert anim.completion_frame is not None
     comp = anim.completion_frame.lines[0]
-    assert "\u2605" in comp  # star
+    assert "\u2b50" in comp  # star
 
-
-def test_fire_completion_has_sparkles() -> None:
-    anim = get_theme("fire", "emoji")
-    assert anim.completion_frame is not None
-    comp = anim.completion_frame.lines[0]
-    assert "\u2728" in comp  # sparkles emoji
 
 
 def test_ocean_completion_has_sun() -> None:
@@ -284,12 +268,6 @@ def test_wizard_completion_has_sparkles() -> None:
     assert "\u2728" in comp  # sparkles (wizard casts final sparkle)
 
 
-def test_train_completion_has_star() -> None:
-    anim = get_theme("train", "emoji")
-    assert anim.completion_frame is not None
-    comp = anim.completion_frame.lines[0]
-    assert "\u2605" in comp  # star
-
 
 def test_garden_completion_has_sparkles() -> None:
     anim = get_theme("garden", "emoji")
@@ -298,44 +276,34 @@ def test_garden_completion_has_sparkles() -> None:
     assert "\u2728" in comp  # sparkles
 
 
-def test_lightning_completion_has_star() -> None:
+def test_lightning_completion_has_bolt() -> None:
     anim = get_theme("lightning", "emoji")
     assert anim.completion_frame is not None
     comp = anim.completion_frame.lines[0]
-    assert "\u2605" in comp  # star
+    assert "\u26a1" in comp  # high voltage
 
 
-def test_candy_completion_has_star() -> None:
-    anim = get_theme("candy", "emoji")
+def test_table_unflip_completion_has_table() -> None:
+    anim = get_theme("table_unflip", "emoji")
     assert anim.completion_frame is not None
     comp = anim.completion_frame.lines[0]
-    assert "\u2605" in comp  # star
+    assert "\u252c" in comp  # ┬ (table upright)
 
 
-def test_aurora_completion_has_star() -> None:
-    anim = get_theme("aurora", "emoji")
-    assert anim.completion_frame is not None
-
-
-def test_coffee_completion_has_star() -> None:
-    anim = get_theme("coffee", "emoji")
+def test_table_rage_completion_has_table() -> None:
+    anim = get_theme("table_rage", "emoji")
     assert anim.completion_frame is not None
     comp = anim.completion_frame.lines[0]
-    assert "\u2605" in comp  # star
+    assert "\u253b" in comp  # ┻ (flipped table)
 
 
-@pytest.mark.parametrize("tier", TIERS)
-def test_coffee_has_decoration(tier: str) -> None:
-    anim = get_theme("coffee", tier)
-    assert anim.decoration is not None
-    assert anim.completion_decoration is not None
+def test_double_flip_completion_has_two_tables() -> None:
+    anim = get_theme("double_flip", "emoji")
+    assert anim.completion_frame is not None
+    comp = anim.completion_frame.lines[0]
+    # Should have ┻━┻ on both sides
+    assert comp.count("\u253b") >= 4  # at least 4 ┻ chars (2 tables)
 
-
-def test_coffee_emoji_sprite_is_real_emoji() -> None:
-    """Coffee emoji tier must use actual U+2615, not text-art."""
-    anim = get_theme("coffee", "emoji")
-    sprite = anim.frames[0].lines[0]
-    assert "\u2615" in sprite  # hot beverage emoji
 
 
 def test_cat_yarn_completion_has_heart_eyes() -> None:
@@ -352,38 +320,32 @@ def test_cat_mouse_completion_has_smirking_cat() -> None:
     assert "\U0001f63c" in comp  # smirking cat
 
 
-def test_duck_bread_completion_has_star() -> None:
-    anim = get_theme("duck_bread", "emoji")
-    assert anim.completion_frame is not None
-    comp = anim.completion_frame.lines[0]
-    assert "\u2605" in comp  # star
 
-
-def test_cat_smug_completion_has_heart() -> None:
+def test_cat_smug_completion_has_crown() -> None:
     anim = get_theme("cat_smug", "emoji")
     assert anim.completion_frame is not None
     comp = anim.completion_frame.lines[0]
-    assert "\u2665" in comp  # heart suit
+    assert "\U0001f451" in comp  # crown
 
 
-def test_cat_sleepy_completion_has_heart() -> None:
+def test_cat_sleepy_completion_has_zzz() -> None:
     anim = get_theme("cat_sleepy", "emoji")
     assert anim.completion_frame is not None
     comp = anim.completion_frame.lines[0]
-    assert "\u2665" in comp  # heart suit
+    assert "\U0001f4a4" in comp  # zzz
 
 
-def test_cat_play_completion_has_heart() -> None:
+def test_cat_play_completion_has_sparkles() -> None:
     anim = get_theme("cat_play", "emoji")
     assert anim.completion_frame is not None
     comp = anim.completion_frame.lines[0]
-    assert "\u2665" in comp  # heart suit
+    assert "\u2728" in comp  # sparkles
 
 
 # ── Decoration tests for reworked and new themes ───────────
 
 
-@pytest.mark.parametrize("theme", ["fire", "heartbeat", "wizard", "rocket"])
+@pytest.mark.parametrize("theme", ["heartbeat", "wizard", "rocket"])
 @pytest.mark.parametrize("tier", TIERS)
 def test_reworked_themes_have_decoration(theme: str, tier: str) -> None:
     anim = get_theme(theme, tier)
@@ -391,7 +353,7 @@ def test_reworked_themes_have_decoration(theme: str, tier: str) -> None:
     assert anim.completion_decoration is not None
 
 
-@pytest.mark.parametrize("theme", ["train", "garden", "lightning", "aurora"])
+@pytest.mark.parametrize("theme", ["garden", "lightning"])
 @pytest.mark.parametrize("tier", TIERS)
 def test_new_decorated_themes_have_decoration(theme: str, tier: str) -> None:
     anim = get_theme(theme, tier)
@@ -399,7 +361,7 @@ def test_new_decorated_themes_have_decoration(theme: str, tier: str) -> None:
     assert anim.completion_decoration is not None
 
 
-@pytest.mark.parametrize("theme", ["cat_mouse", "cat_yarn", "duck_bread"])
+@pytest.mark.parametrize("theme", ["cat_mouse", "cat_yarn"])
 @pytest.mark.parametrize("tier", TIERS)
 def test_chase_themes_have_decoration(theme: str, tier: str) -> None:
     anim = get_theme(theme, tier)
@@ -408,9 +370,9 @@ def test_chase_themes_have_decoration(theme: str, tier: str) -> None:
 
 
 DECORATED_THEMES = [
-    "aurora", "cat_mouse", "cat_play", "cat_sleepy", "cat_smug",
-    "cat_yarn", "coffee", "duck_bread", "fire", "garden",
-    "heartbeat", "lightning", "nyan", "rocket", "train", "wizard",
+    "cat_mouse", "cat_play", "cat_sleepy", "cat_smug",
+    "cat_yarn", "garden",
+    "heartbeat", "lightning", "nyan", "rocket", "wizard",
 ]
 
 
@@ -433,6 +395,38 @@ def test_all_themes_use_bar_fill(theme: str, tier: str) -> None:
     """All new themes must use the themed bar rendering path."""
     anim = get_theme(theme, tier)
     assert anim.bar_fill is not None
+
+
+# ── Decoration minimum width ──────────────────────────────
+
+MIN_DECORATION_WIDTH = 70
+
+
+@pytest.mark.parametrize("theme", DECORATED_THEMES)
+@pytest.mark.parametrize("tier", TIERS)
+def test_decoration_lines_min_width(theme: str, tier: str) -> None:
+    """Decoration lines must span at least MIN_DECORATION_WIDTH display cols.
+
+    Short decoration lines cause visible gaps where the stars/symbols
+    stop partway across the bar. This catches that common authoring bug.
+    """
+    anim = get_theme(theme, tier)
+    if anim.decoration is None:
+        return
+    for i, dec_frame in enumerate(anim.decoration):
+        for j, line in enumerate(dec_frame.lines):
+            w = disp_len(line)
+            assert w >= MIN_DECORATION_WIDTH, (
+                f"{theme}/{tier} decoration[{i}].lines[{j}] "
+                f"is {w} display cols, need >= {MIN_DECORATION_WIDTH}"
+            )
+    if anim.completion_decoration is not None:
+        for j, line in enumerate(anim.completion_decoration.lines):
+            w = disp_len(line)
+            assert w >= MIN_DECORATION_WIDTH, (
+                f"{theme}/{tier} completion_decoration.lines[{j}] "
+                f"is {w} display cols, need >= {MIN_DECORATION_WIDTH}"
+            )
 
 
 # ── build_themed_fill tests ────────────────────────────────

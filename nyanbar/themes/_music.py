@@ -1,11 +1,11 @@
-"""fire theme -- Dragon leaving a trail of flames.
+"""music theme -- Musical notes trail with guitar sprite.
 
-A dragon blazes across the bar leaving fire in its wake.
+A guitar rocks across a trail of musical notes.
 
 Rendering tiers:
-- emoji: fire emoji trail, dragon sprite, dragon + trophy completion
-- unicode: "~" fill with red/yellow ANSI, "}>" sprite
-- ascii: "~" fill, "}>" sprite
+- emoji: music note emoji trail, guitar sprite, guitar + fire completion
+- unicode: ANSI note symbols, ">>" sprite
+- ascii: "~" fill, ">>" sprite
 """
 from __future__ import annotations
 
@@ -14,8 +14,8 @@ from ..registry import register_theme
 
 __all__: list[str] = []
 
-_RED = "\033[31m"
-_YEL = "\033[33m"
+_MAG = "\033[35m"
+_CYN = "\033[36m"
 _RST = "\033[0m"
 
 
@@ -29,12 +29,15 @@ def _create(tier: str) -> Animation:
 
 
 def _emoji() -> Animation:
-    fill = ("\U0001f525",)  # fire emoji trail
-    sprite_a = Frame(lines=("\U0001f409",))  # dragon
-    sprite_b = Frame(lines=("\U0001f409",))
-    completion = Frame(lines=("\U0001f409\U0001f3c6",))  # dragon + trophy
+    fill = (
+        "\U0001f3b5",  # musical note
+        "\U0001f3b6",  # musical notes
+    )
+    sprite_a = Frame(lines=("\U0001f3b8",))  # guitar
+    sprite_b = Frame(lines=("\U0001f3b8",))
+    completion = Frame(lines=("\U0001f3b8\U0001f525",))  # guitar + fire
     return Animation(
-        name="fire",
+        name="music",
         frames=(sprite_a, sprite_b),
         fps=3.0,
         mode=AnimationMode.WALK,
@@ -45,16 +48,14 @@ def _emoji() -> Animation:
 
 def _unicode() -> Animation:
     fill = (
-        f"{_RED}~{_RST}",
-        f"{_YEL}~{_RST}",
-        f"{_RED}^{_RST}",
-        f"{_YEL}~{_RST}",
+        f"{_MAG}\u266a{_RST}",
+        f"{_CYN}\u266b{_RST}",
     )
-    sprite_a = Frame(lines=("}>",))
-    sprite_b = Frame(lines=("}>",))
-    completion = Frame(lines=("}>*",))
+    sprite_a = Frame(lines=(">>",))
+    sprite_b = Frame(lines=(">>",))
+    completion = Frame(lines=(">>*",))
     return Animation(
-        name="fire",
+        name="music",
         frames=(sprite_a, sprite_b),
         fps=3.0,
         mode=AnimationMode.WALK,
@@ -64,12 +65,12 @@ def _unicode() -> Animation:
 
 
 def _ascii() -> Animation:
-    fill = ("~", "^", "~", "~")
-    sprite_a = Frame(lines=("}>",))
-    sprite_b = Frame(lines=("}>",))
-    completion = Frame(lines=("}>*",))
+    fill = ("~", ".", "~")
+    sprite_a = Frame(lines=(">>",))
+    sprite_b = Frame(lines=(">>",))
+    completion = Frame(lines=(">>*",))
     return Animation(
-        name="fire",
+        name="music",
         frames=(sprite_a, sprite_b),
         fps=3.0,
         mode=AnimationMode.WALK,
@@ -78,4 +79,4 @@ def _ascii() -> Animation:
     )
 
 
-register_theme("fire", _create)
+register_theme("music", _create)

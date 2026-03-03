@@ -1,11 +1,11 @@
-"""train theme -- Locomotive pulling a trail of train cars.
+"""pasta theme -- Spaghetti trail with chef sprite.
 
-A steam locomotive chugs along with train cars behind it.
+A chef leaves a trail of spaghetti across the bar.
 
 Rendering tiers:
-- emoji: train car emoji trail, locomotive sprite
-- unicode: ANSI blocks, "[=" sprite
-- ascii: "=" fill, "[=" sprite
+- emoji: spaghetti trail, chef sprite, chef + OK completion
+- unicode: "~" fill, "d>" sprite
+- ascii: "~" fill, "d>" sprite
 """
 from __future__ import annotations
 
@@ -13,9 +13,6 @@ from ..models import Animation, AnimationMode, Frame
 from ..registry import register_theme
 
 __all__: list[str] = []
-
-_RED = "\033[31m"
-_RST = "\033[0m"
 
 
 def _create(tier: str) -> Animation:
@@ -28,12 +25,12 @@ def _create(tier: str) -> Animation:
 
 
 def _emoji() -> Animation:
-    fill = ("\U0001f683",)  # railway car
-    sprite_a = Frame(lines=("\U0001f682",))  # locomotive
-    sprite_b = Frame(lines=("\U0001f682",))
-    completion = Frame(lines=("\U0001f682\U0001f389",))  # locomotive + party
+    fill = ("\U0001f35d",)  # spaghetti trail
+    sprite_a = Frame(lines=("\U0001f468\u200d\U0001f373",))  # chef
+    sprite_b = Frame(lines=("\U0001f468\u200d\U0001f373",))
+    completion = Frame(lines=("\U0001f468\u200d\U0001f373\U0001f44c",))  # chef + OK
     return Animation(
-        name="train",
+        name="pasta",
         frames=(sprite_a, sprite_b),
         fps=3.0,
         mode=AnimationMode.WALK,
@@ -43,15 +40,12 @@ def _emoji() -> Animation:
 
 
 def _unicode() -> Animation:
-    fill = (
-        f"{_RED}\u2588{_RST}",
-        "\u2593",
-    )
-    sprite_a = Frame(lines=("[=",))
-    sprite_b = Frame(lines=("[=",))
-    completion = Frame(lines=("[=*",))
+    fill = ("~",)
+    sprite_a = Frame(lines=("d>",))
+    sprite_b = Frame(lines=("d>",))
+    completion = Frame(lines=("d>*",))
     return Animation(
-        name="train",
+        name="pasta",
         frames=(sprite_a, sprite_b),
         fps=3.0,
         mode=AnimationMode.WALK,
@@ -61,12 +55,12 @@ def _unicode() -> Animation:
 
 
 def _ascii() -> Animation:
-    fill = ("=",)
-    sprite_a = Frame(lines=("[=",))
-    sprite_b = Frame(lines=("[=",))
-    completion = Frame(lines=("[=*",))
+    fill = ("~",)
+    sprite_a = Frame(lines=("d>",))
+    sprite_b = Frame(lines=("d>",))
+    completion = Frame(lines=("d>*",))
     return Animation(
-        name="train",
+        name="pasta",
         frames=(sprite_a, sprite_b),
         fps=3.0,
         mode=AnimationMode.WALK,
@@ -75,4 +69,4 @@ def _ascii() -> Animation:
     )
 
 
-register_theme("train", _create)
+register_theme("pasta", _create)

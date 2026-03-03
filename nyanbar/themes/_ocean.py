@@ -30,15 +30,10 @@ def _create(tier: str) -> Animation:
 
 
 def _emoji() -> Animation:
-    fill = (
-        f"{_BLU}\u2588{_RST}",
-        f"{_CYN}\u2588{_RST}",
-        f"{_BLU}\u2593{_RST}",
-        f"{_CYN}\u2591{_RST}",
-    )
-    sprite_a = Frame(lines=("\U0001f30a",))    # wave emoji
-    sprite_b = Frame(lines=("\U0001f30a",))
-    completion = Frame(lines=("\u2600",))      # sun emoji
+    fill = ("\U0001f30a",)  # wave emoji trail (2 cols each)
+    sprite_a = Frame(lines=("\U0001f3c4",))    # surfer emoji
+    sprite_b = Frame(lines=("\U0001f3c4",))
+    completion = Frame(lines=("\U0001f3c4\u2600\ufe0f",))  # surfer + sun
     return Animation(
         name="ocean",
         frames=(sprite_a, sprite_b),

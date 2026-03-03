@@ -32,31 +32,31 @@ def _create(tier: str) -> Animation:
 
 
 def _emoji() -> Animation:
-    # Dynamic exhaust trail: mix of full blocks and shades for texture
+    # Fiery exhaust trail mixing flames, sparks, and dashes
     fill = (
-        f"{_RED}\u2588{_RST}",   # red full block
-        f"{_YEL}\u2588{_RST}",   # yellow full block
-        f"{_YEL}\u2592{_RST}",   # yellow medium shade
-        f"{_RED}\u2593{_RST}",   # red dark shade
-        f"{_YEL}\u2588{_RST}",   # yellow full block
-        f"{_RED}\u2591{_RST}",   # red light shade (trailing exhaust)
+        "\U0001f525",  # fire
+        "\U0001f4a5",  # collision/boom
+        "\U0001f525",  # fire
+        "\u2728",      # sparkles
+        "\U0001f525",  # fire
+        "\U0001f31f",  # glowing star
     )
     sprite_a = Frame(lines=("\U0001f680",))     # rocket emoji (2 cols)
     sprite_b = Frame(lines=("\U0001f680",))
-    completion = Frame(lines=("\U0001f680\u2605",))   # rocket + star
+    completion = Frame(lines=("\U0001f680\u2b50",))   # rocket + star
 
     # Decoration: starfield above, exhaust particles below -- parallax effect
     dec_a = Frame(lines=(
-        f"\u2605  {_WHT}\u00b7{_RST}       {_CYN}\u2726{_RST}        {_WHT}\u00b7{_RST}  \u2605       {_CYN}\u2726{_RST}    {_WHT}\u00b7{_RST}  \u2605       {_CYN}\u2726{_RST}    {_WHT}\u00b7{_RST}  \u2605",
-        f"  {_YEL}\u2022{_RST}    {_RED}\u00b7{_RST}        {_YEL}\u2022{_RST}   {_RED}\u00b7{_RST}        {_YEL}\u2022{_RST}    {_RED}\u00b7{_RST}        {_YEL}\u2022{_RST}   {_RED}\u00b7{_RST}        {_YEL}\u2022{_RST}",
+        f"\u2605  {_WHT}\u00b7{_RST}       {_CYN}\u2726{_RST}        {_WHT}\u00b7{_RST}  \u2605       {_CYN}\u2726{_RST}    {_WHT}\u00b7{_RST}  \u2605       {_CYN}\u2726{_RST}    {_WHT}\u00b7{_RST}  \u2605      {_CYN}\u2726{_RST}     {_WHT}\u00b7{_RST}  \u2605",
+        f"  {_YEL}\u2022{_RST}    {_RED}\u00b7{_RST}        {_YEL}\u2022{_RST}   {_RED}\u00b7{_RST}        {_YEL}\u2022{_RST}    {_RED}\u00b7{_RST}        {_YEL}\u2022{_RST}   {_RED}\u00b7{_RST}        {_YEL}\u2022{_RST}    {_RED}\u00b7{_RST}     {_YEL}\u2022{_RST}   {_RED}\u00b7{_RST}",
     ))
     dec_b = Frame(lines=(
-        f"  {_WHT}\u00b7{_RST}   \u2605          {_WHT}\u2726{_RST}         \u2605               {_CYN}\u00b7{_RST}   \u2605    {_WHT}\u2726{_RST}         \u2605   {_CYN}\u00b7{_RST}",
-        f"     {_RED}\u00b7{_RST}        {_YEL}\u2022{_RST}   {_RED}\u00b7{_RST}        {_YEL}\u2022{_RST}   {_RED}\u00b7{_RST}        {_YEL}\u2022{_RST}   {_RED}\u00b7{_RST}        {_YEL}\u2022{_RST}",
+        f"  {_WHT}\u00b7{_RST}   \u2605          {_WHT}\u2726{_RST}         \u2605               {_CYN}\u00b7{_RST}   \u2605    {_WHT}\u2726{_RST}         \u2605   {_CYN}\u00b7{_RST}    \u2605",
+        f"     {_RED}\u00b7{_RST}        {_YEL}\u2022{_RST}   {_RED}\u00b7{_RST}        {_YEL}\u2022{_RST}   {_RED}\u00b7{_RST}        {_YEL}\u2022{_RST}   {_RED}\u00b7{_RST}        {_YEL}\u2022{_RST}    {_RED}\u00b7{_RST}       {_YEL}\u2022{_RST}   {_RED}\u00b7{_RST}",
     ))
     dec_done = Frame(lines=(
-        f"  \u2605   {_CYN}\u2726{_RST}   \u2605       {_WHT}\u2726{_RST}   \u2605       {_CYN}\u2726{_RST}   \u2605       {_WHT}\u2726{_RST}   \u2605       {_CYN}\u2726{_RST}   \u2605",
-        f"  {_CYN}\u2726{_RST}   \u2605   {_WHT}\u2726{_RST}       \u2605   {_CYN}\u2726{_RST}       \u2605   {_WHT}\u2726{_RST}       \u2605   {_CYN}\u2726{_RST}       \u2605   {_WHT}\u2726{_RST}",
+        f"  \u2605   {_CYN}\u2726{_RST}   \u2605       {_WHT}\u2726{_RST}   \u2605       {_CYN}\u2726{_RST}   \u2605       {_WHT}\u2726{_RST}   \u2605       {_CYN}\u2726{_RST}   \u2605       {_WHT}\u2726{_RST}   \u2605   {_CYN}\u2726{_RST}",
+        f"  {_CYN}\u2726{_RST}   \u2605   {_WHT}\u2726{_RST}       \u2605   {_CYN}\u2726{_RST}       \u2605   {_WHT}\u2726{_RST}       \u2605   {_CYN}\u2726{_RST}       \u2605   {_WHT}\u2726{_RST}       \u2605   {_CYN}\u2726{_RST}",
     ))
 
     return Animation(
@@ -86,15 +86,15 @@ def _unicode() -> Animation:
 
     dec_a = Frame(lines=(
         "*  \u00b7       \u2726        \u00b7  *       \u2726    \u00b7  *       \u2726    \u00b7  *       \u2726   \u00b7  *",
-        "  \u2022    \u00b7        \u2022   \u00b7        \u2022    \u00b7        \u2022   \u00b7        \u2022    \u00b7   \u2022",
+        "  \u2022    \u00b7        \u2022   \u00b7        \u2022    \u00b7        \u2022   \u00b7        \u2022    \u00b7   \u2022    \u00b7",
     ))
     dec_b = Frame(lines=(
         "  \u00b7   *          \u2726         *               \u00b7   *    \u2726         *   \u00b7   *",
-        "     \u00b7        \u2022   \u00b7        \u2022   \u00b7        \u2022   \u00b7        \u2022   \u00b7   \u2022   \u00b7",
+        "     \u00b7        \u2022   \u00b7        \u2022   \u00b7        \u2022   \u00b7        \u2022   \u00b7   \u2022   \u00b7   \u2022",
     ))
     dec_done = Frame(lines=(
-        "  *   \u2726   *       \u2726   *       \u2726   *       \u2726   *       \u2726   *   \u2726   *",
-        "  \u2726   *   \u2726       *   \u2726       *   \u2726       *   \u2726       *   \u2726   *   \u2726",
+        "  *   \u2726   *       \u2726   *       \u2726   *       \u2726   *       \u2726   *   \u2726   *   \u2726",
+        "  \u2726   *   \u2726       *   \u2726       *   \u2726       *   \u2726       *   \u2726   *   \u2726   *",
     ))
 
     return Animation(

@@ -6,8 +6,10 @@ effects, no I/O.
 """
 from __future__ import annotations
 
+import unicodedata
+
 from .models import Animation, AnimationMode, Frame
-from .utils import disp_len
+from .utils import disp_len, strip_ansi
 
 __all__ = [
     "select_frame_index",
@@ -15,6 +17,8 @@ __all__ = [
     "cycle_position",
     "fill_pattern",
     "render_animation",
+    "build_themed_fill",
+    "render_themed_bar",
 ]
 
 
@@ -123,3 +127,171 @@ def render_animation(
         pos = walk_position(progress, width, frame.display_width)
 
     return [_pad_line(line, pos, width) for line in frame.lines]
+
+
+# ── Themed bar rendering ──────────────────────────────────
+
+
+def build_themed_fill(bar_fill: tuple[str, ...], filled_cols: int) -> str:
+    """Build a themed fill string exactly *filled_cols* display columns wide.
+
+    Cycles through *bar_fill* characters, which may be wider than 1 display
+    column (e.g. emojis).  Characters may contain ANSI color codes.
+    Any remainder is padded with spaces.
+    """
+    if not bar_fill or filled_cols <= 0:
+        return ""
+    parts: list[str] = []
+    count = len(bar_fill)
+    total_w = 0
+    i = 0
+    while total_w < filled_cols:
+        char = bar_fill[i % count]
+        char_w = disp_len(char)
+        if total_w + char_w > filled_cols:
+            break
+        parts.append(char)
+        total_w += char_w
+        i += 1
+    if total_w < filled_cols:
+        parts.append(" " * (filled_cols - total_w))
+    return "".join(parts)
+
+
+def _trunc_to_width(text: str, target: int) -> str:
+    """Truncate *text* to exactly *target* display columns.
+
+    Preserves ANSI escape sequences (zero-width).  Pads with spaces if
+    the target falls in the middle of a wide character.
+    """
+    result: list[str] = []
+    width = 0
+    i = 0
+    while i < len(text) and width < target:
+        # Pass ANSI escape sequences through without counting width
+        if text[i] == "\033" and i + 1 < len(text) and text[i + 1] == "[":
+            j = i + 2
+            while j < len(text) and not text[j].isalpha():
+                j += 1
+            if j < len(text):
+                j += 1  # include the final letter
+            result.append(text[i:j])
+            i = j
+            continue
+
+        char = text[i]
+        if unicodedata.combining(char):
+            result.append(char)
+            i += 1
+            continue
+
+        eaw = unicodedata.east_asian_width(char)
+        char_w = 2 if eaw in ("W", "F") else 1
+        if width + char_w > target:
+            break
+        result.append(char)
+        width += char_w
+        i += 1
+
+    if width < target:
+        result.append(" " * (target - width))
+    return "".join(result)
+
+
+def _tile_decoration(line: str, target: int) -> str:
+    """Tile *line* to fill exactly *target* display columns.
+
+    Repeats the decoration content and truncates cleanly, handling ANSI
+    escape sequences and wide characters.  Appends a reset code if the
+    source contained ANSI to avoid unclosed sequences after truncation.
+    """
+    line_w = disp_len(line)
+    if line_w <= 0:
+        return " " * target
+    if line_w >= target:
+        return _trunc_to_width(line, target)
+    repeats = (target // line_w) + 2
+    result = _trunc_to_width(line * repeats, target)
+    if "\033" in line:
+        result += "\033[0m"
+    return result
+
+
+def render_themed_bar(
+    animation: Animation,
+    progress: float,
+    ncols: int,
+    elapsed: float,
+    stats_left: str,
+    stats_right: str,
+) -> list[str]:
+    """Render a themed progress bar with fill + sprite at the leading edge.
+
+    Returns a list of output lines (1 bar line + optional decoration lines).
+    The bar line is exactly *ncols* display columns wide.
+    """
+    if animation.bar_fill is None:
+        return []
+
+    left_width = disp_len(stats_left)
+    right_width = disp_len(stats_right)
+    # Inner bar width between the pipes
+    inner = max(ncols - left_width - right_width - 2, 0)
+
+    # Select sprite frame
+    is_complete = progress >= 1.0
+    if is_complete and animation.completion_frame is not None:
+        sprite_frame = animation.completion_frame
+    else:
+        idx = select_frame_index(animation.frame_count, elapsed, animation.fps)
+        sprite_frame = animation.frames[idx] if animation.frames else Frame(lines=())
+
+    # Sprite is single-line for the bar; use first line
+    sprite = sprite_frame.lines[0] if sprite_frame.lines else ""
+    sprite_w = disp_len(sprite)
+
+    # Fillable space = inner minus sprite
+    fillable = max(inner - sprite_w, 0)
+    clamped = max(0.0, min(1.0, progress))
+    filled_cols = int(fillable * clamped)
+    empty_cols = fillable - filled_cols
+
+    fill = build_themed_fill(animation.bar_fill, filled_cols)
+    empty = " " * empty_cols
+
+    bar_line = f"{stats_left}|{fill}{sprite}{empty}|{stats_right}"
+
+    # Pad or truncate to exact ncols
+    bar_width = disp_len(bar_line)
+    if bar_width < ncols:
+        bar_line = bar_line + " " * (ncols - bar_width)
+
+    lines: list[str] = []
+
+    # Decoration above
+    if animation.decoration is not None:
+        if is_complete and animation.completion_decoration is not None:
+            dec_frame = animation.completion_decoration
+        else:
+            dec_idx = select_frame_index(
+                len(animation.decoration), elapsed, animation.fps,
+            )
+            dec_frame = animation.decoration[dec_idx]
+        if dec_frame.lines:
+            lines.append(_tile_decoration(dec_frame.lines[0], ncols))
+
+    lines.append(bar_line)
+
+    # Decoration below
+    if animation.decoration is not None:
+        if is_complete and animation.completion_decoration is not None:
+            dec_frame = animation.completion_decoration
+        else:
+            dec_idx = select_frame_index(
+                len(animation.decoration), elapsed, animation.fps,
+            )
+            dec_frame = animation.decoration[dec_idx]
+        if len(dec_frame.lines) > 1:
+            lines.append(_tile_decoration(dec_frame.lines[1], ncols))
+
+    return lines
