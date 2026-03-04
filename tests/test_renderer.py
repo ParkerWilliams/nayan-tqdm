@@ -5,16 +5,16 @@ import io
 
 import pytest
 
-from nyanbar.utils import disp_len, strip_ansi
-from nyanbar.renderer import (
+from nayan_tqdm.utils import disp_len, strip_ansi
+from nayan_tqdm.renderer import (
     CURSOR_UP, ERASE_LINE, RESET,
     ensure_reset, erase_lines, has_unclosed_ansi, render_frame,
 )
-from nyanbar.engine import (
+from nayan_tqdm.engine import (
     cycle_position, fill_pattern, render_animation,
     select_frame_index, walk_position,
 )
-from nyanbar.models import Animation, AnimationMode, Frame
+from nayan_tqdm.models import Animation, AnimationMode, Frame
 
 
 # ── strip_ansi ──────────────────────────────────────────────

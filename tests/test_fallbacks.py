@@ -7,9 +7,9 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from nyanbar.fallback import should_use_fallback, render_fallback_bar
-from nyanbar.terminal import ColorTier, TerminalInfo, detect_terminal
-from nyanbar.utils import strip_ansi
+from nayan_tqdm.fallback import should_use_fallback, render_fallback_bar
+from nayan_tqdm.terminal import ColorTier, TerminalInfo, detect_terminal
+from nayan_tqdm.utils import strip_ansi
 
 
 # ── Helpers ─────────────────────────────────────────────────
@@ -303,7 +303,7 @@ def test_detect_notebook() -> None:
     mock_shell = MagicMock()
     mock_shell.__class__ = type("ZMQInteractiveShell", (), {})
     with patch.dict(os.environ, {"TERM": "xterm"}, clear=False):
-        with patch("nyanbar.terminal._get_ipython_shell", return_value=mock_shell):
+        with patch("nayan_tqdm.terminal._get_ipython_shell", return_value=mock_shell):
             info = detect_terminal(stream)
     assert info.is_notebook is True
 
@@ -311,7 +311,7 @@ def test_detect_notebook() -> None:
 def test_detect_no_ipython() -> None:
     stream = _make_stream(True)
     with patch.dict(os.environ, {"TERM": "xterm"}, clear=False):
-        with patch("nyanbar.terminal._get_ipython_shell", return_value=None):
+        with patch("nayan_tqdm.terminal._get_ipython_shell", return_value=None):
             info = detect_terminal(stream)
     assert info.is_notebook is False
 
@@ -321,7 +321,7 @@ def test_detect_terminal_interactive_shell() -> None:
     mock_shell = MagicMock()
     mock_shell.__class__ = type("TerminalInteractiveShell", (), {})
     with patch.dict(os.environ, {"TERM": "xterm"}, clear=False):
-        with patch("nyanbar.terminal._get_ipython_shell", return_value=mock_shell):
+        with patch("nayan_tqdm.terminal._get_ipython_shell", return_value=mock_shell):
             info = detect_terminal(stream)
     assert info.is_notebook is False
 

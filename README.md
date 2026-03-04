@@ -1,7 +1,7 @@
-# nyanbar
+# nayan-tqdm
 
-[![PyPI version](https://img.shields.io/pypi/v/nyanbar)](https://pypi.org/project/nyanbar/)
-[![Python versions](https://img.shields.io/pypi/pyversions/nyanbar)](https://pypi.org/project/nyanbar/)
+[![PyPI version](https://img.shields.io/pypi/v/nayan-tqdm)](https://pypi.org/project/nayan-tqdm/)
+[![Python versions](https://img.shields.io/pypi/pyversions/nayan-tqdm)](https://pypi.org/project/nayan-tqdm/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Typed](https://img.shields.io/badge/typed-PEP%20561-brightgreen.svg)](https://peps.python.org/pep-0561/)
 
@@ -13,7 +13,7 @@ Your progress bars don't have to be boring. Swap one import and get rainbow cats
 ## Installation
 
 ```bash
-pip install nyanbar
+pip install nayan-tqdm
 ```
 
 Zero dependencies. Python 3.10+. That's it.
@@ -25,7 +25,7 @@ Zero dependencies. Python 3.10+. That's it.
 from tqdm import tqdm
 
 # After -- same API, way more fun
-from nyanbar import tqdm
+from nayan_tqdm import tqdm
 
 for item in tqdm(range(1000)):
     pass
@@ -33,7 +33,7 @@ for item in tqdm(range(1000)):
 
 ## Themes
 
-nyanbar ships with **40 built-in themes** across emoji, kaomoji, and meme categories. Each theme has 3 rendering tiers (emoji, unicode, ascii) automatically selected based on your terminal.
+nayan-tqdm ships with **40 built-in themes** across emoji, kaomoji, and meme categories. Each theme has 3 rendering tiers (emoji, unicode, ascii) automatically selected based on your terminal.
 
 ### Emoji Trail Themes
 
@@ -115,7 +115,7 @@ for item in tqdm(range(1000), theme="ocean"):
 ### trange shorthand
 
 ```python
-from nyanbar import trange
+from nayan_tqdm import trange
 
 for i in trange(100):
     pass
@@ -124,7 +124,7 @@ for i in trange(100):
 ### Context manager
 
 ```python
-from nyanbar import tqdm
+from nayan_tqdm import tqdm
 
 with tqdm(total=100) as bar:
     for batch in data_loader:
@@ -135,7 +135,7 @@ with tqdm(total=100) as bar:
 ### Manual update
 
 ```python
-from nyanbar import tqdm
+from nayan_tqdm import tqdm
 
 bar = tqdm(total=500)
 for chunk in download_chunks():
@@ -157,7 +157,7 @@ for epoch in bar:
 ### Set a global default theme
 
 ```python
-from nyanbar import set_theme, tqdm
+from nayan_tqdm import set_theme, tqdm
 
 set_theme("rocket")
 
@@ -215,7 +215,7 @@ Fully typed with a `py.typed` marker ([PEP 561](https://peps.python.org/pep-0561
 
 ## Graceful Fallback
 
-nyanbar automatically falls back to a plain text progress bar when output is piped, the terminal is too narrow, or the bar is disabled. No crashes, no garbled output.
+nayan-tqdm automatically falls back to a plain text progress bar when output is piped, the terminal is too narrow, or the bar is disabled. No crashes, no garbled output.
 
 ## Requirements
 

@@ -11,12 +11,12 @@ from unittest.mock import patch, MagicMock
 
 import pytest
 
-from nyanbar.core import NyanBar
-from nyanbar.models import Animation, AnimationMode, Frame
-from nyanbar.terminal import TerminalInfo, ColorTier
-from nyanbar.formatters import EMA, si_format, format_interval, format_meter
-from nyanbar.registry import get_theme, list_themes, set_theme, get_default_theme
-import nyanbar.themes  # noqa: F401
+from nayan_tqdm.core import NyanBar
+from nayan_tqdm.models import Animation, AnimationMode, Frame
+from nayan_tqdm.terminal import TerminalInfo, ColorTier
+from nayan_tqdm.formatters import EMA, si_format, format_interval, format_meter
+from nayan_tqdm.registry import get_theme, list_themes, set_theme, get_default_theme
+import nayan_tqdm.themes  # noqa: F401
 
 
 def _mock_tty() -> TerminalInfo:
@@ -36,7 +36,7 @@ def _test_animation() -> Animation:
 # ── Constructor tests ────────────────────────────────────────
 
 
-@patch("nyanbar.core.detect_terminal", return_value=_mock_tty())
+@patch("nayan_tqdm.core.detect_terminal", return_value=_mock_tty())
 def test_default_params(mock_dt: MagicMock) -> None:
     sio = io.StringIO()
     bar = NyanBar(range(10), file=sio)
@@ -46,7 +46,7 @@ def test_default_params(mock_dt: MagicMock) -> None:
     bar.close()
 
 
-@patch("nyanbar.core.detect_terminal", return_value=_mock_tty())
+@patch("nayan_tqdm.core.detect_terminal", return_value=_mock_tty())
 def test_explicit_total(mock_dt: MagicMock) -> None:
     sio = io.StringIO()
     bar = NyanBar(iter([1, 2, 3]), total=3, file=sio)
@@ -54,21 +54,21 @@ def test_explicit_total(mock_dt: MagicMock) -> None:
     bar.close()
 
 
-@patch("nyanbar.core.detect_terminal", return_value=_mock_tty())
+@patch("nayan_tqdm.core.detect_terminal", return_value=_mock_tty())
 def test_unknown_kwargs_swallowed(mock_dt: MagicMock) -> None:
     sio = io.StringIO()
     bar = NyanBar(range(10), colour="red", gui=True, file=sio)
     bar.close()
 
 
-@patch("nyanbar.core.detect_terminal", return_value=_mock_tty())
+@patch("nayan_tqdm.core.detect_terminal", return_value=_mock_tty())
 def test_bar_format_accepted_ignored(mock_dt: MagicMock) -> None:
     sio = io.StringIO()
     bar = NyanBar(range(10), bar_format="{l_bar}", file=sio)
     bar.close()
 
 
-@patch("nyanbar.core.detect_terminal", return_value=_mock_tty())
+@patch("nayan_tqdm.core.detect_terminal", return_value=_mock_tty())
 def test_disable_true(mock_dt: MagicMock) -> None:
     sio = io.StringIO()
     bar = NyanBar(range(10), disable=True, file=sio)
@@ -84,7 +84,7 @@ def test_iter_yields_all_items() -> None:
     assert result == [0, 1, 2, 3, 4]
 
 
-@patch("nyanbar.core.detect_terminal", return_value=_mock_tty())
+@patch("nayan_tqdm.core.detect_terminal", return_value=_mock_tty())
 def test_iter_calls_close(mock_dt: MagicMock) -> None:
     sio = io.StringIO()
     bar = NyanBar(range(5), file=sio)
@@ -101,7 +101,7 @@ def test_iter_no_iterable_raises() -> None:
 # ── Update tests ─────────────────────────────────────────────
 
 
-@patch("nyanbar.core.detect_terminal", return_value=_mock_tty())
+@patch("nayan_tqdm.core.detect_terminal", return_value=_mock_tty())
 def test_update_increments_n(mock_dt: MagicMock) -> None:
     sio = io.StringIO()
     bar = NyanBar(total=100, file=sio)
@@ -110,7 +110,7 @@ def test_update_increments_n(mock_dt: MagicMock) -> None:
     bar.close()
 
 
-@patch("nyanbar.core.detect_terminal", return_value=_mock_tty())
+@patch("nayan_tqdm.core.detect_terminal", return_value=_mock_tty())
 def test_update_default_one(mock_dt: MagicMock) -> None:
     sio = io.StringIO()
     bar = NyanBar(total=100, file=sio)
@@ -122,7 +122,7 @@ def test_update_default_one(mock_dt: MagicMock) -> None:
 # ── Close tests ──────────────────────────────────────────────
 
 
-@patch("nyanbar.core.detect_terminal", return_value=_mock_tty())
+@patch("nayan_tqdm.core.detect_terminal", return_value=_mock_tty())
 def test_close_idempotent(mock_dt: MagicMock) -> None:
     sio = io.StringIO()
     bar = NyanBar(range(5), file=sio)
@@ -133,7 +133,7 @@ def test_close_idempotent(mock_dt: MagicMock) -> None:
     assert output1 == output2
 
 
-@patch("nyanbar.core.detect_terminal", return_value=_mock_tty())
+@patch("nayan_tqdm.core.detect_terminal", return_value=_mock_tty())
 def test_close_leave_true(mock_dt: MagicMock) -> None:
     sio = io.StringIO()
     bar = NyanBar(range(5), leave=True, file=sio)
@@ -142,7 +142,7 @@ def test_close_leave_true(mock_dt: MagicMock) -> None:
     assert output.endswith("\n")
 
 
-@patch("nyanbar.core.detect_terminal", return_value=_mock_tty())
+@patch("nayan_tqdm.core.detect_terminal", return_value=_mock_tty())
 def test_close_leave_false(mock_dt: MagicMock) -> None:
     sio = io.StringIO()
     bar = NyanBar(range(5), leave=False, file=sio)
@@ -154,7 +154,7 @@ def test_close_leave_false(mock_dt: MagicMock) -> None:
 # ── Context manager tests ────────────────────────────────────
 
 
-@patch("nyanbar.core.detect_terminal", return_value=_mock_tty())
+@patch("nayan_tqdm.core.detect_terminal", return_value=_mock_tty())
 def test_context_manager(mock_dt: MagicMock) -> None:
     sio = io.StringIO()
     with NyanBar(range(5), file=sio) as bar:
@@ -162,7 +162,7 @@ def test_context_manager(mock_dt: MagicMock) -> None:
     assert bar._closed is True
 
 
-@patch("nyanbar.core.detect_terminal", return_value=_mock_tty())
+@patch("nayan_tqdm.core.detect_terminal", return_value=_mock_tty())
 def test_exit_on_exception(mock_dt: MagicMock) -> None:
     sio = io.StringIO()
     with pytest.raises(RuntimeError):
@@ -174,7 +174,7 @@ def test_exit_on_exception(mock_dt: MagicMock) -> None:
 # ── set_description / set_postfix tests ──────────────────────
 
 
-@patch("nyanbar.core.detect_terminal", return_value=_mock_tty())
+@patch("nayan_tqdm.core.detect_terminal", return_value=_mock_tty())
 def test_set_description(mock_dt: MagicMock) -> None:
     sio = io.StringIO()
     bar = NyanBar(total=100, file=sio)
@@ -184,7 +184,7 @@ def test_set_description(mock_dt: MagicMock) -> None:
     bar.close()
 
 
-@patch("nyanbar.core.detect_terminal", return_value=_mock_tty())
+@patch("nayan_tqdm.core.detect_terminal", return_value=_mock_tty())
 def test_set_postfix_dict(mock_dt: MagicMock) -> None:
     sio = io.StringIO()
     bar = NyanBar(total=100, file=sio)
@@ -194,7 +194,7 @@ def test_set_postfix_dict(mock_dt: MagicMock) -> None:
     bar.close()
 
 
-@patch("nyanbar.core.detect_terminal", return_value=_mock_tty())
+@patch("nayan_tqdm.core.detect_terminal", return_value=_mock_tty())
 def test_set_postfix_str(mock_dt: MagicMock) -> None:
     sio = io.StringIO()
     bar = NyanBar(total=100, file=sio)
@@ -207,13 +207,13 @@ def test_set_postfix_str(mock_dt: MagicMock) -> None:
 # ── API alias tests ──────────────────────────────────────────
 
 
-def test_tqdm_is_nyanbar() -> None:
-    from nyanbar import tqdm
+def test_tqdm_is_nayan_tqdm() -> None:
+    from nayan_tqdm import tqdm
     assert tqdm is NyanBar
 
 
-def test_trange_returns_nyanbar() -> None:
-    from nyanbar import trange
+def test_trange_returns_nayan_tqdm() -> None:
+    from nayan_tqdm import trange
     bar = trange(5, disable=True)
     assert isinstance(bar, NyanBar)
     bar.close()
@@ -360,7 +360,7 @@ def test_meter_bar_width() -> None:
 # ── Animation thread lifecycle tests ────────────────────────
 
 
-@patch("nyanbar.core.detect_terminal", return_value=_mock_tty())
+@patch("nayan_tqdm.core.detect_terminal", return_value=_mock_tty())
 def test_animation_thread_starts_on_iter(mock_dt: MagicMock) -> None:
     sio = io.StringIO()
     bar = NyanBar(range(100), file=sio, mininterval=0)
@@ -373,7 +373,7 @@ def test_animation_thread_starts_on_iter(mock_dt: MagicMock) -> None:
     bar.close()
 
 
-@patch("nyanbar.core.detect_terminal", return_value=_mock_tty())
+@patch("nayan_tqdm.core.detect_terminal", return_value=_mock_tty())
 def test_animation_thread_stops_on_close(mock_dt: MagicMock) -> None:
     sio = io.StringIO()
     bar = NyanBar(range(100), file=sio, mininterval=0)
@@ -386,7 +386,7 @@ def test_animation_thread_stops_on_close(mock_dt: MagicMock) -> None:
     time.sleep(0.15)
 
 
-@patch("nyanbar.core.detect_terminal", return_value=_mock_tty())
+@patch("nayan_tqdm.core.detect_terminal", return_value=_mock_tty())
 def test_animation_thread_is_daemon(mock_dt: MagicMock) -> None:
     sio = io.StringIO()
     bar = NyanBar(range(100), file=sio, mininterval=0)
@@ -406,7 +406,7 @@ def test_no_thread_for_disabled() -> None:
     assert bar._anim_thread is None
 
 
-@patch("nyanbar.core.detect_terminal", return_value=_mock_non_tty())
+@patch("nayan_tqdm.core.detect_terminal", return_value=_mock_non_tty())
 def test_no_thread_for_fallback(mock_dt: MagicMock) -> None:
     sio = io.StringIO()
     bar = NyanBar(range(10), file=sio, mininterval=0)
@@ -419,7 +419,7 @@ def test_no_thread_for_fallback(mock_dt: MagicMock) -> None:
 # ── Refresh throttle tests ───────────────────────────────────
 
 
-@patch("nyanbar.core.detect_terminal", return_value=_mock_tty())
+@patch("nayan_tqdm.core.detect_terminal", return_value=_mock_tty())
 def test_miniters_gate(mock_dt: MagicMock) -> None:
     sio = io.StringIO()
     bar = NyanBar(total=100, file=sio, miniters=5, mininterval=0)
@@ -432,7 +432,7 @@ def test_miniters_gate(mock_dt: MagicMock) -> None:
     bar.close()
 
 
-@patch("nyanbar.core.detect_terminal", return_value=_mock_tty())
+@patch("nayan_tqdm.core.detect_terminal", return_value=_mock_tty())
 def test_mininterval_gate(mock_dt: MagicMock) -> None:
     sio = io.StringIO()
     bar = NyanBar(total=100, file=sio, miniters=1, mininterval=0.5)
@@ -444,7 +444,7 @@ def test_mininterval_gate(mock_dt: MagicMock) -> None:
     bar.close()
 
 
-@patch("nyanbar.core.detect_terminal", return_value=_mock_tty())
+@patch("nayan_tqdm.core.detect_terminal", return_value=_mock_tty())
 def test_miniters_auto_tune(mock_dt: MagicMock) -> None:
     sio = io.StringIO()
     bar = NyanBar(total=1000, file=sio, miniters=1, mininterval=0)
@@ -456,7 +456,7 @@ def test_miniters_auto_tune(mock_dt: MagicMock) -> None:
 # ── Leave/cleanup tests ─────────────────────────────────────
 
 
-@patch("nyanbar.core.detect_terminal", return_value=_mock_tty())
+@patch("nayan_tqdm.core.detect_terminal", return_value=_mock_tty())
 def test_leave_true_keeps_output(mock_dt: MagicMock) -> None:
     sio = io.StringIO()
     bar = NyanBar(range(5), leave=True, file=sio)
@@ -466,7 +466,7 @@ def test_leave_true_keeps_output(mock_dt: MagicMock) -> None:
     assert "5/5" in output or "100%" in output
 
 
-@patch("nyanbar.core.detect_terminal", return_value=_mock_tty())
+@patch("nayan_tqdm.core.detect_terminal", return_value=_mock_tty())
 def test_leave_false_erases_output(mock_dt: MagicMock) -> None:
     sio = io.StringIO()
     bar = NyanBar(range(5), leave=False, file=sio)
@@ -475,7 +475,7 @@ def test_leave_false_erases_output(mock_dt: MagicMock) -> None:
     assert "\033[2K" in output
 
 
-@patch("nyanbar.core.detect_terminal", return_value=_mock_tty())
+@patch("nayan_tqdm.core.detect_terminal", return_value=_mock_tty())
 def test_leave_false_clean_terminal(mock_dt: MagicMock) -> None:
     sio = io.StringIO()
     bar = NyanBar(range(5), leave=False, file=sio)
@@ -487,7 +487,7 @@ def test_leave_false_clean_terminal(mock_dt: MagicMock) -> None:
 # ── Exception safety tests ───────────────────────────────────
 
 
-@patch("nyanbar.core.detect_terminal", return_value=_mock_tty())
+@patch("nayan_tqdm.core.detect_terminal", return_value=_mock_tty())
 def test_exception_in_iter_calls_close(mock_dt: MagicMock) -> None:
     sio = io.StringIO()
     bar = NyanBar(range(10), file=sio)
@@ -498,7 +498,7 @@ def test_exception_in_iter_calls_close(mock_dt: MagicMock) -> None:
     assert bar._closed is True
 
 
-@patch("nyanbar.core.detect_terminal", return_value=_mock_tty())
+@patch("nayan_tqdm.core.detect_terminal", return_value=_mock_tty())
 def test_exception_with_leave_false_cleans_up(mock_dt: MagicMock) -> None:
     sio = io.StringIO()
     bar = NyanBar(range(10), leave=False, file=sio)
@@ -510,7 +510,7 @@ def test_exception_with_leave_false_cleans_up(mock_dt: MagicMock) -> None:
     assert "\033[2K" in output
 
 
-@patch("nyanbar.core.detect_terminal", return_value=_mock_tty())
+@patch("nayan_tqdm.core.detect_terminal", return_value=_mock_tty())
 def test_context_manager_exception_cleanup(mock_dt: MagicMock) -> None:
     sio = io.StringIO()
     with pytest.raises(RuntimeError):
@@ -522,7 +522,7 @@ def test_context_manager_exception_cleanup(mock_dt: MagicMock) -> None:
 # ── Nested bar tests ─────────────────────────────────────────
 
 
-@patch("nyanbar.core.detect_terminal", return_value=_mock_tty())
+@patch("nayan_tqdm.core.detect_terminal", return_value=_mock_tty())
 def test_nested_bar_uses_fallback(mock_dt: MagicMock) -> None:
     sio = io.StringIO()
     bar = NyanBar(range(10), position=1, file=sio)
@@ -530,7 +530,7 @@ def test_nested_bar_uses_fallback(mock_dt: MagicMock) -> None:
     bar.close()
 
 
-@patch("nyanbar.core.detect_terminal", return_value=_mock_tty())
+@patch("nayan_tqdm.core.detect_terminal", return_value=_mock_tty())
 def test_nested_bar_no_animation_thread(mock_dt: MagicMock) -> None:
     sio = io.StringIO()
     bar = NyanBar(range(10), position=1, file=sio)
@@ -542,7 +542,7 @@ def test_nested_bar_no_animation_thread(mock_dt: MagicMock) -> None:
 # ── Thread safety tests ──────────────────────────────────────
 
 
-@patch("nyanbar.core.detect_terminal", return_value=_mock_tty())
+@patch("nayan_tqdm.core.detect_terminal", return_value=_mock_tty())
 def test_concurrent_updates(mock_dt: MagicMock) -> None:
     sio = io.StringIO()
     bar = NyanBar(total=100, file=sio, mininterval=0)
@@ -560,7 +560,7 @@ def test_concurrent_updates(mock_dt: MagicMock) -> None:
     bar.close()
 
 
-@patch("nyanbar.core.detect_terminal", return_value=_mock_tty())
+@patch("nayan_tqdm.core.detect_terminal", return_value=_mock_tty())
 def test_lock_exists(mock_dt: MagicMock) -> None:
     sio = io.StringIO()
     bar = NyanBar(total=10, file=sio)
@@ -576,7 +576,7 @@ def test_lock_exists(mock_dt: MagicMock) -> None:
 def _restore_default_theme() -> Generator:
     original = get_default_theme()
     yield
-    import nyanbar.registry as reg
+    import nayan_tqdm.registry as reg
     reg._default_theme = original
 
 
@@ -708,7 +708,7 @@ def test_render_level_ascii_forces_ascii(mock_tty: TerminalInfo) -> None:
     sio = io.StringIO()
     bar = NyanBar(total=10, render_level="ascii", file=sio)
     assert bar._animation is not None
-    from nyanbar.renderer import has_unclosed_ansi
+    from nayan_tqdm.renderer import has_unclosed_ansi
     for frame in bar._animation.frames:
         for line in frame.lines:
             assert "\033[" not in line or not has_unclosed_ansi(line)
@@ -718,7 +718,7 @@ def test_render_level_ascii_forces_ascii(mock_tty: TerminalInfo) -> None:
 def test_render_level_emoji_override() -> None:
     info = TerminalInfo(is_tty=True, color_support=ColorTier.NONE, width=80, is_notebook=False)
     sio = io.StringIO()
-    with patch("nyanbar.core.detect_terminal", return_value=info):
+    with patch("nayan_tqdm.core.detect_terminal", return_value=info):
         with patch.dict(os.environ, {"LANG": "en_US.UTF-8"}):
             bar = NyanBar(total=10, render_level="emoji", file=sio)
     assert bar._animation is not None
@@ -747,7 +747,7 @@ def test_get_theme_returns_animation() -> None:
 
 
 def test_imports_work() -> None:
-    from nyanbar import tqdm, trange, set_theme, list_themes, get_theme
+    from nayan_tqdm import tqdm, trange, set_theme, list_themes, get_theme
     assert tqdm is NyanBar
     assert callable(set_theme)
     assert callable(list_themes)

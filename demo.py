@@ -1,7 +1,7 @@
-"""Visual demo of all nyanbar themes."""
+"""Visual demo of all nayan_tqdm themes."""
 import time
-from nyanbar import tqdm
-from nyanbar.registry import list_themes
+from nayan_tqdm import tqdm
+from nayan_tqdm.registry import list_themes
 
 THEMES = list_themes()
 N = 80

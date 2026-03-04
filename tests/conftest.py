@@ -1,4 +1,4 @@
-"""Shared fixtures for nyanbar test suite."""
+"""Shared fixtures for nayan_tqdm test suite."""
 from __future__ import annotations
 
 import io
@@ -9,7 +9,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from nyanbar.terminal import TerminalInfo, ColorTier
+from nayan_tqdm.terminal import TerminalInfo, ColorTier
 
 
 @pytest.fixture
@@ -69,7 +69,7 @@ def mock_tty() -> Generator[TerminalInfo, None, None]:
         is_tty=True, color_support=ColorTier.COLOR_256,
         width=80, is_notebook=False,
     )
-    with patch("nyanbar.core.detect_terminal", return_value=info):
+    with patch("nayan_tqdm.core.detect_terminal", return_value=info):
         with patch.dict(os.environ, {"LANG": "en_US.UTF-8", "LC_ALL": "", "LC_CTYPE": ""}):
             yield info
 
@@ -81,7 +81,7 @@ def mock_non_tty() -> Generator[TerminalInfo, None, None]:
         is_tty=False, color_support=ColorTier.NONE,
         width=80, is_notebook=False,
     )
-    with patch("nyanbar.core.detect_terminal", return_value=info):
+    with patch("nayan_tqdm.core.detect_terminal", return_value=info):
         with patch.dict(os.environ, {"LANG": "en_US.UTF-8"}):
             yield info
 

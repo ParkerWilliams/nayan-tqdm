@@ -7,21 +7,21 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from nyanbar.models import Animation, AnimationMode, Frame
-from nyanbar.engine import (
+from nayan_tqdm.models import Animation, AnimationMode, Frame
+from nayan_tqdm.engine import (
     build_themed_fill, render_animation, render_themed_bar,
 )
-from nyanbar.formatters import format_stats_left, format_stats_right
-from nyanbar.renderer import has_unclosed_ansi
-from nyanbar.utils import disp_len
-from nyanbar.registry import (
+from nayan_tqdm.formatters import format_stats_left, format_stats_right
+from nayan_tqdm.renderer import has_unclosed_ansi
+from nayan_tqdm.utils import disp_len
+from nayan_tqdm.registry import (
     register_theme, get_theme, list_themes, set_theme,
     get_default_theme, resolve_render_tier,
     _themes, _cache, _clear_cache,
 )
-from nyanbar.terminal import ColorTier, TerminalInfo
+from nayan_tqdm.terminal import ColorTier, TerminalInfo
 
-import nyanbar.themes  # noqa: F401 -- trigger registration
+import nayan_tqdm.themes  # noqa: F401 -- trigger registration
 
 
 ALL_THEMES = [
@@ -787,7 +787,7 @@ def _clean_registry() -> None:
     _themes.clear()
     _themes.update(orig_themes)
     _clear_cache()
-    import nyanbar.registry as reg
+    import nayan_tqdm.registry as reg
     reg._default_theme = orig_default
 
 
