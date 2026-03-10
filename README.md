@@ -4,6 +4,7 @@
 [![Python versions](https://img.shields.io/pypi/pyversions/nayan-tqdm)](https://pypi.org/project/nayan-tqdm/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Typed](https://img.shields.io/badge/typed-PEP%20561-brightgreen.svg)](https://peps.python.org/pep-0561/)
+[![PyPI Downloads](https://static.pepy.tech/personalized-badge/nayan-tqdm?period=total&units=INTERNATIONAL_SYSTEM&left_color=BLACK&right_color=GREEN&left_text=downloads)](https://pepy.tech/projects/nayan-tqdm)
 
 **Animated progress bars that spark joy.**
 A drop-in [tqdm](https://github.com/tqdm/tqdm) replacement with 40 themes, zero dependencies, and full type safety.
